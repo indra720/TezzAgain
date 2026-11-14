@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-950: #06122E;
+  --navy-900: #0B1B4D;
+  --navy-800: #12296B;
+  --royal: #1647E8;
+  --blue: #2D6BFF;
+  --blue-light: #7FB0FF;
+  --sky-200: #D6E6FF;
+  --sky-100: #EAF2FF;
+  --leaf: #3DDC5A;
+  
+  --text-dark: #FFFFFF;
+  --text-dark-muted: #C9D6F2;
+  --text-light: #0A1226;
+  --text-light-muted: #44506E;
+  
+  --gradient-deep: linear-gradient(160deg, #06122E, #0B1B4D 55%, #1647E8);
+  --gradient-brand: linear-gradient(135deg, #1647E8, #2D6BFF);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--navy-950);
+  overflow-x: hidden;
+  line-height: 1.55;
+  font-size: 16px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+/* Wide Container - Eliminates unnecessary left/right gap */
+.container-custom {
+  width: 100%;
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* Reduced Section Padding - Eliminates excessive vertical gaps */
+.section-pad {
+  padding-top: 36px;
+  padding-bottom: 36px;
+}
+
+@media (min-width: 768px) {
+  .section-pad {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+/* Button Component Styles */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  min-height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  background: var(--gradient-brand);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(22, 71, 232, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(22, 71, 232, 0.4);
+}
+
+.btn-secondary-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  min-height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  background: transparent;
+  color: #FFFFFF;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-secondary-dark:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #FFFFFF;
+}
+
+.btn-secondary-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  min-height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  background: #FFFFFF;
+  color: var(--navy-900);
+  border: 1.5px solid var(--navy-900);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-secondary-light:hover {
+  transform: translateY(-2px);
+  background: var(--navy-900);
+  color: #FFFFFF;
+}
+
+/* Card Component - Soft Light Tone (Comfortable On Eyes, Not Heavy Harsh White) */
+.tezz-card {
+  background: #F4F8FE;
+  border-radius: 16px;
+  border: 1px solid #D6E4FB;
+  box-shadow: 0 4px 16px rgba(6, 18, 46, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  color: var(--text-light);
+}
+
+.tezz-card:hover {
+  transform: translateY(-3px);
+  background: #EBF2FD;
+  box-shadow: 0 8px 24px rgba(6, 18, 46, 0.10);
+}
+
+/* Dark Card Component - Solid Navy with Crisp White Text */
+.tezz-card-dark {
+  background: #0B1B4D;
+  border-radius: 16px;
+  border: 1px solid #12296B;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #FFFFFF;
+}
+
+.tezz-card-dark:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Solid Corporate Transport Icon Tile (No AI Neon Halo) */
+.icon-tile {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 12px;
+  background: #0B1B4D;
+  color: #7FB0FF;
+  border: 1px solid #1647E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Accessible focus ring */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
