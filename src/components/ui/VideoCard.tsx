@@ -1,12 +1,11 @@
 import React from 'react';
-import { Play, Sparkles } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { useVideoModal } from './VideoContext';
-import { toast } from 'sonner';
 
 interface VideoCardProps {
   src?: string;
   title: string;
-  duration?: string; // Kept in interface for backward compatibility, but NOT shown
+  duration?: string; // Kept in interface for backward compatibility
   poster?: string;
   className?: string;
   priority?: boolean;
@@ -18,7 +17,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   title,
   poster = '/images/poster-1.jpg',
   className = '',
-  aspect = 'vertical',
+  aspect = 'square',
 }) => {
   const { openVideoModal } = useVideoModal();
   
@@ -29,13 +28,11 @@ export const VideoCard: React.FC<VideoCardProps> = ({
     openVideoModal({ src: activeSrc, title, poster });
   };
 
-  // Vertical card aspect ratio for portrait/vertical videos
+  // 1:1 aspect ratio perfectly matches square posters (1024x1024) with zero cropping
   const aspectClass =
-    aspect === 'vertical'
-      ? 'aspect-[4/5] sm:aspect-[3/4]'
-      : aspect === 'square'
-      ? 'aspect-square'
-      : 'aspect-[4/5]';
+    aspect === 'video'
+      ? 'aspect-video'
+      : 'aspect-square';
 
   return (
     <div
@@ -51,30 +48,41 @@ export const VideoCard: React.FC<VideoCardProps> = ({
       }}
       aria-label={`Watch: ${title}`}
     >
-      <div className="relative z-0 w-full h-full overflow-hidden">
-        {/* Edge-to-edge full bleed video poster - No black borders or empty side gaps */}
+      <div className="relative z-0 w-full h-full overflow-hidden flex items-center justify-center bg-navy-950">
+        {/* Ambient blurred fill: Matches poster colors and lighting perfectly so there are ZERO black bars */}
+        <img
+          src={poster}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover filter blur-2xl scale-110 opacity-70 brightness-75 pointer-events-none"
+        />
+
+        {/* 100% Uncropped Foreground Poster: Fits fully inside card with ZERO top/bottom/side text cutoff */}
         <img
           src={poster}
           alt={title}
           loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="relative z-10 w-full h-full object-contain p-1 transition-transform duration-300 group-hover:scale-[1.02]"
         />
-        {/* Subtle gradient overlay for contrast and depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/15 to-transparent pointer-events-none" />
-      </div>
 
-      {/* Centered Round Play Button */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <div className="w-[52px] h-[52px] sm:w-14 sm:h-14 rounded-full bg-royal hover:bg-blue flex items-center justify-center text-white shadow-xl shadow-black/50 transform transition-transform duration-200 group-hover:scale-110">
-          <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
+        {/* Centered Round Play Button */}
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-royal hover:bg-blue flex items-center justify-center text-white shadow-xl shadow-black/50 transform transition-transform duration-200 group-hover:scale-110">
+            <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white translate-x-0.5" />
+          </div>
         </div>
-      </div>
 
-      {/* Bottom Title Bar with smooth gradient */}
-      <div className="absolute bottom-0 left-0 right-0 p-3.5 z-10 bg-gradient-to-t from-navy-950 via-navy-950/85 to-transparent">
-        <p className="text-white font-semibold text-xs sm:text-sm line-clamp-2 group-hover:text-blue-light transition-colors leading-snug">
-          {title}
-        </p>
+        {/* Sleek bottom title pill - Compact, doesn't obscure the poster text or graphics */}
+        <div className="absolute bottom-2 inset-x-2 z-20 pointer-events-none">
+          <div className="bg-navy-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-navy-700/60 flex items-center justify-between shadow-lg">
+            <p className="text-white font-medium text-xs truncate max-w-[80%]">
+              {title}
+            </p>
+            <span className="text-[10px] text-blue-light font-bold uppercase tracking-wider shrink-0">
+              Watch
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

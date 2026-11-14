@@ -96,7 +96,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       controls={controls}
       onPlay={handlePlay}
       aria-label={title || 'TezzEV Video Player'}
-      className={`w-full h-full object-cover bg-navy-950 ${className}`}
+      className={`w-full h-full bg-navy-950 ${className ? className : 'object-contain'}`}
     />
   );
 };

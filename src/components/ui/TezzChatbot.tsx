@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Bot, Sparkles, User, ExternalLink } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, Sparkles, ExternalLink } from 'lucide-react';
 import { siteConfig } from '../../lib/config';
 import { Link } from 'react-router-dom';
 
@@ -144,14 +144,28 @@ export const TezzChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40">
-      {/* Chat Window */}
+    <>
+      {/* Mobile Backdrop Overlay when chat is open */}
       {isOpen && (
-        <div className="tezz-card w-[340px] sm:w-[380px] h-[480px] flex flex-col overflow-hidden mb-3 shadow-2xl border border-navy-800 animate-fade-in">
+        <div
+          className="fixed inset-0 bg-navy-950/70 backdrop-blur-sm sm:hidden z-[90]"
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Chat Window Modal */}
+      {isOpen && (
+        <div
+          className="fixed inset-x-3 top-4 bottom-4 sm:inset-auto sm:right-6 sm:bottom-20 sm:top-auto sm:w-[380px] sm:h-[520px] z-[95] flex flex-col rounded-2xl overflow-hidden shadow-2xl border border-navy-800 bg-white animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+          aria-label="TezzEV Assistant Chat"
+        >
           {/* Header */}
-          <div className="bg-navy-900 text-white p-4 flex items-center justify-between">
+          <div className="bg-navy-900 text-white p-3.5 sm:p-4 flex items-center justify-between shrink-0 border-b border-navy-800">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-royal flex items-center justify-center text-white shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-royal flex items-center justify-center text-white shadow-sm shrink-0">
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -164,22 +178,22 @@ export const TezzChatbot: React.FC = () => {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1 rounded-lg text-text-dark-muted hover:text-white hover:bg-navy-800 transition-colors"
+              className="p-1.5 rounded-lg text-text-dark-muted hover:text-white hover:bg-navy-800 transition-colors"
               aria-label="Close Chat"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Messages Area */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs sm:text-sm">
+          {/* Messages Area - Fully Scrollable */}
+          <div className="flex-1 min-h-0 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs sm:text-sm">
             {messages.map((m) => (
               <div
                 key={m.id}
                 className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[82%] p-3 rounded-2xl ${
+                  className={`max-w-[85%] p-3 rounded-2xl ${
                     m.sender === 'user'
                       ? 'bg-royal text-white rounded-tr-none'
                       : 'bg-white text-navy-950 border border-slate-200 rounded-tl-none shadow-sm'
@@ -217,12 +231,12 @@ export const TezzChatbot: React.FC = () => {
           </div>
 
           {/* Quick Reply Pills */}
-          <div className="px-3 py-2 bg-white border-t border-slate-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+          <div className="px-3 py-2 bg-white border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
             {quickReplies.map((qr) => (
               <button
                 key={qr.key}
                 onClick={() => handleSelectQuickReply(qr.label, qr.key)}
-                className="whitespace-nowrap px-2.5 py-1 text-xs font-medium rounded-full bg-sky-100 text-royal hover:bg-sky-200 transition-colors border border-sky-200"
+                className="whitespace-nowrap px-3 py-1 text-xs font-medium rounded-full bg-sky-100 text-royal hover:bg-sky-200 transition-colors border border-sky-200 shrink-0"
               >
                 {qr.label}
               </button>
@@ -232,18 +246,18 @@ export const TezzChatbot: React.FC = () => {
           {/* Typing Form */}
           <form
             onSubmit={handleSendCustom}
-            className="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2"
+            className="p-2.5 sm:p-3 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0"
           >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything about TezzEV..."
-              className="flex-1 text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-royal text-navy-950 placeholder:text-slate-400"
+              className="flex-1 text-xs sm:text-sm px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-royal text-navy-950 placeholder:text-slate-400"
             />
             <button
               type="submit"
-              className="w-9 h-9 rounded-xl bg-royal hover:bg-blue text-white flex items-center justify-center shrink-0 transition-colors shadow-sm"
+              className="w-10 h-10 rounded-xl bg-royal hover:bg-blue text-white flex items-center justify-center shrink-0 transition-colors shadow-sm"
               aria-label="Send Message"
             >
               <Send className="w-4 h-4" />
@@ -253,7 +267,7 @@ export const TezzChatbot: React.FC = () => {
       )}
 
       {/* Floating Launcher Button */}
-      <div className="flex items-center gap-2">
+      <div className="fixed bottom-[74px] sm:bottom-6 right-3 sm:right-6 z-40 flex items-center gap-2">
         {!isOpen && (
           <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-white text-xs font-medium shadow-md">
             <span className="w-2 h-2 rounded-full bg-leaf mr-1.5"></span>
@@ -262,12 +276,14 @@ export const TezzChatbot: React.FC = () => {
         )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-13 h-13 w-[52px] h-[52px] rounded-full bg-royal hover:bg-blue text-white shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
+          className={`w-[52px] h-[52px] rounded-full bg-royal hover:bg-blue text-white shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 ${
+            isOpen ? 'hidden sm:flex' : 'flex'
+          }`}
           aria-label="Toggle TezzEV Chatbot"
         >
           {isOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
         </button>
       </div>
-    </div>
+    </>
   );
 };
