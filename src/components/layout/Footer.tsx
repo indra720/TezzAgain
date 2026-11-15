@@ -14,10 +14,11 @@ import {
 } from 'lucide-react';
 import { TezzLogo } from '../ui/TezzLogo';
 import { siteConfig } from '../../lib/config';
+import { WhatsAppIcon, PlayStoreIcon } from '../ui/BrandIcons';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-navy-950 text-text-dark-muted border-t border-navy-900 pb-20 sm:pb-8 pt-16">
+    <footer className="w-full bg-navy-950 text-text-dark-muted border-t border-navy-900 pb-10 sm:pb-12 pt-14">
       <div className="container-custom">
         {/* Top Brand Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-navy-900">
@@ -38,6 +39,17 @@ export const Footer: React.FC = () => {
                 <Phone className="w-4 h-4 text-leaf shrink-0" />
                 <a href={`tel:${siteConfig.supportPhone}`} className="hover:text-white">
                   {siteConfig.supportPhone}
+                </a>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" />
+                <a
+                  href={siteConfig.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white text-leaf font-medium"
+                >
+                  Chat on WhatsApp
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
@@ -185,21 +197,24 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="space-y-2.5">
-              {/* Google Play Disabled Badge */}
-              <div
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900 border border-navy-800 opacity-75 select-none cursor-not-allowed"
-                title="App releasing at launch"
+              {/* Google Play Real Badge */}
+              <a
+                href="https://play.google.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-navy-900 border border-navy-800 hover:border-royal transition-all hover:bg-navy-850 group"
+                title="Download TezzEV on Google Play Store"
               >
-                <div className="w-6 h-6 flex items-center justify-center text-leaf font-bold">
-                  ▶
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <PlayStoreIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </div>
                 <div>
                   <div className="text-[10px] uppercase tracking-wider text-text-dark-muted">
-                    Coming Soon on
+                    Get It On
                   </div>
-                  <div className="text-xs font-semibold text-white">Google Play</div>
+                  <div className="text-xs font-semibold text-white">Google Play Store</div>
                 </div>
-              </div>
+              </a>
 
               {/* App Store Disabled Badge */}
               <div

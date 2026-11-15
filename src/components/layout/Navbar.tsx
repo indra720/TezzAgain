@@ -193,26 +193,6 @@ export const Navbar: React.FC = () => {
           </div>
         )}
       </header>
-
-      {/* 3. Mobile Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-navy-950 border-t border-navy-800 p-3 sm:hidden shadow-2xl flex items-center gap-2.5">
-        <a
-          href={siteConfig.whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-leaf hover:bg-leaf/90 text-navy-950 font-bold text-sm shadow-md transition-all active:scale-95"
-        >
-          <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp</span>
-        </a>
-        <Link
-          to="/waitlist"
-          className="flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-gradient-brand text-white font-bold text-sm shadow-sm transition-all active:scale-95"
-        >
-          <Sparkles className="w-4 h-4 text-leaf" />
-          <span>Join Waitlist</span>
-        </Link>
-      </div>
     </>
   );
 };

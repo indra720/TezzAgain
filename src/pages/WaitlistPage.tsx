@@ -13,6 +13,7 @@ import {
 import { PageHeader } from '../components/layout/PageHeader';
 import { SectionDivider } from '../components/ui/SectionDivider';
 import { siteConfig } from '../lib/config';
+import { WhatsAppIcon } from '../components/ui/BrandIcons';
 import { toast } from 'sonner';
 
 export const WaitlistPage: React.FC = () => {
@@ -224,9 +225,9 @@ export const WaitlistPage: React.FC = () => {
                       href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="btn-primary w-full justify-center !bg-leaf !text-navy-950 hover:!bg-leaf/90"
+                      className="btn-primary w-full justify-center !bg-[#25D366] !text-white hover:!bg-[#22bf5b] font-bold"
                     >
-                      <MessageCircle className="w-4 h-4" />
+                      <WhatsAppIcon className="w-4 h-4 fill-white" />
                       <span>Share on WhatsApp</span>
                     </a>
 

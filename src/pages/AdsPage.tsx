@@ -22,6 +22,7 @@ import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
 import { useVideoModal } from '../components/ui/VideoContext';
 import { siteConfig } from '../lib/config';
+import { WhatsAppIcon } from '../components/ui/BrandIcons';
 import { toast } from 'sonner';
 
 interface AdCampaign {
@@ -435,7 +436,7 @@ export const AdsPage: React.FC = () => {
                     rel="noopener noreferrer"
                     className="btn-primary !min-h-[44px]"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
                     <span>Inquire for Brand Advertising</span>
                   </a>
 

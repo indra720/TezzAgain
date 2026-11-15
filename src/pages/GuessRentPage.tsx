@@ -11,6 +11,7 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
 import { siteConfig } from '../lib/config';
+import { WhatsAppIcon } from '../components/ui/BrandIcons';
 
 export const GuessRentPage: React.FC = () => {
   const [guessValue, setGuessValue] = useState<number>(149);
@@ -145,9 +146,9 @@ export const GuessRentPage: React.FC = () => {
                       href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-leaf text-navy-950 font-bold text-sm shadow-md transition-transform hover:-translate-y-0.5"
+                      className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] text-white font-bold text-sm shadow-md transition-transform hover:-translate-y-0.5"
                     >
-                      <MessageCircle className="w-4 h-4" />
+                      <WhatsAppIcon className="w-4 h-4 fill-white" />
                       <span>Share on WhatsApp</span>
                     </a>
                   </div>

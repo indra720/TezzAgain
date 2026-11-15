@@ -8,14 +8,17 @@ import {
   Play,
   Pause,
   Maximize2,
+  Sparkles,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVideoModal } from '../ui/VideoContext';
+import { PlayStoreIcon } from '../ui/BrandIcons';
 
 interface StepItem {
   id: number;
   num: string;
   badge: string;
+  tabTitle: string;
   title: string;
   desc: string;
   highlights: string[];
@@ -30,6 +33,7 @@ const stepsData: StepItem[] = [
     id: 1,
     num: '01',
     badge: 'Step 1 • 2 Mins',
+    tabTitle: 'KYC',
     title: 'Complete Online KYC',
     desc: 'Paperless digital verification in just 2 minutes. Submit your Aadhaar card and Driving Licence to get started.',
     highlights: ['Zero physical paperwork', 'Instant digital verification', 'No credit card needed'],
@@ -42,6 +46,7 @@ const stepsData: StepItem[] = [
     id: 2,
     num: '02',
     badge: 'Step 2 • Plans',
+    tabTitle: 'Plans',
     title: 'Choose Scooter & Plan',
     desc: 'Select from affordable Daily, Weekly or Monthly rental plans. All plans include unlimited battery swaps and free maintenance.',
     highlights: ['Unlimited battery swaps', 'Low refundable deposit', 'Change plans anytime'],
@@ -54,6 +59,7 @@ const stepsData: StepItem[] = [
     id: 3,
     num: '03',
     badge: 'Step 3 • Hub Pickup',
+    tabTitle: 'Hub Pickup',
     title: 'Pick Up from Tezz Hub',
     desc: 'Visit your nearest TezzEV Hub in Indore or Bhopal. Collect your fully charged scooter, helmet, and vehicle keys in 5 minutes.',
     highlights: ['Vehicles fully sanitized & inspected', 'Keys & helmet provided', 'Pre-charged dual battery'],
@@ -66,6 +72,7 @@ const stepsData: StepItem[] = [
     id: 4,
     num: '04',
     badge: 'Step 4 • Daily Cash',
+    tabTitle: 'Start Earning',
     title: 'Start Earning & Ride TEZZ',
     desc: 'Login to Zomato, Swiggy, Zepto or Blinkit. Deliver orders all day with zero petrol cost and take home maximum daily profits.',
     highlights: ['Save ₹4,000+ on fuel every month', '24/7 Roadside breakdown support', '2-Minute quick battery swap'],
@@ -118,7 +125,7 @@ export const InteractiveJoinStepper: React.FC = () => {
 
   const currentStep = stepsData.find((s) => s.id === activeStep) || stepsData[0];
 
-  // User self-scroll handler: detects which step is actively in view and activates it
+  // User self-scroll handler (Desktop scroll container)
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (isProgrammaticScroll.current) return;
     const container = e.currentTarget;
@@ -149,7 +156,6 @@ export const InteractiveJoinStepper: React.FC = () => {
     const mid23 = (top2 + top3) / 2;
     const mid34 = (top3 + top4) / 2;
 
-    // Relative reading focal cursor inside scroll window
     const cursor = scrollTop + clientHeight * 0.35;
 
     let newStep = 1;
@@ -168,7 +174,7 @@ export const InteractiveJoinStepper: React.FC = () => {
     }
   };
 
-  // Direct click on step: activates and smoothly scrolls to it
+  // Direct click / tap on step
   const handleStepClick = (stepId: number) => {
     if (stepId === activeStep) return;
     setActiveStep(stepId);
@@ -221,44 +227,204 @@ export const InteractiveJoinStepper: React.FC = () => {
     });
   };
 
-  return (
-    <div className="w-full">
-      {/* Mobile Step Pills (Quick Jump for Mobile Users) */}
-      <div className="flex lg:hidden items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-3">
-        {stepsData.map((step) => {
-          const isActive = step.id === activeStep;
-          return (
-            <button
-              key={step.id}
-              onClick={() => handleStepClick(step.id)}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all ${
-                isActive
-                  ? 'bg-royal text-white shadow-md shadow-royal/30'
-                  : 'bg-navy-900 text-slate-300 border border-navy-800 hover:bg-navy-800'
-              }`}
+  // Reusable Phone Frame Player
+  const renderPhonePlayer = (maxWidth = 'max-w-[270px] sm:max-w-[310px]') => (
+    <div className={`relative w-full ${maxWidth}`}>
+      {/* Phone Outer Chassis (Metallic Navy & Royal Blue Trim) */}
+      <div className="relative rounded-[40px] p-3 sm:p-3.5 bg-gradient-to-b from-navy-800 via-navy-950 to-navy-900 border-2 border-navy-700 shadow-2xl shadow-black/80">
+        {/* Phone Speaker & Dynamic Island Notch */}
+        <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-4 bg-navy-950 rounded-full z-30 flex items-center justify-center gap-2 border border-navy-800/80">
+          <div className="w-2 h-2 rounded-full bg-navy-900" />
+          <div className="w-8 h-1 rounded-full bg-navy-900" />
+        </div>
+
+        {/* Phone Screen Area (Aspect 9:16) with Bottom-Slide Overflow Container */}
+        <div className="relative aspect-[9/16] w-full rounded-[30px] overflow-hidden bg-black border border-navy-900">
+          {/* 3D Cylindrical Vignette Shadows (Top & Bottom Curve) */}
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/85 via-black/35 to-transparent z-20 pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/90 via-black/45 to-transparent z-20 pointer-events-none" />
+
+          {/* Animated Bottom-Slide Video with Framer Motion AnimatePresence */}
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={currentStep.id}
+              variants={slideFromBottomVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="absolute inset-0 w-full h-full"
             >
-              <span
-                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                  isActive ? 'bg-white text-royal' : 'bg-navy-800 text-slate-400'
-                }`}
-              >
-                {step.id}
+              <video
+                ref={videoRef}
+                src={currentStep.videoSrc}
+                poster={currentStep.poster}
+                autoPlay
+                loop
+                muted={isMuted}
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Top Overlay Badge */}
+          <div className="absolute top-6 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
+            <div className="px-2.5 py-1 rounded-full bg-navy-950/85 backdrop-blur-md border border-navy-700/60 flex items-center gap-1.5 shadow-md">
+              <span className="w-2 h-2 rounded-full bg-leaf animate-pulse" />
+              <span className="text-[11px] font-bold text-white tracking-wide">
+                Step 0{currentStep.id}/04
               </span>
-              <span>{step.title}</span>
-            </button>
-          );
-        })}
+            </div>
+
+            <span className="text-[10px] font-bold text-blue-light bg-royal/80 px-2 py-0.5 rounded-md">
+              TezzEV
+            </span>
+          </div>
+
+          {/* Floating Video Action Controls Inside Phone */}
+          <div className="absolute bottom-3 left-3 right-3 z-30 space-y-2">
+            <div className="p-2.5 rounded-2xl bg-navy-950/85 backdrop-blur-md border border-navy-700/60 shadow-lg flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={togglePlay}
+                  className="w-8 h-8 rounded-xl bg-royal hover:bg-blue text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm"
+                  aria-label={isPlaying ? 'Pause Video' : 'Play Video'}
+                >
+                  {isPlaying ? (
+                    <Pause className="w-4 h-4 fill-white" />
+                  ) : (
+                    <Play className="w-4 h-4 fill-white translate-x-0.5" />
+                  )}
+                </button>
+
+                <button
+                  onClick={toggleMute}
+                  className="w-8 h-8 rounded-xl bg-navy-800 hover:bg-navy-700 text-white flex items-center justify-center transition-colors shadow-sm"
+                  aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-4 h-4 text-slate-300" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 text-leaf" />
+                  )}
+                </button>
+              </div>
+
+              <button
+                onClick={handleFullscreen}
+                className="px-2.5 py-1.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-blue-light text-xs font-semibold flex items-center gap-1 transition-colors"
+                aria-label="Open Fullscreen"
+              >
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Expand</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Main 2-Column Interactive Container */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-navy-900/60 p-4 sm:p-7 md:p-8 rounded-3xl border border-navy-800 shadow-2xl backdrop-blur-sm">
+      {/* Bottom Ambient Shadow */}
+      <div className="absolute -bottom-4 inset-x-6 h-6 bg-royal/20 blur-xl rounded-full pointer-events-none" />
+    </div>
+  );
+
+  return (
+    <div className="w-full">
+      {/* ======================================================== */}
+      {/* 1. MOBILE RESPONSIVE VIEW (< lg screens) */}
+      {/* ======================================================== */}
+      <div className="block lg:hidden space-y-5">
+        {/* 4 Equal Tabs - Always 100% visible across mobile screen without any horizontal cutoff */}
+        <div className="grid grid-cols-4 gap-1.5 bg-navy-950/80 p-1.5 rounded-2xl border border-navy-800">
+          {stepsData.map((step) => {
+            const isActive = step.id === activeStep;
+            return (
+              <button
+                key={step.id}
+                onClick={() => handleStepClick(step.id)}
+                className={`py-2 px-1 rounded-xl text-center transition-all ${
+                  isActive
+                    ? 'bg-gradient-brand text-white shadow-md shadow-royal/40 font-bold scale-[1.02]'
+                    : 'bg-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                <div className="text-xs font-extrabold font-heading">{step.num}</div>
+                <div className="text-[10px] truncate leading-tight opacity-90 mt-0.5">
+                  {step.tabTitle}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Smartphone Video Player Center Stage */}
+        <div className="flex flex-col items-center justify-center pt-1">
+          {renderPhonePlayer('max-w-[250px] sm:max-w-[280px]')}
+          <p className="text-[11px] text-text-dark-muted text-center mt-3">
+            Tap tabs or step below to watch each video in action
+          </p>
+        </div>
+
+        {/* Active Step Details Card (Clean, Full-width, Zero Clipping) */}
+        <div className="bg-gradient-to-r from-navy-900 to-navy-950 border border-royal/70 rounded-2xl p-4 sm:p-5 shadow-xl space-y-3">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-brand text-white font-bold text-xs flex items-center justify-center shrink-0">
+                {currentStep.num}
+              </div>
+              <h3 className="font-heading font-bold text-white text-base">
+                {currentStep.title}
+              </h3>
+            </div>
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-royal/30 text-blue-light border border-royal/40 whitespace-nowrap shrink-0">
+              {currentStep.badge}
+            </span>
+          </div>
+
+          <p className="text-xs text-text-dark-muted leading-relaxed">
+            {currentStep.desc}
+          </p>
+
+          <div className="space-y-1.5 text-xs text-slate-200">
+            {currentStep.highlights.map((h, i) => (
+              <div key={i} className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-leaf shrink-0" />
+                <span>{h}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-2 border-t border-navy-800/80 flex items-center justify-between gap-2">
+            <Link
+              to={currentStep.linkUrl}
+              className="btn-primary !min-h-[38px] !text-xs font-bold !px-3.5"
+            >
+              <span>{currentStep.linkText}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+
+            <button
+              onClick={() => handleStepClick(activeStep < 4 ? activeStep + 1 : 1)}
+              className="px-3 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 text-blue-light text-xs font-bold flex items-center gap-1 transition-colors border border-navy-700"
+            >
+              <span>Next Step</span>
+              <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ======================================================== */}
+      {/* 2. DESKTOP VIEW (lg screens and up: 2-Column Split) */}
+      {/* ======================================================== */}
+      <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-navy-900/60 p-7 md:p-8 rounded-3xl border border-navy-800 shadow-2xl backdrop-blur-sm">
         {/* Left Side: Step-by-Step Progress Timeline with HIDDEN SCROLLBAR (7 cols) */}
         <div className="lg:col-span-7 flex flex-col space-y-3">
           {/* SCROLLABLE STEPS CONTAINER WITH ZERO VISIBLE SCROLLBAR */}
           <div
             ref={containerRef}
             onScroll={handleScroll}
-            className="relative max-h-[360px] sm:max-h-[460px] overflow-y-auto no-scrollbar scroll-smooth space-y-3.5 pr-1 py-1"
+            className="relative max-h-[460px] overflow-y-auto no-scrollbar scroll-smooth space-y-3.5 pr-2 py-1"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -273,7 +439,7 @@ export const InteractiveJoinStepper: React.FC = () => {
                   onClick={() => handleStepClick(step.id)}
                   className={`relative cursor-pointer transition-all duration-300 rounded-2xl p-4 sm:p-5 border text-left ${
                     isActive
-                      ? 'bg-gradient-to-r from-navy-900 to-navy-950/95 border-royal shadow-lg shadow-royal/20 translate-x-1 sm:translate-x-2'
+                      ? 'bg-gradient-to-r from-navy-900 to-navy-950/95 border-royal shadow-lg shadow-royal/20 translate-x-1.5'
                       : 'bg-navy-950/40 border-navy-800/80 hover:bg-navy-900/60 hover:border-navy-700 opacity-75 hover:opacity-100'
                   }`}
                 >
@@ -372,104 +538,7 @@ export const InteractiveJoinStepper: React.FC = () => {
 
         {/* Right Side: Smartphone Device Frame with Bottom-Slide Video (5 cols) */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-3">
-          <div className="relative w-full max-w-[270px] sm:max-w-[310px]">
-            {/* Phone Outer Chassis (Metallic Navy & Royal Blue Trim) */}
-            <div className="relative rounded-[40px] p-3 sm:p-3.5 bg-gradient-to-b from-navy-800 via-navy-950 to-navy-900 border-2 border-navy-700 shadow-2xl shadow-black/80">
-              {/* Phone Speaker & Dynamic Island Notch */}
-              <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-4 bg-navy-950 rounded-full z-30 flex items-center justify-center gap-2 border border-navy-800/80">
-                <div className="w-2 h-2 rounded-full bg-navy-900" />
-                <div className="w-8 h-1 rounded-full bg-navy-900" />
-              </div>
-
-              {/* Phone Screen Area (Aspect 9:16) with Bottom-Slide Overflow Container */}
-              <div className="relative aspect-[9/16] w-full rounded-[30px] overflow-hidden bg-black border border-navy-900">
-                {/* 3D Cylindrical Vignette Shadows (Top & Bottom Curve) */}
-                <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/85 via-black/35 to-transparent z-20 pointer-events-none" />
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/90 via-black/45 to-transparent z-20 pointer-events-none" />
-
-                {/* Animated Bottom-Slide Video with Framer Motion AnimatePresence */}
-                <AnimatePresence initial={false}>
-                  <motion.div
-                    key={currentStep.id}
-                    variants={slideFromBottomVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="absolute inset-0 w-full h-full"
-                  >
-                    <video
-                      ref={videoRef}
-                      src={currentStep.videoSrc}
-                      poster={currentStep.poster}
-                      autoPlay
-                      loop
-                      muted={isMuted}
-                      playsInline
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Top Overlay Badge */}
-                <div className="absolute top-6 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
-                  <div className="px-2.5 py-1 rounded-full bg-navy-950/85 backdrop-blur-md border border-navy-700/60 flex items-center gap-1.5 shadow-md">
-                    <span className="w-2 h-2 rounded-full bg-leaf animate-pulse" />
-                    <span className="text-[11px] font-bold text-white tracking-wide">
-                      Step 0{currentStep.id}/04
-                    </span>
-                  </div>
-
-                  <span className="text-[10px] font-bold text-blue-light bg-royal/80 px-2 py-0.5 rounded-md">
-                    TezzEV
-                  </span>
-                </div>
-
-                {/* Floating Video Action Controls Inside Phone */}
-                <div className="absolute bottom-3 left-3 right-3 z-30 space-y-2">
-                  <div className="p-2.5 rounded-2xl bg-navy-950/85 backdrop-blur-md border border-navy-700/60 shadow-lg flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={togglePlay}
-                        className="w-8 h-8 rounded-xl bg-royal hover:bg-blue text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm"
-                        aria-label={isPlaying ? 'Pause Video' : 'Play Video'}
-                      >
-                        {isPlaying ? (
-                          <Pause className="w-4 h-4 fill-white" />
-                        ) : (
-                          <Play className="w-4 h-4 fill-white translate-x-0.5" />
-                        )}
-                      </button>
-
-                      <button
-                        onClick={toggleMute}
-                        className="w-8 h-8 rounded-xl bg-navy-800 hover:bg-navy-700 text-white flex items-center justify-center transition-colors shadow-sm"
-                        aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
-                      >
-                        {isMuted ? (
-                          <VolumeX className="w-4 h-4 text-slate-300" />
-                        ) : (
-                          <Volume2 className="w-4 h-4 text-leaf" />
-                        )}
-                      </button>
-                    </div>
-
-                    <button
-                      onClick={handleFullscreen}
-                      className="px-2.5 py-1.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-blue-light text-xs font-semibold flex items-center gap-1 transition-colors"
-                      aria-label="Open Fullscreen"
-                    >
-                      <Maximize2 className="w-3.5 h-3.5" />
-                      <span>Expand</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Ambient Shadow */}
-            <div className="absolute -bottom-4 inset-x-6 h-6 bg-royal/20 blur-xl rounded-full pointer-events-none" />
-          </div>
-
+          {renderPhonePlayer('max-w-[270px] sm:max-w-[310px]')}
           <p className="text-xs text-text-dark-muted text-center px-4">
             Scroll steps on the left to watch each step's video in action
           </p>

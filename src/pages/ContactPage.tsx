@@ -14,6 +14,7 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { SectionDivider } from '../components/ui/SectionDivider';
 import { VideoCard } from '../components/ui/VideoCard';
 import { siteConfig } from '../lib/config';
+import { WhatsAppIcon } from '../components/ui/BrandIcons';
 import { toast } from 'sonner';
 
 export const ContactPage: React.FC = () => {
@@ -139,7 +140,7 @@ export const ContactPage: React.FC = () => {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-royal hover:underline"
                 >
-                  <MessageCircle className="w-4 h-4 text-leaf" /> Chat on WhatsApp
+                  <WhatsAppIcon className="w-4 h-4 text-[#25D366]" /> Chat on WhatsApp
                 </a>
               </div>
             </div>
@@ -383,9 +384,9 @@ export const ContactPage: React.FC = () => {
               href={siteConfig.whatsappLink}
               target="_blank"
               rel="noreferrer"
-              className="btn-secondary-dark"
+              className="btn-secondary-dark flex items-center gap-2"
             >
-              <MessageCircle className="w-4 h-4 text-leaf" />
+              <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
               <span>WhatsApp Chat</span>
             </a>
           </div>
