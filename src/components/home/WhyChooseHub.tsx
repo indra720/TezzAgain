@@ -7,11 +7,7 @@ import {
   FileCheck,
   CheckCircle2,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   Sparkles,
-  RotateCw,
-  Play,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VideoCard } from '../ui/VideoCard';
@@ -101,121 +97,74 @@ const benefitsData: FeatureBenefit[] = [
 
 export const WhyChooseHub: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isAutoSpinning, setIsAutoSpinning] = useState<boolean>(false);
-
   const totalItems = benefitsData.length;
   const angleStep = 360 / totalItems; // 72 degrees
 
-  // Auto spin timer (can be toggled or paused on hover)
+  // Auto-spin continuously in an infinite loop (auto-scroll)
   useEffect(() => {
-    if (!isAutoSpinning) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % totalItems);
-    }, 4500);
+    }, 3800);
     return () => clearInterval(interval);
-  }, [isAutoSpinning, totalItems]);
-
-  const goToNext = () => {
-    setActiveIndex((prev) => (prev + 1) % totalItems);
-  };
-
-  const goToPrev = () => {
-    setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
-  };
+  }, [totalItems]);
 
   const selectedBenefit = benefitsData[activeIndex];
 
-  // Rotation angle: rotate so the active node spins facing the video on the right (0 deg)
+  // Rotate wheel so the active node spins facing the video card on the right (0 deg)
   const currentRotation = -activeIndex * angleStep;
 
   return (
     <div className="w-full space-y-6">
       {/* Top Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-1.5">
+      <div className="text-center max-w-2xl mx-auto space-y-1.5 px-2">
         <span className="text-xs font-bold uppercase tracking-wider text-blue-light flex items-center justify-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-blue-light" />
           Rider First Benefits
         </span>
-        <h2 className="text-white mt-1 mb-1">
+        <h2 className="text-white mt-1 mb-1 text-2xl sm:text-3xl lg:text-4xl">
           Why choose <span className="text-blue-light">TezzEV</span>
         </h2>
-        <p className="text-text-dark-muted text-sm sm:text-base">
-          Interactive orbital ecosystem — spin the circle or tap any benefit to watch the video proof in action.
+        <p className="text-text-dark-muted text-xs sm:text-sm md:text-base leading-relaxed">
+          Engineered for Indian gig riders — rotating ecosystem showing zero fuel costs and maximum daily earnings.
         </p>
       </div>
 
       {/* Main Interactive Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center bg-navy-900/60 p-5 sm:p-8 rounded-3xl border border-navy-800 shadow-2xl backdrop-blur-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-navy-900/60 p-4 sm:p-7 md:p-8 rounded-3xl border border-navy-800 shadow-2xl backdrop-blur-sm">
         {/* Left Side: Circular Orbital Wheel (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col items-center justify-center space-y-5">
-          {/* Wheel Instructions & Mobile Pills */}
-          <div className="w-full flex items-center justify-between gap-2 px-1">
-            <span className="text-xs text-blue-light font-bold uppercase tracking-wider flex items-center gap-1.5">
-              <RotateCw className="w-3.5 h-3.5 animate-spin-slow" />
-              Spin &amp; Choose Benefit
-            </span>
-
-            {/* Spin Controls */}
-            <div className="flex items-center gap-1.5 bg-navy-950/80 p-1 rounded-xl border border-navy-800">
-              <button
-                onClick={goToPrev}
-                className="w-7 h-7 rounded-lg bg-navy-800 hover:bg-royal text-white flex items-center justify-center transition-colors"
-                aria-label="Previous Benefit"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={goToNext}
-                className="w-7 h-7 rounded-lg bg-navy-800 hover:bg-royal text-white flex items-center justify-center transition-colors"
-                aria-label="Next Benefit"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setIsAutoSpinning((v) => !v)}
-                className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-colors ${
-                  isAutoSpinning
-                    ? 'bg-royal/30 text-blue-light border border-royal/40'
-                    : 'bg-navy-900 text-slate-400 hover:text-white'
-                }`}
-              >
-                {isAutoSpinning ? 'Auto: ON' : 'Auto: OFF'}
-              </button>
-            </div>
-          </div>
-
-          {/* CIRCULAR ORBITAL WHEEL CONTAINER */}
-          <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] md:w-[420px] md:h-[420px] flex items-center justify-center select-none">
-            {/* Outer Decorative Glow */}
+        <div className="lg:col-span-7 flex flex-col items-center justify-center space-y-4">
+          {/* CIRCULAR ORBITAL WHEEL CONTAINER (Mobile fluid) */}
+          <div className="relative w-[270px] h-[270px] sm:w-[340px] sm:h-[340px] md:w-[390px] md:h-[390px] flex items-center justify-center select-none">
+            {/* Outer Decorative Ambient Glow */}
             <div className="absolute inset-4 rounded-full bg-royal/10 blur-2xl pointer-events-none" />
 
             {/* Orbit Track 1 (Outer Dashed Ring) */}
             <div className="absolute inset-0 rounded-full border border-dashed border-blue-500/25 pointer-events-none" />
 
             {/* Orbit Track 2 (Middle Orbit Ring) */}
-            <div className="absolute inset-8 sm:inset-10 rounded-full border border-blue-400/20 pointer-events-none" />
+            <div className="absolute inset-7 sm:inset-9 rounded-full border border-blue-400/20 pointer-events-none" />
 
             {/* Orbit Track 3 (Inner Orbit Ring) */}
-            <div className="absolute inset-16 sm:inset-20 rounded-full border border-dashed border-blue-400/15 pointer-events-none" />
+            <div className="absolute inset-14 sm:inset-18 rounded-full border border-dashed border-blue-400/15 pointer-events-none" />
 
-            {/* Directional Beam towards Video Card on the Right (Active indicator) */}
-            <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 w-16 h-1 bg-gradient-to-r from-royal to-transparent pointer-events-none" />
+            {/* Directional Beam towards Video Card on the Right */}
+            <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 w-14 h-1 bg-gradient-to-r from-royal to-transparent pointer-events-none" />
 
             {/* Center Core Circle (Zypp-style Meter / Hub) */}
-            <div className="relative z-10 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full bg-gradient-to-b from-navy-900 via-navy-950 to-navy-900 border-2 border-royal/60 shadow-xl shadow-royal/20 flex flex-col items-center justify-center text-center p-2">
+            <div className="relative z-10 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-b from-navy-900 via-navy-950 to-navy-900 border-2 border-royal/60 shadow-xl shadow-royal/20 flex flex-col items-center justify-center text-center p-2">
               {/* Circular Glowing Arc */}
               <div className="absolute -inset-1 rounded-full border-2 border-dashed border-blue-light/40 animate-spin-slow pointer-events-none" />
 
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-royal/30 text-blue-light flex items-center justify-center mb-1">
-                <Zap className="w-4 h-4 text-blue-light fill-blue-light/30" />
+              <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-royal/30 text-blue-light flex items-center justify-center mb-0.5 sm:mb-1">
+                <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-light fill-blue-light/30" />
               </div>
-              <span className="text-base sm:text-xl md:text-2xl font-black text-white font-heading leading-tight">
+              <span className="text-base sm:text-xl font-black text-white font-heading leading-tight">
                 100%
               </span>
               <span className="text-[9px] sm:text-[10px] font-bold text-blue-light uppercase tracking-wider">
                 Electric Fleet
               </span>
-              <span className="text-[9px] sm:text-[10px] text-leaf font-semibold mt-0.5">
+              <span className="text-[9px] sm:text-[10px] text-leaf font-semibold">
                 Save ₹6k/mo
               </span>
             </div>
@@ -223,7 +172,7 @@ export const WhyChooseHub: React.FC = () => {
             {/* ROTATING ORBITAL PLANE WITH 5 NODES */}
             <motion.div
               animate={{ rotate: currentRotation }}
-              transition={{ type: 'spring', stiffness: 55, damping: 15 }}
+              transition={{ type: 'spring', stiffness: 50, damping: 14 }}
               className="absolute inset-0 w-full h-full pointer-events-none"
             >
               {benefitsData.map((benefit, i) => {
@@ -232,9 +181,9 @@ export const WhyChooseHub: React.FC = () => {
                 const baseAngleDeg = i * angleStep;
                 const rad = (baseAngleDeg * Math.PI) / 180;
 
-                // 40% radius offset from center (fluid across all screen sizes)
-                const xPercent = Math.cos(rad) * 40;
-                const yPercent = Math.sin(rad) * 40;
+                // 38% radius offset from center (fluid across all screen sizes)
+                const xPercent = Math.cos(rad) * 38;
+                const yPercent = Math.sin(rad) * 38;
 
                 return (
                   <div
@@ -246,35 +195,35 @@ export const WhyChooseHub: React.FC = () => {
                     }}
                     className="absolute pointer-events-auto"
                   >
-                    {/* Counter-rotate inner node so icons and text remain upright! */}
+                    {/* Counter-rotate inner node so icons remain upright! */}
                     <motion.div
                       animate={{
                         rotate: -currentRotation,
                         scale: isActive ? 1.25 : 1,
                       }}
-                      transition={{ type: 'spring', stiffness: 70, damping: 14 }}
+                      transition={{ type: 'spring', stiffness: 65, damping: 14 }}
                       onClick={() => setActiveIndex(i)}
                       className={`relative cursor-pointer transition-shadow rounded-2xl flex items-center justify-center ${
                         isActive
-                          ? 'w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-royal via-blue to-navy-900 border-2 border-white ring-4 ring-royal/50 shadow-2xl shadow-royal/60 z-30'
-                          : 'w-11 h-11 sm:w-13 sm:h-13 bg-navy-950/90 border border-navy-700/80 hover:border-royal/60 shadow-lg hover:scale-105 opacity-80 hover:opacity-100 z-20'
+                          ? 'w-12 h-12 sm:w-15 sm:h-15 bg-gradient-to-br from-royal via-blue to-navy-900 border-2 border-white ring-4 ring-royal/50 shadow-2xl shadow-royal/60 z-30'
+                          : 'w-10 h-10 sm:w-12 sm:h-12 bg-navy-950/90 border border-navy-700/80 hover:border-royal/60 shadow-lg opacity-80 hover:opacity-100 z-20'
                       }`}
                       title={benefit.title}
                     >
                       <IconComp
                         className={`transition-colors ${
                           isActive
-                            ? 'w-6 h-6 sm:w-7 sm:h-7 text-white drop-shadow-md'
-                            : 'w-5 h-5 text-slate-300'
+                            ? 'w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-md'
+                            : 'w-4 h-4 sm:w-5 sm:h-5 text-slate-300'
                         }`}
                       />
 
-                      {/* Active Label Badge Floating Beside Node */}
+                      {/* Active Label Floating Beside Node */}
                       {isActive && (
                         <motion.div
-                          initial={{ opacity: 0, y: 6 }}
+                          initial={{ opacity: 0, y: 4 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className="absolute -bottom-7 whitespace-nowrap px-2.5 py-0.5 rounded-full bg-navy-950/95 border border-royal text-[10px] font-bold text-white shadow-lg pointer-events-none z-40"
+                          className="hidden sm:block absolute -bottom-6 whitespace-nowrap px-2 py-0.5 rounded-full bg-navy-950/95 border border-royal text-[9px] sm:text-[10px] font-bold text-white shadow-lg pointer-events-none z-40"
                         >
                           {benefit.title}
                         </motion.div>
@@ -286,22 +235,22 @@ export const WhyChooseHub: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Quick Direct Node Selector Pills (Mobile Friendly) */}
-          <div className="w-full flex items-center justify-center gap-1.5 flex-wrap pt-2">
+          {/* Quick Responsive Indicator Pills */}
+          <div className="w-full flex items-center justify-center gap-1.5 flex-wrap pt-1 px-1">
             {benefitsData.map((benefit, i) => {
               const isActive = i === activeIndex;
               return (
                 <button
                   key={benefit.id}
                   onClick={() => setActiveIndex(i)}
-                  className={`px-2.5 py-1 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                  className={`px-2.5 py-1 rounded-xl text-[11px] sm:text-xs font-semibold transition-all flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-royal text-white shadow-md shadow-royal/30 scale-105'
                       : 'bg-navy-950/80 text-slate-400 border border-navy-800 hover:text-white'
                   }`}
                 >
                   <span
-                    className="w-2 h-2 rounded-full"
+                    className="w-2 h-2 rounded-full shrink-0"
                     style={{ backgroundColor: benefit.color }}
                   />
                   <span>{benefit.title}</span>
@@ -312,7 +261,7 @@ export const WhyChooseHub: React.FC = () => {
         </div>
 
         {/* Right Side: Synchronized Jumping Video Card & Details (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-4">
+        <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-3.5">
           <div className="w-full max-w-sm">
             {/* Animated Jumping Video Card Container */}
             <AnimatePresence mode="wait">
@@ -342,12 +291,12 @@ export const WhyChooseHub: React.FC = () => {
           </div>
 
           {/* Benefit Narrative Details */}
-          <div className="text-center space-y-2 max-w-sm w-full">
+          <div className="text-center space-y-1.5 max-w-sm w-full px-2">
             <div className="flex items-center justify-center gap-2">
               <h3 className="font-heading font-bold text-white text-base sm:text-lg">
                 {selectedBenefit.title}
               </h3>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-leaf/20 text-leaf font-bold border border-leaf/30">
+              <span className="text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full bg-leaf/20 text-leaf font-bold border border-leaf/30">
                 {selectedBenefit.stat}
               </span>
             </div>
@@ -356,14 +305,14 @@ export const WhyChooseHub: React.FC = () => {
               {selectedBenefit.desc}
             </p>
 
-            <div className="pt-1 flex items-center justify-center gap-1.5 text-xs text-leaf font-semibold">
+            <div className="pt-0.5 flex items-center justify-center gap-1.5 text-xs text-leaf font-semibold">
               <CheckCircle2 className="w-3.5 h-3.5 text-leaf shrink-0" />
               <span>{selectedBenefit.highlight}</span>
             </div>
           </div>
 
-          {/* Action Row */}
-          <div className="flex items-center gap-3 pt-2">
+          {/* Action Button */}
+          <div className="pt-1">
             <Link
               to="/waitlist"
               className="btn-primary !min-h-[40px] !text-xs font-bold shadow-lg shadow-royal/30"
@@ -371,14 +320,6 @@ export const WhyChooseHub: React.FC = () => {
               <span>Join Launch Waitlist</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-
-            <button
-              onClick={goToNext}
-              className="px-3.5 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 text-blue-light text-xs font-bold flex items-center gap-1.5 transition-colors border border-navy-700"
-            >
-              <span>Next Point</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
           </div>
         </div>
       </div>
