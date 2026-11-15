@@ -12,6 +12,7 @@ import {
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
+import { EvVsPetrolComparison } from '../components/home/EvVsPetrolComparison';
 import { siteConfig } from '../lib/config';
 
 export const SavingsPage: React.FC = () => {
@@ -238,22 +239,13 @@ export const SavingsPage: React.FC = () => {
       {/* WAVE DIVIDER: Sky-200 to Deep Navy */}
       <SectionDivider type="sky200-to-navy" />
 
-      {/* Section 2: Why Electric Beats Petrol (Deep Navy) */}
+      {/* Section 2: Why Electric Beats Petrol & Interactive Comparison (Deep Navy) */}
       <section className="bg-gradient-deep text-white section-pad">
-        <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
-              No More Daily Losses
-            </span>
-            <h2 className="text-white mt-1 mb-1.5">
-              How fuel eats your <span className="text-blue-light">delivery profit</span>
-            </h2>
-            <p className="text-text-dark-muted text-sm sm:text-base">
-              Riding 90 km a day on petrol means spending nearly 35% to 40% of your daily income on fuel alone.
-            </p>
-          </div>
+        <div className="container-custom space-y-12">
+          {/* Zypp-style Comparative Bar Chart with Video */}
+          <EvVsPetrolComparison />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4">
             <div className="tezz-card p-5 bg-white text-navy-950">
               <h4 className="font-bold text-sm sm:text-base font-heading text-navy-950 mb-1.5">
                 No Fuel Station Queues

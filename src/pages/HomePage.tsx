@@ -18,6 +18,9 @@ import { siteConfig } from '../lib/config';
 import { VideoCard } from '../components/ui/VideoCard';
 import { useVideoModal } from '../components/ui/VideoContext';
 import { SectionDivider } from '../components/ui/SectionDivider';
+import { InteractiveJoinStepper } from '../components/home/InteractiveJoinStepper';
+import { EvVsPetrolComparison } from '../components/home/EvVsPetrolComparison';
+import { WhyChooseHub } from '../components/home/WhyChooseHub';
 import { toast } from 'sonner';
 
 export const HomePage: React.FC = () => {
@@ -315,125 +318,11 @@ export const HomePage: React.FC = () => {
       <SectionDivider type="sky200-to-navy" />
 
       {/* ======================================================== */}
-      {/* 4. WHY CHOOSE TEZZEV (Deep Navy Gradient) */}
+      {/* 4. WHY CHOOSE TEZZEV (Deep Navy Gradient) - INTERACTIVE VIDEO HUB */}
       {/* ======================================================== */}
       <section className="bg-gradient-deep text-white section-pad">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
-              Rider First Benefits
-            </span>
-            <h2 className="text-white mt-1 mb-1.5">
-              Why choose <span className="text-blue-light">TezzEV</span>
-            </h2>
-            <p className="text-text-dark-muted text-sm sm:text-base">
-              Engineered specifically for Indian gig delivery riders to maximize take-home income.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <div className="bg-[#F4F8FE] rounded-2xl p-5 border border-[#D6E4FB] shadow-md flex flex-col justify-between">
-              <div>
-                <div className="icon-tile mb-3">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-navy-950 font-heading mb-1.5">
-                  Zero Petrol Cost
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Save ₹8,000 to ₹12,000 every month on high fuel prices. Pure electric profit.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-slate-200 mt-3 text-xs font-semibold text-royal flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf" /> No fuel station queue
-              </div>
-            </div>
-
-            <div className="bg-[#F4F8FE] rounded-2xl p-5 border border-[#D6E4FB] shadow-md flex flex-col justify-between">
-              <div>
-                <div className="icon-tile mb-3">
-                  <Wrench className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-navy-950 font-heading mb-1.5">
-                  Free Maintenance
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Regular servicing, brake pad checks, and tyre wear are fully covered by TezzEV.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-slate-200 mt-3 text-xs font-semibold text-royal flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf" /> 100% Free at our hubs
-              </div>
-            </div>
-
-            <div className="bg-[#F4F8FE] rounded-2xl p-5 border border-[#D6E4FB] shadow-md flex flex-col justify-between">
-              <div>
-                <div className="icon-tile mb-3">
-                  <BatteryCharging className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-navy-950 font-heading mb-1.5">
-                  Fast Battery Swap
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Swap depleted batteries in under 2 minutes at our network of city hubs.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-slate-200 mt-3 text-xs font-semibold text-royal flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf" /> Zero waiting time
-              </div>
-            </div>
-
-            <div className="bg-[#F4F8FE] rounded-2xl p-5 border border-[#D6E4FB] shadow-md flex flex-col justify-between">
-              <div>
-                <div className="icon-tile mb-3">
-                  <Headphones className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-navy-950 font-heading mb-1.5">
-                  24/7 Breakdown Help
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Puncture or vehicle snag on shift? Our mobile support team reaches you quickly.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-slate-200 mt-3 text-xs font-semibold text-royal flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf" /> Free replacement vehicle
-              </div>
-            </div>
-
-            <div className="bg-[#F4F8FE] rounded-2xl p-5 border border-[#D6E4FB] shadow-md flex flex-col justify-between">
-              <div>
-                <div className="icon-tile mb-3">
-                  <FileCheck className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-navy-950 font-heading mb-1.5">
-                  Easy Paperless Signup
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Register in 2 minutes with simple digital documents. Get verified without hassle.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-slate-200 mt-3 text-xs font-semibold text-royal flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf" /> Quick digital approval
-              </div>
-            </div>
-
-            <div className="bg-[#F4F8FE] rounded-2xl p-5 border border-[#D6E4FB] shadow-md flex flex-col justify-between">
-              <div>
-                <div className="icon-tile mb-3">
-                  <Users className="w-5 h-5" />
-                </div>
-                <h3 className="text-base font-bold text-navy-950 font-heading mb-1.5">
-                  Refer and Earn
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Introduce fellow riders to TezzEV and earn rental credits on every verified friend.
-                </p>
-              </div>
-              <div className="pt-3 border-t border-slate-200 mt-3 text-xs font-semibold text-royal flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf" /> Community benefits
-              </div>
-            </div>
-          </div>
+          <WhyChooseHub />
         </div>
       </section>
 
@@ -530,11 +419,11 @@ export const HomePage: React.FC = () => {
       <SectionDivider type="sky100-to-navy" />
 
       {/* ======================================================== */}
-      {/* 6. START IN 4 EASY STEPS (Deep Navy) - VERTICAL VIDEO CARDS */}
+      {/* 6. START IN 4 EASY STEPS (Deep Navy) - INTERACTIVE VIDEO STEPPER */}
       {/* ======================================================== */}
       <section className="bg-gradient-deep text-white section-pad">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-6">
+          <div className="text-center max-w-2xl mx-auto mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
               Simple Onboarding
             </span>
@@ -546,109 +435,9 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Step 1 */}
-            <div className="bg-[#F4F8FE] rounded-2xl p-4 border border-[#D6E4FB] shadow-md flex flex-col justify-between text-navy-950">
-              <div className="mb-3">
-                <VideoCard
-                  src={siteConfig.videos.step1.src}
-                  title="Step 1: Register Online"
-                  poster="/images/poster-3.jpg"
-                  aspect="vertical"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-6 h-6 rounded-full bg-royal text-white font-bold text-xs flex items-center justify-center">
-                    1
-                  </span>
-                  <h4 className="text-sm sm:text-base font-bold text-navy-950 font-heading">
-                    Register Online
-                  </h4>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Fill simple contact details and choose your rental plan in 2 minutes.
-                </p>
-              </div>
-            </div>
+          <InteractiveJoinStepper />
 
-            {/* Step 2 */}
-            <div className="bg-[#F4F8FE] rounded-2xl p-4 border border-[#D6E4FB] shadow-md flex flex-col justify-between text-navy-950">
-              <div className="mb-3">
-                <VideoCard
-                  src={siteConfig.videos.step2.src}
-                  title="Step 2: Get Verified"
-                  poster="/images/poster-1.jpg"
-                  aspect="vertical"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-6 h-6 rounded-full bg-royal text-white font-bold text-xs flex items-center justify-center">
-                    2
-                  </span>
-                  <h4 className="text-sm sm:text-base font-bold text-navy-950 font-heading">
-                    Get Verified
-                  </h4>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Quick Aadhaar &amp; Driving Licence check done smoothly digitally.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-[#F4F8FE] rounded-2xl p-4 border border-[#D6E4FB] shadow-md flex flex-col justify-between text-navy-950">
-              <div className="mb-3">
-                <VideoCard
-                  src={siteConfig.videos.step3.src}
-                  title="Step 3: Pick Up Scooter"
-                  poster="/images/concept-banner.jpg"
-                  aspect="vertical"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-6 h-6 rounded-full bg-royal text-white font-bold text-xs flex items-center justify-center">
-                    3
-                  </span>
-                  <h4 className="text-sm sm:text-base font-bold text-navy-950 font-heading">
-                    Pick Up Scooter
-                  </h4>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Visit the nearest TezzEV Hub and collect your charged vehicle with keys.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="bg-[#F4F8FE] rounded-2xl p-4 border border-[#D6E4FB] shadow-md flex flex-col justify-between text-navy-950">
-              <div className="mb-3">
-                <VideoCard
-                  src={siteConfig.videos.step4.src}
-                  title="Step 4: Ride and Earn"
-                  poster="/images/poster-2.jpg"
-                  aspect="vertical"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-6 h-6 rounded-full bg-royal text-white font-bold text-xs flex items-center justify-center">
-                    4
-                  </span>
-                  <h4 className="text-sm sm:text-base font-bold text-navy-950 font-heading">
-                    Ride and Earn
-                  </h4>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Start deliveries on your preferred delivery apps and save daily petrol cash.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-6">
+          <div className="text-center mt-8">
             <Link to="/how-it-works" className="btn-secondary-dark !min-h-[42px] !py-0 !px-6 text-sm">
               <span>View Detailed Process &amp; FAQs</span>
               <ArrowRight className="w-4 h-4" />
@@ -765,6 +554,18 @@ export const HomePage: React.FC = () => {
 
       {/* WAVE DIVIDER: Sky-200 to Deep Navy */}
       <SectionDivider type="sky200-to-navy" />
+
+      {/* ======================================================== */}
+      {/* 8. EV VS PETROL COMPARISON & SAVINGS (Deep Navy Gradient) */}
+      {/* ======================================================== */}
+      <section className="bg-gradient-deep text-white section-pad">
+        <div className="container-custom">
+          <EvVsPetrolComparison />
+        </div>
+      </section>
+
+      {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
+      <SectionDivider type="navy-to-sky100" />
 
       {/* ======================================================== */}
       {/* 9. RIDE FOR ANY PLATFORM & 10. DAILY RENT GUESS BANNER (Sky-100) */}

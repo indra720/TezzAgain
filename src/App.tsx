@@ -17,6 +17,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { RiderDashboardPage } from './pages/RiderDashboardPage';
 import { GuessRentPage } from './pages/GuessRentPage';
 import { BlogPage } from './pages/BlogPage';
+import { AdsPage } from './pages/AdsPage';
 import { LegalPage } from './pages/LegalPage';
 
 export const App: React.FC = () => {
@@ -40,6 +41,7 @@ export const App: React.FC = () => {
             <Route path="register" element={<RegisterPage />} />
             <Route path="rider-dashboard" element={<RiderDashboardPage />} />
             <Route path="guess-rent" element={<GuessRentPage />} />
+            <Route path="ads" element={<AdsPage />} />
             <Route path="blog" element={<BlogPage />} />
 
             {/* Legal Policies with Sticky Table of Contents */}

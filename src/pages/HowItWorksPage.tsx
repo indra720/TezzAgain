@@ -13,6 +13,7 @@ import {
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
+import { InteractiveJoinStepper } from '../components/home/InteractiveJoinStepper';
 import { siteConfig } from '../lib/config';
 
 export const HowItWorksPage: React.FC = () => {
@@ -132,9 +133,9 @@ export const HowItWorksPage: React.FC = () => {
       {/* WAVE DIVIDER: Sky-200 to Deep Navy */}
       <SectionDivider type="sky200-to-navy" />
 
-      {/* Section 2: 4 Steps Alternating Left/Right with Video (Deep Navy) */}
+      {/* Section 2: Interactive Step-by-Step Video Guide (Deep Navy) */}
       <section className="bg-gradient-deep text-white section-pad">
-        <div className="container-custom space-y-10">
+        <div className="container-custom space-y-8">
           <div className="text-center max-w-2xl mx-auto mb-6">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
               Step-by-Step Guide
@@ -143,52 +144,11 @@ export const HowItWorksPage: React.FC = () => {
               Every step has its own <span className="text-blue-light">video</span>
             </h2>
             <p className="text-text-dark-muted text-sm sm:text-base">
-              Follow along to get on the road smoothly without delays.
+              Follow along with our interactive smartphone guide to get on the road smoothly without delays.
             </p>
           </div>
 
-          <div className="space-y-10">
-            {steps.map((step, idx) => {
-              const isEven = idx % 2 === 1;
-              return (
-                <div
-                  key={step.num}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-navy-900/60 p-5 sm:p-6 rounded-2xl border border-navy-800"
-                >
-                  {/* Video Column */}
-                  <div className={`lg:col-span-5 flex justify-center ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-                    <div className="w-full max-w-sm">
-                      <VideoCard
-                        src={step.video.src}
-                        title={step.video.title}
-                        poster={step.video.poster}
-                        aspect="vertical"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text Column */}
-                  <div className={`lg:col-span-7 space-y-3.5 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-950 border border-navy-700 text-blue-light text-xs font-bold">
-                      <span>Step {step.num}</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
-                      {step.title}
-                    </h3>
-                    <p className="text-text-dark-muted text-sm sm:text-base leading-relaxed">
-                      {step.desc}
-                    </p>
-                    <div className="pt-1">
-                      <Link to="/register" className="btn-secondary-dark !min-h-[40px] !text-xs sm:!text-sm">
-                        <span>Start Registration</span>
-                        <ArrowRight className="w-4 h-4 text-blue-light" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <InteractiveJoinStepper />
         </div>
       </section>
 
