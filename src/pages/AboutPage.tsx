@@ -61,9 +61,9 @@ export const AboutPage: React.FC = () => {
       {/* Section 1: Story & Video (Sky-200) */}
       <section className="bg-sky-200 text-text-light section-pad">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Story Text */}
-            <div className="lg:col-span-6 space-y-4">
+            <div className="lg:col-span-7 space-y-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-royal">
                   Our Journey
@@ -87,8 +87,8 @@ export const AboutPage: React.FC = () => {
             </div>
 
             {/* Right Story Video */}
-            <div className="lg:col-span-6 flex justify-center">
-              <div className="w-full max-w-sm">
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[340px]">
                 <VideoCard
                   src={siteConfig.videos.about.src}
                   title={siteConfig.videos.about.title}

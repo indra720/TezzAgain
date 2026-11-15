@@ -45,7 +45,7 @@ export const SavingsPage: React.FC = () => {
       <section className="bg-sky-200 text-text-light section-pad">
         <div className="container-custom space-y-12">
           {/* Top 2-Column Split: Text Left, Video Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Column: Text */}
             <div className="lg:col-span-7 space-y-4 text-left">
               <span className="text-xs font-bold uppercase tracking-wider text-royal">
@@ -54,7 +54,7 @@ export const SavingsPage: React.FC = () => {
               <h2 className="text-navy-950">
                 How delivery riders <span className="text-royal">save</span>
               </h2>
-              <p className="text-slate-700 text-base leading-relaxed max-w-xl">
+              <p className="text-slate-700 text-base leading-relaxed">
                 Rising fuel costs eat away your daily delivery profit. Switching to a commercial TezzEV electric scooter with swappable batteries eliminates 100% of your petrol expenses.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
@@ -74,8 +74,8 @@ export const SavingsPage: React.FC = () => {
             </div>
 
             {/* Right Column: Video Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-xl border border-slate-300">
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl border border-slate-300">
                 <VideoCard
                   src={siteConfig.videos.savings.src}
                   title={siteConfig.videos.savings.title}

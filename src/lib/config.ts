@@ -131,7 +131,7 @@ export const siteConfig = {
       src: "/videos/tezz-video-4.mp4",
       title: "Delivery Rider Cargo Capacity",
       duration: "0:20",
-      poster: "/images/concept-banner.jpg",
+      poster: "/images/poster-4.jpg",
     },
     scooterTour: {
       src: "/videos/tezz-video-4.mp4",
@@ -239,7 +239,7 @@ export const siteConfig = {
       src: "/videos/tezz-video-3.mp4",
       title: "Daily Scooter Maintenance Checklist for Long Life",
       duration: "0:15",
-      poster: "/images/concept-banner.jpg",
+      poster: "/images/poster-4.jpg",
     },
     contact: {
       src: "/videos/tezz-video-2.mp4",

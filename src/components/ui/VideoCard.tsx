@@ -57,12 +57,12 @@ export const VideoCard: React.FC<VideoCardProps> = ({
           className="absolute inset-0 w-full h-full object-cover filter blur-2xl scale-110 opacity-70 brightness-75 pointer-events-none"
         />
 
-        {/* 100% Uncropped Foreground Poster: Fits fully inside card with ZERO top/bottom/side text cutoff */}
+        {/* 100% Edge-to-Edge Foreground Poster - Zero black borders or empty side gaps */}
         <img
           src={poster}
           alt={title}
           loading="lazy"
-          className="relative z-10 w-full h-full object-contain p-1 transition-transform duration-300 group-hover:scale-[1.02]"
+          className="relative z-10 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
         {/* Centered Round Play Button */}

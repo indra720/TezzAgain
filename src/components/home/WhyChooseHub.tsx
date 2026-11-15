@@ -64,7 +64,7 @@ const benefitsData: FeatureBenefit[] = [
     desc: 'Puncture or vehicle snag on shift? Our mobile assistance team reaches your location with a replacement scooter.',
     highlight: 'Zero lost delivery shifts',
     videoSrc: '/videos/tezz-video-2.mp4',
-    poster: '/images/concept-banner.jpg',
+    poster: '/images/poster-4.jpg',
   },
   {
     id: 'kyc',

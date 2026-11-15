@@ -114,7 +114,7 @@ export const PricingPage: React.FC = () => {
       <section className="bg-sky-200 text-text-light section-pad">
         <div className="container-custom space-y-12">
           {/* Top 2-Column Split: Text Left, Video Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Column: Text */}
             <div className="lg:col-span-7 space-y-4 text-left">
               <span className="text-xs font-bold uppercase tracking-wider text-royal">
@@ -123,14 +123,14 @@ export const PricingPage: React.FC = () => {
               <h2 className="text-navy-950">
                 How TezzEV rental <span className="text-royal">works</span>
               </h2>
-              <p className="text-slate-700 text-base leading-relaxed max-w-xl">
+              <p className="text-slate-700 text-base leading-relaxed">
                 Choose flexible Daily, Weekly Pro, or Monthly Super plans. Every rental package comes with unlimited battery swaps at all TezzEV hubs and zero maintenance charges.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
+                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
                   ⚡ 100% Free Hub Battery Swaps
                 </span>
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
+                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
                   🛡️ 100% Refundable Security Deposit
                 </span>
               </div>
@@ -143,8 +143,8 @@ export const PricingPage: React.FC = () => {
             </div>
 
             {/* Right Column: Video Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-xl border border-slate-300">
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl border border-slate-300">
                 <VideoCard
                   src={siteConfig.videos.pricing.src}
                   title={siteConfig.videos.pricing.title}

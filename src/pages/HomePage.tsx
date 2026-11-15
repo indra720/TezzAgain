@@ -307,7 +307,7 @@ export const HomePage: React.FC = () => {
             <VideoCard
               src={siteConfig.videos.homeClip3.src}
               title="Delivery Cargo Capacity"
-              poster="/images/concept-banner.jpg"
+              poster="/images/poster-4.jpg"
               aspect="vertical"
             />
           </div>

@@ -120,7 +120,7 @@ export const FaqsPage: React.FC = () => {
       <section className="bg-sky-200 text-text-light section-pad">
         <div className="container-custom space-y-12">
           {/* Top 2-Column Split: Text Left, Video Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Column: Text */}
             <div className="lg:col-span-7 space-y-4 text-left">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-royal text-white text-xs font-bold uppercase tracking-wider shadow-sm">
@@ -129,7 +129,7 @@ export const FaqsPage: React.FC = () => {
               <h2 className="text-navy-950">
                 Watch Quick <span className="text-royal">Help Video</span>
               </h2>
-              <p className="text-slate-700 text-base leading-relaxed max-w-xl">
+              <p className="text-slate-700 text-base leading-relaxed">
                 Watch our quick 2-minute visual walkthrough explaining how to register online, swap batteries at city hubs in 120 seconds, and claim your refundable security deposit.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
@@ -149,8 +149,8 @@ export const FaqsPage: React.FC = () => {
             </div>
 
             {/* Right Column: Video Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-xl border border-slate-300">
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl border border-slate-300">
                 <VideoCard
                   src={siteConfig.videos.faqs?.src || ''}
                   title="Rider FAQs & Onboarding Video Guide"

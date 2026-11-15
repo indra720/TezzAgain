@@ -68,7 +68,7 @@ export const OurScooterPage: React.FC = () => {
       {/* Section 1: Large Tour Video (Sky-200) - Split 2-Column Layout */}
       <section className="bg-sky-200 text-text-light section-pad">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Column: Text & Features */}
             <div className="lg:col-span-7 space-y-4 text-left">
               <span className="text-xs font-bold uppercase tracking-wider text-royal">
@@ -77,7 +77,7 @@ export const OurScooterPage: React.FC = () => {
               <h2 className="text-navy-950">
                 Full 360° Scooter <span className="text-royal">Tour</span>
               </h2>
-              <p className="text-slate-700 text-base leading-relaxed max-w-xl">
+              <p className="text-slate-700 text-base leading-relaxed">
                 Take a detailed visual walkthrough of the vehicle ergonomics, heavy-duty frame build, and swappable battery slot designed for Indian delivery conditions.
               </p>
               <div className="pt-2 grid grid-cols-2 gap-3 max-w-md">
@@ -99,8 +99,8 @@ export const OurScooterPage: React.FC = () => {
             </div>
 
             {/* Right Column: Vertical Video Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-xl border border-slate-300">
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl border border-slate-300">
                 <VideoCard
                   src={siteConfig.videos.scooterTour.src}
                   title={siteConfig.videos.scooterTour.title}
@@ -224,7 +224,7 @@ export const OurScooterPage: React.FC = () => {
               <VideoCard
                 src={siteConfig.videos.display.src}
                 title={siteConfig.videos.display.title}
-                poster="/images/concept-banner.jpg"
+                poster="/images/poster-4.jpg"
                 aspect="vertical"
               />
               <div className="px-1">

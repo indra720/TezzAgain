@@ -62,7 +62,7 @@ const stepsData: StepItem[] = [
     desc: 'Visit your nearest TezzEV Hub in Indore or Bhopal. Collect your fully charged scooter, helmet, and vehicle keys in 5 minutes.',
     highlights: ['Vehicles fully sanitized & inspected', 'Keys & helmet provided', 'Pre-charged dual battery'],
     videoSrc: '/videos/tezz-video-2.mp4',
-    poster: '/images/concept-banner.jpg',
+    poster: '/images/poster-4.jpg',
     linkText: 'Find Nearest Hub',
     linkUrl: '/contact',
   },
