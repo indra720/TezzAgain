@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CheckCircle2,
@@ -8,7 +8,6 @@ import {
   Play,
   Pause,
   Maximize2,
-  Sparkles,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVideoModal } from '../ui/VideoContext';
@@ -77,7 +76,7 @@ const stepsData: StepItem[] = [
   },
 ];
 
-// Video slides up from bottom like Zypp / Casino slot reel
+// Video slides up vertically from the bottom when step changes
 const slideFromBottomVariants = {
   enter: {
     y: '100%',
@@ -89,7 +88,7 @@ const slideFromBottomVariants = {
     opacity: 1,
     scale: 1,
     transition: {
-      y: { type: 'spring', stiffness: 220, damping: 25, mass: 0.8 },
+      y: { type: 'spring', stiffness: 230, damping: 25, mass: 0.8 },
       opacity: { duration: 0.22 },
       scale: { duration: 0.22 },
     },
@@ -99,7 +98,7 @@ const slideFromBottomVariants = {
     opacity: 0.45,
     scale: 0.96,
     transition: {
-      y: { type: 'spring', stiffness: 220, damping: 25, mass: 0.8 },
+      y: { type: 'spring', stiffness: 230, damping: 25, mass: 0.8 },
       opacity: { duration: 0.2 },
     },
   },
@@ -113,16 +112,67 @@ export const InteractiveJoinStepper: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stepCardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isProgrammaticScroll = useRef(false);
-  const userInteractedTimeout = useRef<NodeJS.Timeout | null>(null);
-  const isPausedByUser = useRef(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const { openVideoModal } = useVideoModal();
 
   const currentStep = stepsData.find((s) => s.id === activeStep) || stepsData[0];
 
-  // Helper: scroll container to make target step visible
-  const scrollContainerToStep = useCallback((stepId: number) => {
+  // User self-scroll handler: detects which step is actively in view and activates it
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (isProgrammaticScroll.current) return;
+    const container = e.currentTarget;
+    const scrollTop = container.scrollTop;
+    const scrollHeight = container.scrollHeight;
+    const clientHeight = container.clientHeight;
+
+    // Edge check: Top
+    if (scrollTop <= 30) {
+      if (activeStep !== 1) setActiveStep(1);
+      return;
+    }
+    // Edge check: Bottom
+    if (scrollTop + clientHeight >= scrollHeight - 30) {
+      if (activeStep !== 4) setActiveStep(4);
+      return;
+    }
+
+    const cards = stepCardRefs.current;
+    if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
+
+    const top1 = cards[0].offsetTop;
+    const top2 = cards[1].offsetTop;
+    const top3 = cards[2].offsetTop;
+    const top4 = cards[3].offsetTop;
+
+    const mid12 = (top1 + top2) / 2;
+    const mid23 = (top2 + top3) / 2;
+    const mid34 = (top3 + top4) / 2;
+
+    // Relative reading focal cursor inside scroll window
+    const cursor = scrollTop + clientHeight * 0.35;
+
+    let newStep = 1;
+    if (cursor < mid12) {
+      newStep = 1;
+    } else if (cursor < mid23) {
+      newStep = 2;
+    } else if (cursor < mid34) {
+      newStep = 3;
+    } else {
+      newStep = 4;
+    }
+
+    if (newStep !== activeStep) {
+      setActiveStep(newStep);
+    }
+  };
+
+  // Direct click on step: activates and smoothly scrolls to it
+  const handleStepClick = (stepId: number) => {
+    if (stepId === activeStep) return;
+    setActiveStep(stepId);
+
     const container = containerRef.current;
     const targetCard = stepCardRefs.current[stepId - 1];
     if (container && targetCard) {
@@ -131,70 +181,8 @@ export const InteractiveJoinStepper: React.FC = () => {
       container.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
       setTimeout(() => {
         isProgrammaticScroll.current = false;
-      }, 500);
+      }, 450);
     }
-  }, []);
-
-  // Continuous Auto-Rotation Loop ("rotation again to again run hota rhe")
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (isPausedByUser.current) return;
-
-      setActiveStep((prev) => {
-        const next = prev < stepsData.length ? prev + 1 : 1;
-        scrollContainerToStep(next);
-        return next;
-      });
-    }, 4200);
-
-    return () => clearInterval(timer);
-  }, [scrollContainerToStep]);
-
-  // When user manually scrolls the steps container, activate the point nearest to viewport focus
-  const handleScroll = () => {
-    if (isProgrammaticScroll.current) return;
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Temporarily pause auto-rotation when user is scrolling manually
-    isPausedByUser.current = true;
-    if (userInteractedTimeout.current) clearTimeout(userInteractedTimeout.current);
-    userInteractedTimeout.current = setTimeout(() => {
-      isPausedByUser.current = false;
-    }, 4000);
-
-    const containerTop = container.getBoundingClientRect().top;
-    const containerHeight = container.clientHeight;
-    const focusY = containerTop + containerHeight * 0.35;
-
-    let closestStep = activeStep;
-    let minDistance = Infinity;
-
-    stepCardRefs.current.forEach((el, index) => {
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const cardCenterY = rect.top + rect.height / 2;
-      const dist = Math.abs(cardCenterY - focusY);
-      if (dist < minDistance) {
-        minDistance = dist;
-        closestStep = index + 1;
-      }
-    });
-
-    if (closestStep !== activeStep) {
-      setActiveStep(closestStep);
-    }
-  };
-
-  const handleStepClick = (stepId: number) => {
-    isPausedByUser.current = true;
-    if (userInteractedTimeout.current) clearTimeout(userInteractedTimeout.current);
-    userInteractedTimeout.current = setTimeout(() => {
-      isPausedByUser.current = false;
-    }, 5000);
-
-    setActiveStep(stepId);
-    scrollContainerToStep(stepId);
   };
 
   // Autoplay video on step change
@@ -235,25 +223,42 @@ export const InteractiveJoinStepper: React.FC = () => {
 
   return (
     <div className="w-full">
+      {/* Mobile Step Pills (Quick Jump for Mobile Users) */}
+      <div className="flex lg:hidden items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-3">
+        {stepsData.map((step) => {
+          const isActive = step.id === activeStep;
+          return (
+            <button
+              key={step.id}
+              onClick={() => handleStepClick(step.id)}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all ${
+                isActive
+                  ? 'bg-royal text-white shadow-md shadow-royal/30'
+                  : 'bg-navy-900 text-slate-300 border border-navy-800 hover:bg-navy-800'
+              }`}
+            >
+              <span
+                className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                  isActive ? 'bg-white text-royal' : 'bg-navy-800 text-slate-400'
+                }`}
+              >
+                {step.id}
+              </span>
+              <span>{step.title}</span>
+            </button>
+          );
+        })}
+      </div>
+
       {/* Main 2-Column Interactive Container */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-navy-900/60 p-4 sm:p-7 md:p-8 rounded-3xl border border-navy-800 shadow-2xl backdrop-blur-sm">
         {/* Left Side: Step-by-Step Progress Timeline with HIDDEN SCROLLBAR (7 cols) */}
         <div className="lg:col-span-7 flex flex-col space-y-3">
-          <div className="flex items-center justify-between text-xs text-blue-light font-bold uppercase tracking-wider px-1">
-            <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-leaf" />
-              Continuous Onboarding Reel
-            </span>
-            <span className="text-slate-400 text-[11px] font-medium lowercase">
-              scroll or auto-cycles ({activeStep}/4)
-            </span>
-          </div>
-
           {/* SCROLLABLE STEPS CONTAINER WITH ZERO VISIBLE SCROLLBAR */}
           <div
             ref={containerRef}
             onScroll={handleScroll}
-            className="relative max-h-[380px] sm:max-h-[460px] overflow-y-auto no-scrollbar scroll-smooth space-y-3.5 pr-1 py-1"
+            className="relative max-h-[360px] sm:max-h-[460px] overflow-y-auto no-scrollbar scroll-smooth space-y-3.5 pr-1 py-1"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -466,7 +471,7 @@ export const InteractiveJoinStepper: React.FC = () => {
           </div>
 
           <p className="text-xs text-text-dark-muted text-center px-4">
-            Scroll points on left or let it auto-play • Video slides from bottom in sync
+            Scroll steps on the left to watch each step's video in action
           </p>
         </div>
       </div>
