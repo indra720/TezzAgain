@@ -19,7 +19,6 @@ import { VideoCard } from '../ui/VideoCard';
 
 interface MetricPill {
   id: string;
-  angleDeg: number; // for orbit layout on desktop
   icon: React.ElementType;
   iconBg: string;
   iconColor: string;
@@ -34,7 +33,6 @@ interface MetricPill {
 const metrics: MetricPill[] = [
   {
     id: 'deliveries',
-    angleDeg: 195, // Left
     icon: MessageSquare,
     iconBg: 'bg-rose-50 border-rose-200',
     iconColor: 'text-rose-600',
@@ -47,7 +45,6 @@ const metrics: MetricPill[] = [
   },
   {
     id: 'impact',
-    angleDeg: 45, // Top-Right
     icon: Flag,
     iconBg: 'bg-emerald-50 border-emerald-200',
     iconColor: 'text-emerald-600',
@@ -60,7 +57,6 @@ const metrics: MetricPill[] = [
   },
   {
     id: 'carbon',
-    angleDeg: 340, // Bottom-Right
     icon: Leaf,
     iconBg: 'bg-amber-50 border-amber-200',
     iconColor: 'text-amber-600',
@@ -73,7 +69,6 @@ const metrics: MetricPill[] = [
   },
   {
     id: 'swap',
-    angleDeg: 130, // Bottom-Left
     icon: BatteryCharging,
     iconBg: 'bg-blue-50 border-blue-200',
     iconColor: 'text-royal',
@@ -113,7 +108,7 @@ export const WhyChooseHub: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full space-y-8">
+    <div className="w-full space-y-6 sm:space-y-8 pt-2 sm:pt-4">
       {/* 1. Header (Centered, clean white aesthetic directly like Zypp) */}
       <div className="text-center max-w-3xl mx-auto space-y-3 px-2">
         <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl tracking-tight">
@@ -123,38 +118,40 @@ export const WhyChooseHub: React.FC = () => {
           TezzEV is Madhya Pradesh's leading EV Rental platform, offering electric scooters on rent that reduce pollution, save fuel costs, and boost your daily earnings. Every ride you take helps make India cleaner, greener, and more sustainable.
         </p>
 
-        {/* View Switcher Toggle Pill */}
-        <div className="inline-flex items-center gap-1.5 p-1 rounded-full bg-slate-100 border border-slate-200 shadow-inner mt-1">
-          <button
-            onClick={() => setViewMode('orbit')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-              viewMode === 'orbit'
-                ? 'bg-white text-navy-950 shadow-sm border border-slate-200'
-                : 'text-slate-600 hover:text-navy-950'
-            }`}
-          >
-            ✨ Zypp Orbit Infographic
-          </button>
-          <button
-            onClick={() => setViewMode('video')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-              viewMode === 'video'
-                ? 'bg-royal text-white shadow-sm'
-                : 'text-slate-600 hover:text-navy-950'
-            }`}
-          >
-            🎬 Watch Video Reels
-          </button>
+        {/* View Switcher Toggle Pill with proper spacing */}
+        <div className="pt-1">
+          <div className="inline-flex items-center gap-1.5 p-1 rounded-full bg-slate-100 border border-slate-200 shadow-inner">
+            <button
+              onClick={() => setViewMode('orbit')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                viewMode === 'orbit'
+                  ? 'bg-white text-navy-950 shadow-sm border border-slate-200'
+                  : 'text-slate-600 hover:text-navy-950'
+              }`}
+            >
+              ✨ Zypp Orbit Infographic
+            </button>
+            <button
+              onClick={() => setViewMode('video')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                viewMode === 'video'
+                  ? 'bg-royal text-white shadow-sm'
+                  : 'text-slate-600 hover:text-navy-950'
+              }`}
+            >
+              🎬 Watch Video Reels
+            </button>
+          </div>
         </div>
       </div>
 
       {/* 2. Main Container (Crisp White, Shadow-xl, Border-slate-200) */}
-      <div className="bg-white rounded-3xl p-5 sm:p-8 md:p-12 border border-slate-200/90 shadow-xl">
+      <div className="bg-white rounded-3xl p-4 sm:p-8 md:p-12 border border-slate-200/90 shadow-xl">
         {viewMode === 'orbit' ? (
           /* ============================================================== */
           /* ZYPP-STYLE CIRCULAR ORBIT VIEW (Desktop & Mobile Responsive)   */
           /* ============================================================== */
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {/* Desktop / Tablet: Centered Orbit Stage */}
             <div className="hidden md:block relative w-full max-w-4xl mx-auto h-[480px]">
               {/* Outer Dashed Orbit Circle */}
@@ -165,7 +162,6 @@ export const WhyChooseHub: React.FC = () => {
 
               {/* CENTER CIRCLE: Zypp Bold Active Riders Circular Progress Arc */}
               <div className="absolute inset-0 m-auto w-52 h-52 rounded-full flex flex-col items-center justify-center text-center z-10 pointer-events-none">
-                {/* SVG Open Circular Arc */}
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160">
                   <circle
                     cx="80"
@@ -189,7 +185,6 @@ export const WhyChooseHub: React.FC = () => {
                   />
                 </svg>
 
-                {/* Center Content */}
                 <div className="relative z-10 space-y-0.5">
                   <span className="text-3xl lg:text-4xl font-black text-navy-950 font-heading tracking-tight block">
                     20k+
@@ -332,9 +327,9 @@ export const WhyChooseHub: React.FC = () => {
             </div>
 
             {/* Mobile View: Clean Centered Stack (No Overlap) */}
-            <div className="block md:hidden space-y-5">
+            <div className="block md:hidden space-y-4">
               {/* Center Circle on Mobile */}
-              <div className="relative w-44 h-44 mx-auto rounded-full flex flex-col items-center justify-center text-center">
+              <div className="relative w-40 h-40 mx-auto rounded-full flex flex-col items-center justify-center text-center">
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160">
                   <circle cx="80" cy="80" r="68" stroke="#E2E8F0" strokeWidth="10" fill="none" />
                   <circle
@@ -348,20 +343,20 @@ export const WhyChooseHub: React.FC = () => {
                   />
                 </svg>
                 <div className="relative z-10 space-y-0.5">
-                  <span className="text-3xl font-black text-navy-950 font-heading">
+                  <span className="text-2xl font-black text-navy-950 font-heading">
                     20k+
                   </span>
-                  <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide block">
+                  <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide block">
                     Active Riders
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 inline-block">
+                  <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 inline-block">
                     MP Fleet
                   </span>
                 </div>
               </div>
 
               {/* 4 Cards Grid on Mobile */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-2.5">
                 {metrics.map((m) => {
                   const Icon = m.icon;
                   const isActive = m.id === activeMetricId;
@@ -371,17 +366,22 @@ export const WhyChooseHub: React.FC = () => {
                       onClick={() => setActiveMetricId(m.id)}
                       className={`p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${
                         isActive
-                          ? 'bg-blue-50/60 border-2 border-royal shadow-md'
-                          : 'bg-white border-slate-200 shadow-sm'
+                          ? 'bg-blue-50/70 border-2 border-royal shadow-md'
+                          : 'bg-white border-slate-200 shadow-2xs hover:bg-slate-50'
                       }`}
                     >
                       <div className={`w-8 h-8 rounded-xl ${m.iconBg} flex items-center justify-center shrink-0 ${m.iconColor}`}>
                         <Icon className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-xs sm:text-sm font-bold text-navy-950 truncate">
-                          {m.title}
-                        </h4>
+                        <div className="flex items-center justify-between gap-1">
+                          <h4 className="text-xs font-bold text-navy-950 truncate">
+                            {m.title}
+                          </h4>
+                          <span className="text-[10px] text-slate-400 font-semibold shrink-0">
+                            {m.tag.split('•')[0]}
+                          </span>
+                        </div>
                         <p className="text-[11px] text-slate-500 font-medium">
                           {m.highlight}
                         </p>
@@ -393,7 +393,7 @@ export const WhyChooseHub: React.FC = () => {
             </div>
 
             {/* Active Details & Video Action Callout */}
-            <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left bg-slate-50/70 p-4 sm:p-5 rounded-2xl border border-slate-200">
+            <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left bg-slate-50/70 p-4 sm:p-5 rounded-2xl border border-slate-200">
               <div className="space-y-1">
                 <div className="flex items-center justify-center sm:justify-start gap-2">
                   <span className="text-xs font-bold text-royal uppercase tracking-wider">
@@ -408,7 +408,7 @@ export const WhyChooseHub: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center justify-center gap-2.5 shrink-0 flex-wrap">
                 <button
                   onClick={() =>
                     openVideoModal({
@@ -425,7 +425,7 @@ export const WhyChooseHub: React.FC = () => {
 
                 <Link
                   to="/waitlist"
-                  className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-navy-950 border border-slate-200 text-xs sm:text-sm font-bold shadow-sm transition-colors"
+                  className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-navy-950 border border-slate-200 text-xs sm:text-sm font-bold shadow-2xs transition-colors"
                 >
                   Join Waitlist
                 </Link>
@@ -447,21 +447,21 @@ export const WhyChooseHub: React.FC = () => {
                     <div
                       key={m.id}
                       onClick={() => setActiveMetricId(m.id)}
-                      className={`p-4 rounded-2xl cursor-pointer border transition-all flex items-start gap-3.5 ${
+                      className={`p-3.5 sm:p-4 rounded-2xl cursor-pointer border transition-all flex items-start gap-3.5 ${
                         isActive
                           ? 'bg-blue-50/70 border-2 border-royal shadow-md'
                           : 'bg-slate-50/70 border-slate-200/80 hover:bg-white'
                       }`}
                     >
-                      <div className={`w-10 h-10 rounded-xl ${m.iconBg} flex items-center justify-center shrink-0 ${m.iconColor}`}>
-                        <Icon className="w-5 h-5" />
+                      <div className={`w-9 h-9 rounded-xl ${m.iconBg} flex items-center justify-center shrink-0 ${m.iconColor}`}>
+                        <Icon className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2 mb-0.5">
-                          <h4 className="text-sm sm:text-base font-bold text-navy-950">
+                          <h4 className="text-xs sm:text-sm md:text-base font-bold text-navy-950">
                             {m.title}
                           </h4>
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200 shrink-0">
                             {m.tag}
                           </span>
                         </div>
@@ -485,7 +485,7 @@ export const WhyChooseHub: React.FC = () => {
                   aspect="square"
                 />
               </div>
-              <p className="text-xs text-slate-500 text-center">
+              <p className="text-xs text-slate-500 text-center font-medium">
                 Click any benefit on the left to swap the video reel
               </p>
             </div>

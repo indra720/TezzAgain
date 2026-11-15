@@ -13,9 +13,12 @@ import {
   Tv,
   CheckCircle2,
   Megaphone,
+  Eye,
+  Flame,
+  TrendingUp,
+  Download,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
-import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
 import { useVideoModal } from '../components/ui/VideoContext';
 import { siteConfig } from '../lib/config';
@@ -31,88 +34,97 @@ interface AdCampaign {
   poster: string;
   duration: string;
   views: string;
+  categoryLabel: string;
 }
 
 const adCampaigns: AdCampaign[] = [
   {
     id: 'ad-1',
     category: 'commercials',
+    categoryLabel: 'Official TVC',
     title: 'TezzEV Official Launch Film',
     tagline: 'Petrol ka zamana khatam. Ab sheher chalega TEZZ!',
     videoSrc: '/videos/tezz-video-1.mp4',
     poster: '/images/poster-1.jpg',
     duration: '0:15',
-    views: 'Official Launch',
+    views: '54k views',
   },
   {
     id: 'ad-2',
     category: 'tech',
+    categoryLabel: 'Speed Demo',
     title: 'Speed Ka Naya Code Unlock',
-    tagline: 'High acceleration and instant electric torque for fast city delivery.',
+    tagline: 'High acceleration & instant torque for rush-hour city delivery.',
     videoSrc: '/videos/tezz-video-4.mp4',
     poster: '/images/poster-2.jpg',
     duration: '0:15',
-    views: 'Trending',
+    views: '42k views',
   },
   {
     id: 'ad-3',
     category: 'commercials',
+    categoryLabel: 'App Guide',
     title: '2-Minute Paperless KYC App Ad',
     tagline: 'Download the app, register yourself, and ride anywhere.',
     videoSrc: '/videos/tezz-video-3.mp4',
     poster: '/images/poster-3.jpg',
     duration: '0:15',
-    views: 'Rider Guide',
+    views: '38k views',
   },
   {
     id: 'ad-4',
     category: 'tech',
+    categoryLabel: 'Commuter Pick',
     title: 'Smooth City Commute in Rush Hour',
-    tagline: 'Effortlessly glide through heavy city traffic with zero engine vibrations.',
+    tagline: 'Glide through heavy traffic with dual suspension and zero vibrations.',
     videoSrc: '/videos/tezz-video-2.mp4',
     poster: '/images/poster-4.jpg',
     duration: '0:15',
-    views: 'Commuter Pick',
+    views: '29k views',
   },
   {
     id: 'ad-5',
     category: 'delivery',
-    title: 'Gig Delivery Partner Fuel Savings Story',
+    categoryLabel: 'Gig Rider Special',
+    title: 'Delivery Partner Fuel Savings Story',
     tagline: 'How Zomato & Swiggy riders save ₹4,000+ extra cash every single month.',
     videoSrc: '/videos/tezz-video-4.mp4',
     poster: '/images/poster-2.jpg',
     duration: '0:15',
-    views: 'Gig Special',
+    views: '61k views',
   },
   {
     id: 'ad-6',
     category: 'challenges',
+    categoryLabel: 'Hub Challenge',
     title: '2-Minute Quick Battery Swap Challenge',
-    tagline: 'Watch how quickly a depleted battery is swapped for 100% full charge.',
+    tagline: 'Watch a depleted battery swapped for 100% full charge in under 2 minutes.',
     videoSrc: '/videos/tezz-video-3.mp4',
     poster: '/images/poster-3.jpg',
     duration: '0:15',
-    views: 'Hub Demo',
+    views: '47k views',
   },
   {
     id: 'ad-7',
     category: 'delivery',
+    categoryLabel: 'Cargo Test',
     title: 'Heavy Cargo Delivery Box Test',
     tagline: 'Reinforced back rack carrying 3 heavy grocery delivery crates easily.',
     videoSrc: '/videos/tezz-video-2.mp4',
     poster: '/images/poster-4.jpg',
     duration: '0:15',
-    views: 'Durability',
+    views: '33k views',
   },
   {
     id: 'ad-8',
     category: 'tech',
+    categoryLabel: 'Night Delivery',
     title: 'Dual LED Night Vision Showcase',
     tagline: 'Powerful automotive illumination engineered for night shift delivery.',
     videoSrc: '/videos/tezz-video-1.mp4',
     poster: '/images/poster-1.jpg',
     duration: '0:15',
-    views: 'Night Test',
+    views: '26k views',
   },
 ];
 
@@ -120,6 +132,7 @@ export const AdsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [heroMuted, setHeroMuted] = useState<boolean>(true);
   const [heroPlaying, setHeroPlaying] = useState<boolean>(true);
+  const [fleetSize, setFleetSize] = useState<number>(100);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const { openVideoModal } = useVideoModal();
 
@@ -158,12 +171,15 @@ export const AdsPage: React.FC = () => {
     }
   };
 
+  // Monthly impressions estimate formula: ~25,000 views per scooter/month in prime city sectors
+  const monthlyImpressions = (fleetSize * 25000).toLocaleString();
+
   return (
     <div className="w-full">
-      {/* Page Header */}
+      {/* 1. Page Header */}
       <PageHeader
         breadcrumbs={[{ label: 'Campaigns & Ads' }]}
-        title="Official Ad Videos & Campaign Reels"
+        title="Official Ad Films & Campaign Reels"
         highlightWord="Campaign"
         subtitle="Petrol ka zamana khatam. Ab sheher chalega TEZZ! Watch our commercial films, speed demonstrations, and rider stories."
       />
@@ -171,23 +187,24 @@ export const AdsPage: React.FC = () => {
       {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
       <SectionDivider type="navy-to-sky100" />
 
-      {/* Section 1: Hero Featured Commercial Film (Light Sky-100) */}
+      {/* 2. Cinema Spotlight Theater (Sky-100) */}
       <section className="bg-sky-100 text-navy-950 section-pad">
-        <div className="container-custom space-y-6">
-          <div className="text-center max-w-2xl mx-auto space-y-1.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-royal">
-              Brand Commercial
+        <div className="container-custom space-y-6 sm:space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-royal uppercase tracking-wider">
+              <Film className="w-3.5 h-3.5 text-royal" />
+              <span>Premiere Showcase</span>
             </span>
             <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl">
-              The Official <span className="text-royal">TezzEV Launch Film</span>
+              The Official <span className="text-royal">TezzEV Launch TVC</span>
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base">
+            <p className="text-slate-600 text-xs sm:text-sm md:text-base">
               Created for India's hardest working delivery riders. Zero fuel cost, 2-minute battery swap, and pure electric power.
             </p>
           </div>
 
-          {/* Featured Video Player Box (Crisp White Card with Deep Player) */}
-          <div className="relative max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 bg-white">
+          {/* Cinematic Curved Theater Frame */}
+          <div className="relative max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200/90 bg-black">
             <div className="relative aspect-video sm:aspect-[16/9] w-full flex items-center justify-center bg-black">
               <video
                 ref={heroVideoRef}
@@ -200,11 +217,11 @@ export const AdsPage: React.FC = () => {
                 className="w-full h-full object-cover"
               />
 
-              {/* Gradient Scrim */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+              {/* Scrim */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35 pointer-events-none" />
 
               {/* Top Bar inside player */}
-              <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
+              <div className="absolute top-3.5 sm:top-5 left-3.5 sm:left-5 right-3.5 sm:right-5 flex items-center justify-between z-20">
                 <div className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-bold flex items-center gap-2 shadow-md">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>TezzEV Official TVC • 2026</span>
@@ -221,8 +238,8 @@ export const AdsPage: React.FC = () => {
               </div>
 
               {/* Bottom Player Overlay Bar */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-20">
-                <div className="flex items-center gap-2.5">
+              <div className="absolute bottom-3.5 sm:bottom-5 left-3.5 sm:left-5 right-3.5 sm:right-5 flex items-center justify-between z-20">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <button
                     onClick={toggleHeroPlay}
                     className="w-10 h-10 rounded-xl bg-royal hover:bg-blue text-white flex items-center justify-center transition-all shadow-lg active:scale-95"
@@ -247,8 +264,8 @@ export const AdsPage: React.FC = () => {
                     )}
                   </button>
 
-                  <span className="text-xs font-medium text-slate-200 hidden sm:inline ml-1">
-                    {heroMuted ? 'Tap speaker icon for full sound' : 'Sound ON'}
+                  <span className="text-xs font-semibold text-white hidden sm:inline ml-1">
+                    {heroMuted ? 'Tap for audio 🔈' : 'Audio ON 🔊'}
                   </span>
                 </div>
 
@@ -256,7 +273,7 @@ export const AdsPage: React.FC = () => {
                   onClick={() =>
                     openVideoModal({
                       src: '/videos/tezz-video-1.mp4',
-                      title: 'TezzEV Official Launch Film',
+                      title: 'TezzEV Official Launch TVC',
                       poster: '/images/poster-1.jpg',
                     })
                   }
@@ -268,18 +285,18 @@ export const AdsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Subtext info under hero video (Crisp White Card) */}
-            <div className="p-5 sm:p-7 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-slate-100">
-              <div>
-                <h3 className="font-heading font-bold text-navy-950 text-lg sm:text-xl">
+            {/* Bottom Details Bar */}
+            <div className="p-4 sm:p-6 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-slate-100">
+              <div className="space-y-0.5">
+                <h3 className="font-heading font-extrabold text-navy-950 text-base sm:text-lg">
                   Speed Ka Naya Code: Official Commercial
                 </h3>
-                <p className="text-slate-600 text-xs sm:text-sm mt-0.5">
-                  Launching soon in Indore &amp; Bhopal. Join the waitlist for early rider batch access.
+                <p className="text-slate-600 text-xs sm:text-sm">
+                  Launching soon in Indore &amp; Bhopal. Join the waitlist for priority batch allotment.
                 </p>
               </div>
 
-              <Link to="/waitlist" className="btn-primary !min-h-[42px] !py-0 !px-5 shrink-0">
+              <Link to="/waitlist" className="btn-primary !min-h-[42px] !py-0 !px-5 shrink-0 text-xs sm:text-sm font-bold">
                 <span>Join Launch Waitlist</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -291,34 +308,35 @@ export const AdsPage: React.FC = () => {
       {/* WAVE DIVIDER: Sky-100 to White */}
       <SectionDivider type="sky100-to-white" />
 
-      {/* Section 2: Campaign Reels Gallery (Pure White Clean Background) */}
+      {/* 3. Viral Reels Studio Gallery (Pure White Clean Background) */}
       <section className="bg-white text-navy-950 section-pad">
         <div className="container-custom space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-royal">
-              Video Gallery
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700 uppercase tracking-wider">
+              <Flame className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Trending Reels</span>
             </span>
             <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl">
-              All Commercials &amp; <span className="text-royal">Reels</span>
+              Vertical Reels &amp; <span className="text-royal">Stories</span>
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base">
-              Short, high-energy vertical video clips showing real-world speed, battery swaps, and delivery partner benefits.
+            <p className="text-slate-600 text-xs sm:text-sm md:text-base">
+              Short, high-energy 15-second video clips engineered for mobile screens showing speed, swap demos, and rider earnings.
             </p>
           </div>
 
-          {/* Filter Category Tabs (Clean Light Pills) */}
+          {/* Filter Pills (Clean Light Pills) */}
           <div className="flex items-center justify-center gap-2 flex-wrap">
             {[
-              { id: 'all', label: 'All Ad Videos' },
-              { id: 'commercials', label: 'Commercial Ads' },
-              { id: 'delivery', label: 'Delivery Partner Specials' },
-              { id: 'challenges', label: '10-Sec Challenges' },
-              { id: 'tech', label: 'Scooter Tech & Speed' },
+              { id: 'all', label: '🔥 All Reels (8)' },
+              { id: 'commercials', label: '📺 TV Commercials' },
+              { id: 'delivery', label: '🛵 Rider Stories' },
+              { id: 'challenges', label: '⚡ Hub Challenges' },
+              { id: 'tech', label: '🚀 Speed & Tech' },
             ].map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                   activeCategory === cat.id
                     ? 'bg-royal text-white shadow-md shadow-royal/20 scale-102'
                     : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200'
@@ -329,54 +347,60 @@ export const AdsPage: React.FC = () => {
             ))}
           </div>
 
-          {/* 9:16 Vertical Video Reels Grid (Clean White Cards) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 9:16 Vertical Video Reels Grid (Instagram/TikTok Style Clean Cards) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {filteredCampaigns.map((ad) => (
               <div
                 key={ad.id}
-                className="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/90 shadow-md hover:shadow-xl hover:border-royal transition-all duration-200 flex flex-col justify-between group"
+                onClick={() =>
+                  openVideoModal({
+                    src: ad.videoSrc,
+                    title: ad.title,
+                    poster: ad.poster,
+                  })
+                }
+                className="group relative cursor-pointer rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="mb-3">
-                  <VideoCard
-                    src={ad.videoSrc}
-                    title={ad.title}
-                    poster={ad.poster}
-                    aspect="square"
+                {/* 9:16 Aspect Vertical Reel Box */}
+                <div className="relative aspect-[9/16] w-full overflow-hidden bg-black">
+                  <img
+                    src={ad.poster}
+                    alt={ad.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                </div>
 
-                <div className="space-y-1.5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between text-[11px] text-royal font-semibold mb-1">
-                      <span className="uppercase tracking-wider">{ad.views}</span>
-                      <span className="text-slate-500">{ad.duration}</span>
-                    </div>
+                  {/* Gradient Scrim */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-black/50" />
 
-                    <h4 className="font-heading font-bold text-sm sm:text-base text-navy-950 group-hover:text-royal transition-colors line-clamp-1">
-                      {ad.title}
-                    </h4>
-
-                    <p className="text-xs text-slate-600 line-clamp-2 mt-1 leading-relaxed">
-                      {ad.tagline}
-                    </p>
+                  {/* Top Stats Pill */}
+                  <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10">
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20">
+                      {ad.categoryLabel}
+                    </span>
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-600/90 text-white">
+                      {ad.views}
+                    </span>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <button
-                      onClick={() =>
-                        openVideoModal({
-                          src: ad.videoSrc,
-                          title: ad.title,
-                          poster: ad.poster,
-                        })
-                      }
-                      className="text-royal font-bold hover:underline flex items-center gap-1 transition-colors"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-current" />
-                      <span>Watch Reel</span>
-                    </button>
+                  {/* Center Play Button Overlay on Hover */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="w-14 h-14 rounded-full bg-royal/90 group-hover:bg-royal text-white flex items-center justify-center shadow-xl group-hover:scale-115 transition-all">
+                      <Play className="w-6 h-6 fill-white translate-x-0.5" />
+                    </div>
+                  </div>
 
-                    <span className="text-[10px] text-slate-500 font-medium">TezzEV Original</span>
+                  {/* Bottom Text Scrim Info */}
+                  <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10 text-white space-y-1 text-left">
+                    <h4 className="font-heading font-extrabold text-sm sm:text-base leading-tight group-hover:text-blue-light transition-colors line-clamp-2">
+                      {ad.title}
+                    </h4>
+                    <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed">
+                      {ad.tagline}
+                    </p>
+                    <div className="pt-1.5 flex items-center justify-between text-[10px] text-emerald-400 font-bold border-t border-white/10">
+                      <span>▶ Tap to play reel</span>
+                      <span className="text-slate-300">{ad.duration}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -388,78 +412,120 @@ export const AdsPage: React.FC = () => {
       {/* WAVE DIVIDER: White to Sky-100 */}
       <SectionDivider type="white-to-sky100" />
 
-      {/* Section 3: B2B Brand Advertising / Partner Inquiries (Light Sky-100) */}
+      {/* 4. NEW: B2B Brand Advertising & Impressions Calculator (Sky-100) */}
       <section className="bg-sky-100 text-navy-950 section-pad">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-royal text-xs font-bold">
-                  <Megaphone className="w-3.5 h-3.5" />
-                  <span>B2B FLEET BRANDING</span>
+          <div className="max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-9 md:p-11 border border-slate-200/90 shadow-xl space-y-8">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-royal uppercase tracking-wider">
+                <Megaphone className="w-3.5 h-3.5 text-royal" />
+                <span>B2B Brand Advertising</span>
+              </span>
+              <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl">
+                Turn Every Street Into Your <span className="text-royal">Billboard</span>
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed">
+                Reach lakhs of active urban consumers every day with high-visibility branded wraps on our commercial EV fleet.
+              </p>
+            </div>
+
+            {/* 3 Advertising Channels */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-royal flex items-center justify-center font-bold text-sm">
+                  📦
                 </div>
-
-                <h2 className="text-navy-950 font-bold text-2xl sm:text-3xl font-heading">
-                  Advertise Your Brand on <span className="text-royal">TezzEV Fleet</span>
-                </h2>
-
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                  Put your brand message on thousands of delivery scooters moving across high-traffic city roads 12 hours a day. High impressions, hyper-local city targeting.
+                <h4 className="font-heading font-bold text-navy-950 text-base">
+                  Delivery Box Wraps
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Prime eye-level visibility at red lights and commercial hubs across 3 sides of delivery boxes.
                 </p>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium pt-1">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Delivery Box Rear &amp; Side Wraps</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Scooter Body Decal Advertising</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Tezz Hub Screen Video Promos</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Verified Rider Community Reach</span>
-                  </div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">
+                  🛵
                 </div>
+                <h4 className="font-heading font-bold text-navy-950 text-base">
+                  Scooter Body Decals
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Front apron and side panel branding moving 12 hours a day through heavy city traffic.
+                </p>
+              </div>
 
-                <div className="pt-2 flex items-center gap-3 flex-wrap">
-                  <a
-                    href={`${siteConfig.whatsappLink}%20and%20fleet%20advertising%20inquiry`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary !min-h-[44px]"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
-                    <span>Inquire for Brand Advertising</span>
-                  </a>
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm">
+                  🔋
+                </div>
+                <h4 className="font-heading font-bold text-navy-950 text-base">
+                  Hub Digital Screens
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  100% captive audience during 2-minute battery swaps with riders and neighborhood visitors.
+                </p>
+              </div>
+            </div>
 
-                  <Link to="/contact" className="btn-secondary-light !min-h-[44px] !text-xs sm:!text-sm">
-                    <span>Contact Media Team</span>
-                  </Link>
+            {/* Interactive Impressions Calculator */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-blue-50/70 border border-blue-200 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="space-y-2 text-center md:text-left">
+                <span className="text-xs font-bold uppercase tracking-wider text-royal">
+                  Reach Calculator
+                </span>
+                <h4 className="font-heading font-bold text-navy-950 text-base sm:text-lg">
+                  Select Fleet Sponsorship Size:
+                </h4>
+                <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
+                  {[25, 50, 100, 500].map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setFleetSize(size)}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                        fleetSize === size
+                          ? 'bg-royal text-white shadow-sm'
+                          : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
+                      }`}
+                    >
+                      {size} Scooters
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              {/* Visual Card Right (Crisp Blue Accent Card) */}
-              <div className="lg:col-span-4 flex justify-center">
-                <div className="w-full max-w-[240px] rounded-2xl p-5 bg-royal text-white text-center space-y-3 shadow-xl">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center mx-auto shadow-md">
-                    <Tv className="w-6 h-6" />
-                  </div>
-                  <h4 className="font-heading font-bold text-sm text-white">
-                    10M+ Monthly City Impressions
-                  </h4>
-                  <p className="text-xs text-blue-100 leading-relaxed">
-                    High street visibility across prime commercial and residential sectors in MP.
-                  </p>
-                  <span className="inline-block text-[10px] font-bold text-navy-950 uppercase tracking-wider bg-white px-2.5 py-1 rounded-full shadow-sm">
-                    Launching Soon
-                  </span>
-                </div>
+              {/* Impressions Stat Callout */}
+              <div className="text-center md:text-right shrink-0">
+                <span className="text-xs text-slate-500 font-semibold block">
+                  Estimated Monthly City Impressions:
+                </span>
+                <span className="text-2xl sm:text-3xl font-black text-royal font-heading block mt-0.5">
+                  {monthlyImpressions}+
+                </span>
+                <span className="text-[11px] text-emerald-700 font-bold block mt-0.5">
+                  ⚡ Hyper-Local MP Reach
+                </span>
               </div>
+            </div>
+
+            {/* Media Kit CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              <a
+                href={`${siteConfig.whatsappLink}%20and%20fleet%20advertising%20inquiry`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary !min-h-[44px] w-full sm:w-auto justify-center"
+              >
+                <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
+                <span>Inquire for Brand Sponsorship</span>
+              </a>
+
+              <Link
+                to="/contact"
+                className="btn-secondary-light !min-h-[44px] w-full sm:w-auto justify-center text-xs sm:text-sm font-bold"
+              >
+                <span>Contact Media Team</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -468,7 +534,7 @@ export const AdsPage: React.FC = () => {
       {/* WAVE DIVIDER: Sky-100 to Deep Navy */}
       <SectionDivider type="sky100-to-navy" />
 
-      {/* Section 4: Final Call to Action (Deep Navy Grounding) */}
+      {/* 5. Final Call to Action (Deep Navy Grounding) */}
       <section className="bg-gradient-deep text-white section-pad text-center">
         <div className="container-custom max-w-2xl mx-auto space-y-4">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-light">

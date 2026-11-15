@@ -155,59 +155,61 @@ export const PricingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* 3 Plan Cards */}
-          <div id="plans" className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          {/* 3 Plan Cards (Single card on mobile, 3 cards on MD & LG screens) */}
+          <div id="plans" className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 items-stretch">
             {siteConfig.pricingPlans.map((plan) => (
               <div
                 key={plan.id}
-                className={`tezz-card p-6 flex flex-col justify-between relative bg-white ${
+                className={`tezz-card p-4 sm:p-5 md:p-3.5 lg:p-6 flex flex-col justify-between relative bg-white ${
                   plan.popular
                     ? "border-2 border-royal shadow-lg md:-translate-y-1"
                     : ""
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-royal text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-royal text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-sm z-10 whitespace-nowrap">
                     Most Popular
                   </div>
                 )}
 
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-bold text-navy-950 font-heading">
+                  <div className="flex items-center justify-between mb-2 gap-1.5">
+                    <h3 className="text-base sm:text-lg md:text-base lg:text-lg font-bold text-navy-950 font-heading">
                       {plan.name}
                     </h3>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-sky-100 text-royal font-semibold">
-                      {plan.badge}
-                    </span>
+                    {!plan.popular && (
+                      <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-sky-100 text-royal font-semibold shrink-0">
+                        {plan.badge}
+                      </span>
+                    )}
                   </div>
 
-                  <p className="text-xs text-text-light-muted mb-4">
+                  <p className="text-xs md:text-[11px] lg:text-xs text-text-light-muted mb-3 sm:mb-4 line-clamp-2">
                     {plan.description}
                   </p>
 
-                  <div className="mb-4 pb-4 border-b border-slate-100">
+                  <div className="mb-3 sm:mb-4 pb-3 sm:pb-4 border-b border-slate-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-2xl sm:text-3xl font-black text-navy-950 font-heading">
+                      <span className="text-2xl sm:text-3xl md:text-2xl lg:text-3xl font-black text-navy-950 font-heading">
                         {plan.price}
                       </span>
                       <span className="text-xs text-text-light-muted">
                         /{plan.period}
                       </span>
                     </div>
-                    <span className="text-[11px] text-text-light-muted mt-0.5 block">
+                    <span className="text-[10px] sm:text-[11px] text-text-light-muted mt-0.5 block">
                       *Official launch rent announced soon.
                     </span>
                   </div>
 
-                  <div className="space-y-2.5 mb-6">
+                  <div className="space-y-2 md:space-y-1.5 lg:space-y-2.5 mb-5 sm:mb-6">
                     {plan.features.map((feat, fIdx) => (
                       <div
                         key={fIdx}
-                        className="flex items-center gap-2 text-xs sm:text-sm"
+                        className="flex items-start gap-1.5 sm:gap-2 text-xs md:text-[11px] lg:text-xs"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-leaf shrink-0" />
-                        <span className="text-text-light">{feat}</span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-leaf shrink-0 mt-0.5" />
+                        <span className="text-text-light leading-tight">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -217,8 +219,8 @@ export const PricingPage: React.FC = () => {
                   to="/waitlist"
                   className={
                     plan.popular
-                      ? "btn-primary w-full justify-center !min-h-[42px]"
-                      : "btn-secondary-light w-full justify-center !min-h-[42px]"
+                      ? "btn-primary w-full justify-center !min-h-[40px] text-xs sm:text-sm font-bold"
+                      : "btn-secondary-light w-full justify-center !min-h-[40px] text-xs sm:text-sm font-bold"
                   }
                 >
                   <span>Select {plan.name}</span>
