@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
     <>
       {/* Header fixed to the top on every screen, with bottom-left and bottom-right corners cleanly rounded */}
       <header
-        className="sticky top-0 z-[100] w-full bg-[#06122E] rounded-b-2xl sm:rounded-b-3xl border-b border-navy-800 shadow-xl overflow-hidden"
+        className="fixed top-0 inset-x-0 z-[100] w-full bg-[#06122E] rounded-b-2xl sm:rounded-b-3xl border-b border-navy-800 shadow-xl overflow-hidden"
         style={{ backgroundColor: '#06122E' }}
       >
         {/* 1. Thin Navy-950 Top Strip */}
@@ -66,7 +66,7 @@ export const Navbar: React.FC = () => {
 
         {/* 2. Main Navigation Bar */}
         <div className="bg-[#06122E] w-full" style={{ backgroundColor: '#06122E' }}>
-          <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-18 flex items-center justify-between">
+          <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-[72px] flex items-center justify-between">
             {/* Brand Logo */}
             <TezzLogo variant="dark" size="md" />
 
@@ -128,10 +128,13 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
+      {/* Spacer so that page content starts cleanly below the fixed header without clipping */}
+      <div className="h-[94px] sm:h-[105px] w-full shrink-0" aria-hidden="true" />
+
       {/* Mobile Slide-in Drawer (Mounted outside header to prevent clipping) */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 top-[96px] sm:top-[106px] z-[99] bg-navy-950/80 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 top-[94px] sm:top-[105px] z-[99] bg-navy-950/80 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
