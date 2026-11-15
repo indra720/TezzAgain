@@ -4,7 +4,13 @@ type DividerType =
   | 'navy-to-sky200'
   | 'sky200-to-navy'
   | 'navy-to-sky100'
-  | 'sky100-to-navy';
+  | 'sky100-to-navy'
+  | 'sky200-to-sky100'
+  | 'sky100-to-sky200'
+  | 'white-to-sky100'
+  | 'sky100-to-white'
+  | 'white-to-sky200'
+  | 'sky200-to-white';
 
 interface SectionDividerProps {
   type: DividerType;
@@ -16,6 +22,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({ type, className 
     navyDeep: '#06122E',
     sky200: '#D6E6FF',
     sky100: '#EAF2FF',
+    white: '#FFFFFF',
   };
 
   switch (type) {
@@ -82,6 +89,108 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({ type, className 
             <path
               d="M0,0 C380,38 1060,38 1440,0 L1440,40 L0,40 Z"
               fill={colors.navyDeep}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'sky200-to-sky100':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C360,35 1080,35 1440,0 L1440,40 L0,40 Z"
+              fill={colors.sky100}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'sky100-to-sky200':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C420,38 1020,38 1440,0 L1440,40 L0,40 Z"
+              fill={colors.sky200}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'white-to-sky100':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C420,38 1020,38 1440,0 L1440,40 L0,40 Z"
+              fill={colors.sky100}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'sky100-to-white':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C360,35 1080,35 1440,0 L1440,40 L0,40 Z"
+              fill={colors.white}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'white-to-sky200':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C420,38 1020,38 1440,0 L1440,40 L0,40 Z"
+              fill={colors.sky200}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'sky200-to-white':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C360,35 1080,35 1440,0 L1440,40 L0,40 Z"
+              fill={colors.white}
             />
           </svg>
         </div>

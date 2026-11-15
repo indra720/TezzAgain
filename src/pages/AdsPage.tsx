@@ -11,11 +11,8 @@ import {
   Share2,
   ArrowRight,
   Tv,
-  Smartphone,
-  Flame,
   CheckCircle2,
   Megaphone,
-  MessageCircle,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
@@ -171,26 +168,26 @@ export const AdsPage: React.FC = () => {
         subtitle="Petrol ka zamana khatam. Ab sheher chalega TEZZ! Watch our commercial films, speed demonstrations, and rider stories."
       />
 
-      {/* WAVE DIVIDER: Deep Navy to Sky-200 */}
-      <SectionDivider type="navy-to-sky200" />
+      {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
+      <SectionDivider type="navy-to-sky100" />
 
-      {/* Section 1: Hero Featured Commercial Film (Sky-200) */}
-      <section className="bg-sky-200 text-text-light section-pad">
+      {/* Section 1: Hero Featured Commercial Film (Light Sky-100) */}
+      <section className="bg-sky-100 text-navy-950 section-pad">
         <div className="container-custom space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-1.5">
             <span className="text-xs font-bold uppercase tracking-wider text-royal">
               Brand Commercial
             </span>
-            <h2 className="text-navy-950">
+            <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl">
               The Official <span className="text-royal">TezzEV Launch Film</span>
             </h2>
-            <p className="text-slate-700 text-sm sm:text-base">
+            <p className="text-slate-600 text-sm sm:text-base">
               Created for India's hardest working delivery riders. Zero fuel cost, 2-minute battery swap, and pure electric power.
             </p>
           </div>
 
-          {/* Featured Video Player Box */}
-          <div className="relative max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-2 border-royal/30 bg-navy-950">
+          {/* Featured Video Player Box (Crisp White Card with Deep Player) */}
+          <div className="relative max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 bg-white">
             <div className="relative aspect-video sm:aspect-[16/9] w-full flex items-center justify-center bg-black">
               <video
                 ref={heroVideoRef}
@@ -204,18 +201,18 @@ export const AdsPage: React.FC = () => {
               />
 
               {/* Gradient Scrim */}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/40 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
 
               {/* Top Bar inside player */}
               <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
-                <div className="px-3 py-1.5 rounded-full bg-navy-950/80 backdrop-blur-md border border-navy-700/60 text-white text-xs font-bold flex items-center gap-2 shadow-md">
-                  <span className="w-2.5 h-2.5 rounded-full bg-leaf animate-pulse" />
+                <div className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-bold flex items-center gap-2 shadow-md">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>TezzEV Official TVC • 2026</span>
                 </div>
 
                 <button
                   onClick={handleShare}
-                  className="px-3 py-1.5 rounded-full bg-navy-900/80 backdrop-blur-md hover:bg-navy-800 text-white text-xs font-medium flex items-center gap-1.5 transition-colors border border-navy-700/60 shadow-md"
+                  className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 text-white text-xs font-medium flex items-center gap-1.5 transition-colors border border-white/20 shadow-md"
                   aria-label="Share Campaign"
                 >
                   <Share2 className="w-3.5 h-3.5" />
@@ -240,13 +237,13 @@ export const AdsPage: React.FC = () => {
 
                   <button
                     onClick={toggleHeroMute}
-                    className="w-10 h-10 rounded-xl bg-navy-900/90 hover:bg-navy-800 text-white flex items-center justify-center transition-colors border border-navy-700/60 shadow-lg"
+                    className="w-10 h-10 rounded-xl bg-black/70 hover:bg-black text-white flex items-center justify-center transition-colors border border-white/20 shadow-lg"
                     aria-label={heroMuted ? 'Unmute sound' : 'Mute sound'}
                   >
                     {heroMuted ? (
                       <VolumeX className="w-4 h-4 text-slate-300" />
                     ) : (
-                      <Volume2 className="w-4 h-4 text-leaf" />
+                      <Volume2 className="w-4 h-4 text-emerald-400" />
                     )}
                   </button>
 
@@ -263,22 +260,22 @@ export const AdsPage: React.FC = () => {
                       poster: '/images/poster-1.jpg',
                     })
                   }
-                  className="px-3.5 py-2 rounded-xl bg-navy-900/90 hover:bg-navy-800 text-white text-xs font-semibold flex items-center gap-1.5 border border-navy-700/60 shadow-lg transition-colors"
+                  className="px-3.5 py-2 rounded-xl bg-black/70 hover:bg-black text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20 shadow-lg transition-colors"
                 >
-                  <Maximize2 className="w-3.5 h-3.5 text-blue-light" />
+                  <Maximize2 className="w-3.5 h-3.5 text-royal" />
                   <span>Full Screen</span>
                 </button>
               </div>
             </div>
 
-            {/* Subtext info under hero video */}
-            <div className="p-4 sm:p-6 bg-navy-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-navy-800">
+            {/* Subtext info under hero video (Crisp White Card) */}
+            <div className="p-5 sm:p-7 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-slate-100">
               <div>
-                <h3 className="font-heading font-bold text-white text-lg sm:text-xl">
+                <h3 className="font-heading font-bold text-navy-950 text-lg sm:text-xl">
                   Speed Ka Naya Code: Official Commercial
                 </h3>
-                <p className="text-slate-300 text-xs sm:text-sm mt-0.5">
-                  Launching soon in Indore & Bhopal. Join the waitlist for early rider batch access.
+                <p className="text-slate-600 text-xs sm:text-sm mt-0.5">
+                  Launching soon in Indore &amp; Bhopal. Join the waitlist for early rider batch access.
                 </p>
               </div>
 
@@ -291,25 +288,25 @@ export const AdsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* WAVE DIVIDER: Sky-200 to Deep Navy */}
-      <SectionDivider type="sky200-to-navy" />
+      {/* WAVE DIVIDER: Sky-100 to White */}
+      <SectionDivider type="sky100-to-white" />
 
-      {/* Section 2: Campaign Reels Gallery (Deep Navy Gradient) */}
-      <section className="bg-gradient-deep text-white section-pad">
+      {/* Section 2: Campaign Reels Gallery (Pure White Clean Background) */}
+      <section className="bg-white text-navy-950 section-pad">
         <div className="container-custom space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
+            <span className="text-xs font-bold uppercase tracking-wider text-royal">
               Video Gallery
             </span>
-            <h2 className="text-white">
-              All Commercials &amp; <span className="text-blue-light">Reels</span>
+            <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl">
+              All Commercials &amp; <span className="text-royal">Reels</span>
             </h2>
-            <p className="text-text-dark-muted text-sm sm:text-base">
+            <p className="text-slate-600 text-sm sm:text-base">
               Short, high-energy vertical video clips showing real-world speed, battery swaps, and delivery partner benefits.
             </p>
           </div>
 
-          {/* Filter Category Tabs */}
+          {/* Filter Category Tabs (Clean Light Pills) */}
           <div className="flex items-center justify-center gap-2 flex-wrap">
             {[
               { id: 'all', label: 'All Ad Videos' },
@@ -323,8 +320,8 @@ export const AdsPage: React.FC = () => {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                   activeCategory === cat.id
-                    ? 'bg-royal text-white shadow-lg shadow-royal/30 scale-102'
-                    : 'bg-navy-900 text-slate-300 border border-navy-800 hover:bg-navy-800'
+                    ? 'bg-royal text-white shadow-md shadow-royal/20 scale-102'
+                    : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200'
                 }`}
               >
                 {cat.label}
@@ -332,12 +329,12 @@ export const AdsPage: React.FC = () => {
             ))}
           </div>
 
-          {/* 9:16 Vertical Video Reels Grid */}
+          {/* 9:16 Vertical Video Reels Grid (Clean White Cards) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredCampaigns.map((ad) => (
               <div
                 key={ad.id}
-                className="bg-navy-900/60 rounded-2xl p-3 sm:p-4 border border-navy-800 shadow-xl flex flex-col justify-between hover:border-royal transition-all duration-200 group"
+                className="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/90 shadow-md hover:shadow-xl hover:border-royal transition-all duration-200 flex flex-col justify-between group"
               >
                 <div className="mb-3">
                   <VideoCard
@@ -350,21 +347,21 @@ export const AdsPage: React.FC = () => {
 
                 <div className="space-y-1.5 flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between text-[11px] text-blue-light font-semibold mb-1">
+                    <div className="flex items-center justify-between text-[11px] text-royal font-semibold mb-1">
                       <span className="uppercase tracking-wider">{ad.views}</span>
-                      <span className="text-slate-400">{ad.duration}</span>
+                      <span className="text-slate-500">{ad.duration}</span>
                     </div>
 
-                    <h4 className="font-heading font-bold text-sm sm:text-base text-white group-hover:text-blue-light transition-colors line-clamp-1">
+                    <h4 className="font-heading font-bold text-sm sm:text-base text-navy-950 group-hover:text-royal transition-colors line-clamp-1">
                       {ad.title}
                     </h4>
 
-                    <p className="text-xs text-text-dark-muted line-clamp-2 mt-1 leading-relaxed">
+                    <p className="text-xs text-slate-600 line-clamp-2 mt-1 leading-relaxed">
                       {ad.tagline}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-navy-800/80 flex items-center justify-between text-xs">
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                     <button
                       onClick={() =>
                         openVideoModal({
@@ -373,13 +370,13 @@ export const AdsPage: React.FC = () => {
                           poster: ad.poster,
                         })
                       }
-                      className="text-royal font-bold hover:text-blue-light flex items-center gap-1 transition-colors"
+                      className="text-royal font-bold hover:underline flex items-center gap-1 transition-colors"
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
                       <span>Watch Reel</span>
                     </button>
 
-                    <span className="text-[10px] text-slate-400 font-medium">TezzEV Original</span>
+                    <span className="text-[10px] text-slate-500 font-medium">TezzEV Original</span>
                   </div>
                 </div>
               </div>
@@ -388,16 +385,16 @@ export const AdsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
-      <SectionDivider type="navy-to-sky100" />
+      {/* WAVE DIVIDER: White to Sky-100 */}
+      <SectionDivider type="white-to-sky100" />
 
-      {/* Section 3: B2B Brand Advertising / Partner Inquiries (Sky-100) */}
-      <section className="bg-sky-100 text-text-light section-pad">
+      {/* Section 3: B2B Brand Advertising / Partner Inquiries (Light Sky-100) */}
+      <section className="bg-sky-100 text-navy-950 section-pad">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#D6E4FB] shadow-xl">
+          <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-royal text-xs font-bold">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-royal text-xs font-bold">
                   <Megaphone className="w-3.5 h-3.5" />
                   <span>B2B FLEET BRANDING</span>
                 </div>
@@ -412,19 +409,19 @@ export const AdsPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium pt-1">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-leaf shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Delivery Box Rear &amp; Side Wraps</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-leaf shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Scooter Body Decal Advertising</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-leaf shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Tezz Hub Screen Video Promos</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-leaf shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>Verified Rider Community Reach</span>
                   </div>
                 </div>
@@ -446,19 +443,19 @@ export const AdsPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Visual Card Right */}
+              {/* Visual Card Right (Crisp Blue Accent Card) */}
               <div className="lg:col-span-4 flex justify-center">
-                <div className="w-full max-w-[240px] rounded-2xl p-4 bg-navy-950 text-white text-center space-y-3 shadow-xl border border-navy-800">
-                  <div className="w-12 h-12 rounded-2xl bg-royal text-white flex items-center justify-center mx-auto shadow-md">
+                <div className="w-full max-w-[240px] rounded-2xl p-5 bg-royal text-white text-center space-y-3 shadow-xl">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center mx-auto shadow-md">
                     <Tv className="w-6 h-6" />
                   </div>
                   <h4 className="font-heading font-bold text-sm text-white">
                     10M+ Monthly City Impressions
                   </h4>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="text-xs text-blue-100 leading-relaxed">
                     High street visibility across prime commercial and residential sectors in MP.
                   </p>
-                  <span className="inline-block text-[10px] font-bold text-blue-light uppercase tracking-wider bg-navy-900 px-2.5 py-1 rounded-full">
+                  <span className="inline-block text-[10px] font-bold text-navy-950 uppercase tracking-wider bg-white px-2.5 py-1 rounded-full shadow-sm">
                     Launching Soon
                   </span>
                 </div>
@@ -471,7 +468,7 @@ export const AdsPage: React.FC = () => {
       {/* WAVE DIVIDER: Sky-100 to Deep Navy */}
       <SectionDivider type="sky100-to-navy" />
 
-      {/* Section 4: Final Call to Action (Deep Navy) */}
+      {/* Section 4: Final Call to Action (Deep Navy Grounding) */}
       <section className="bg-gradient-deep text-white section-pad text-center">
         <div className="container-custom max-w-2xl mx-auto space-y-4">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-light">

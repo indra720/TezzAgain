@@ -130,30 +130,18 @@ export const HowItWorksPage: React.FC = () => {
         </div>
       </section>
 
-      {/* WAVE DIVIDER: Sky-200 to Deep Navy */}
-      <SectionDivider type="sky200-to-navy" />
+      {/* WAVE DIVIDER: Sky-200 to White */}
+      <SectionDivider type="sky200-to-white" />
 
-      {/* Section 2: Interactive Step-by-Step Video Guide (Deep Navy) */}
-      <section className="bg-gradient-deep text-white section-pad">
-        <div className="container-custom space-y-8">
-          <div className="text-center max-w-2xl mx-auto mb-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
-              Step-by-Step Guide
-            </span>
-            <h2 className="text-white mt-1 mb-1.5">
-              Every step has its own <span className="text-blue-light">video</span>
-            </h2>
-            <p className="text-text-dark-muted text-sm sm:text-base">
-              Follow along with our interactive smartphone guide to get on the road smoothly without delays.
-            </p>
-          </div>
-
+      {/* Section 2: Interactive Step-by-Step Video Guide (Clean Pure White Theme) */}
+      <section className="bg-white text-navy-950 section-pad">
+        <div className="container-custom">
           <InteractiveJoinStepper />
         </div>
       </section>
 
-      {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
-      <SectionDivider type="navy-to-sky100" />
+      {/* WAVE DIVIDER: White to Sky-100 */}
+      <SectionDivider type="white-to-sky100" />
 
       {/* Section 3: Documents You Need + Upload Video (Sky-100) */}
       <section className="bg-sky-100 text-text-light section-pad">

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CheckCircle2,
@@ -9,18 +9,21 @@ import {
   Pause,
   Maximize2,
   Sparkles,
+  Smartphone,
+  ShieldCheck,
+  Check,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVideoModal } from '../ui/VideoContext';
-import { PlayStoreIcon } from '../ui/BrandIcons';
 
 interface StepItem {
   id: number;
   num: string;
-  badge: string;
-  tabTitle: string;
+  stepName: string;
   title: string;
   desc: string;
+  floatingCardTitle: string;
+  floatingCardSub: string;
   highlights: string[];
   videoSrc: string;
   poster: string;
@@ -32,11 +35,12 @@ const stepsData: StepItem[] = [
   {
     id: 1,
     num: '01',
-    badge: 'Step 1 • 2 Mins',
-    tabTitle: 'KYC',
-    title: 'Complete Online KYC',
-    desc: 'Paperless digital verification in just 2 minutes. Submit your Aadhaar card and Driving Licence to get started.',
-    highlights: ['Zero physical paperwork', 'Instant digital verification', 'No credit card needed'],
+    stepName: 'Complete Your KYC',
+    title: 'Complete Your KYC',
+    desc: 'Add your personal details like Aadhaar, PAN, and Bank details! Live digital verification in 2 minutes without paper forms.',
+    floatingCardTitle: 'Paperless Digital KYC',
+    floatingCardSub: 'Approved in 15 mins • No credit score needed',
+    highlights: ['Zero physical paperwork', 'Instant Aadhaar OTP verification', 'No credit card required'],
     videoSrc: '/videos/tezz-video-3.mp4',
     poster: '/images/poster-3.jpg',
     linkText: 'Register in 2 Mins',
@@ -45,11 +49,12 @@ const stepsData: StepItem[] = [
   {
     id: 2,
     num: '02',
-    badge: 'Step 2 • Plans',
-    tabTitle: 'Plans',
-    title: 'Choose Scooter & Plan',
-    desc: 'Select from affordable Daily, Weekly or Monthly rental plans. All plans include unlimited battery swaps and free maintenance.',
-    highlights: ['Unlimited battery swaps', 'Low refundable deposit', 'Change plans anytime'],
+    stepName: 'Choose Your Scooter',
+    title: 'Choose Your Scooter & Plan',
+    desc: 'Select your preferred scooter model and choose from affordable Daily, Weekly or Monthly rental plans.',
+    floatingCardTitle: 'Select Scooter & Plan',
+    floatingCardSub: 'Swappable dual batteries • Low security deposit',
+    highlights: ['Unlimited battery swaps included', 'Flexible daily & weekly extensions', 'Free hub maintenance'],
     videoSrc: '/videos/tezz-video-1.mp4',
     poster: '/images/poster-1.jpg',
     linkText: 'Explore Rental Plans',
@@ -58,11 +63,12 @@ const stepsData: StepItem[] = [
   {
     id: 3,
     num: '03',
-    badge: 'Step 3 • Hub Pickup',
-    tabTitle: 'Hub Pickup',
+    stepName: 'Pick Up from Tezz Hub',
     title: 'Pick Up from Tezz Hub',
     desc: 'Visit your nearest TezzEV Hub in Indore or Bhopal. Collect your fully charged scooter, helmet, and vehicle keys in 5 minutes.',
-    highlights: ['Vehicles fully sanitized & inspected', 'Keys & helmet provided', 'Pre-charged dual battery'],
+    floatingCardTitle: 'Instant Hub Handover',
+    floatingCardSub: 'Sanitized scooter • Dual charged batteries • Helmet',
+    highlights: ['Vehicles fully inspected & sanitized', 'Keys & helmet provided', 'Pre-charged dual battery'],
     videoSrc: '/videos/tezz-video-2.mp4',
     poster: '/images/poster-4.jpg',
     linkText: 'Find Nearest Hub',
@@ -71,11 +77,12 @@ const stepsData: StepItem[] = [
   {
     id: 4,
     num: '04',
-    badge: 'Step 4 • Daily Cash',
-    tabTitle: 'Start Earning',
+    stepName: 'Start Earning',
     title: 'Start Earning & Ride TEZZ',
-    desc: 'Login to Zomato, Swiggy, Zepto or Blinkit. Deliver orders all day with zero petrol cost and take home maximum daily profits.',
-    highlights: ['Save ₹4,000+ on fuel every month', '24/7 Roadside breakdown support', '2-Minute quick battery swap'],
+    desc: 'Activate your client ID and begin deliveries on Zomato, Swiggy, Zepto or Blinkit to maximize daily take-home earnings.',
+    floatingCardTitle: 'Last Mile Deliveries',
+    floatingCardSub: 'Maximize your earnings by delivering more orders',
+    highlights: ['Save ₹4,000 to ₹6,000 on petrol', '24/7 Roadside breakdown support', 'Zero vehicle depreciation'],
     videoSrc: '/videos/tezz-video-4.mp4',
     poster: '/images/poster-2.jpg',
     linkText: 'Join Launch Waitlist',
@@ -83,124 +90,24 @@ const stepsData: StepItem[] = [
   },
 ];
 
-// Video slides up vertically from the bottom when step changes
-const slideFromBottomVariants = {
-  enter: {
-    y: '100%',
-    opacity: 0.65,
-    scale: 0.96,
-  },
-  center: {
-    y: '0%',
-    opacity: 1,
-    scale: 1,
-    transition: {
-      y: { type: 'spring', stiffness: 230, damping: 25, mass: 0.8 },
-      opacity: { duration: 0.22 },
-      scale: { duration: 0.22 },
-    },
-  },
-  exit: {
-    y: '-100%',
-    opacity: 0.45,
-    scale: 0.96,
-    transition: {
-      y: { type: 'spring', stiffness: 230, damping: 25, mass: 0.8 },
-      opacity: { duration: 0.2 },
-    },
-  },
-};
-
 export const InteractiveJoinStepper: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stepCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const isProgrammaticScroll = useRef(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const { openVideoModal } = useVideoModal();
 
   const currentStep = stepsData.find((s) => s.id === activeStep) || stepsData[0];
 
-  // User self-scroll handler (Desktop scroll container)
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (isProgrammaticScroll.current) return;
-    const container = e.currentTarget;
-    const scrollTop = container.scrollTop;
-    const scrollHeight = container.scrollHeight;
-    const clientHeight = container.clientHeight;
-
-    // Edge check: Top
-    if (scrollTop <= 30) {
-      if (activeStep !== 1) setActiveStep(1);
-      return;
-    }
-    // Edge check: Bottom
-    if (scrollTop + clientHeight >= scrollHeight - 30) {
-      if (activeStep !== 4) setActiveStep(4);
-      return;
-    }
-
-    const cards = stepCardRefs.current;
-    if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
-
-    const top1 = cards[0].offsetTop;
-    const top2 = cards[1].offsetTop;
-    const top3 = cards[2].offsetTop;
-    const top4 = cards[3].offsetTop;
-
-    const mid12 = (top1 + top2) / 2;
-    const mid23 = (top2 + top3) / 2;
-    const mid34 = (top3 + top4) / 2;
-
-    const cursor = scrollTop + clientHeight * 0.35;
-
-    let newStep = 1;
-    if (cursor < mid12) {
-      newStep = 1;
-    } else if (cursor < mid23) {
-      newStep = 2;
-    } else if (cursor < mid34) {
-      newStep = 3;
-    } else {
-      newStep = 4;
-    }
-
-    if (newStep !== activeStep) {
-      setActiveStep(newStep);
-    }
-  };
-
-  // Direct click / tap on step
   const handleStepClick = (stepId: number) => {
-    if (stepId === activeStep) return;
     setActiveStep(stepId);
-
-    const container = containerRef.current;
-    const targetCard = stepCardRefs.current[stepId - 1];
-    if (container && targetCard) {
-      isProgrammaticScroll.current = true;
-      const targetTop = targetCard.offsetTop - container.offsetTop - 12;
-      container.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
-      setTimeout(() => {
-        isProgrammaticScroll.current = false;
-      }, 450);
-    }
-  };
-
-  // Autoplay video on step change
-  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
+      videoRef.current.play().catch(() => {});
+      setIsPlaying(true);
     }
-  }, [activeStep]);
+  };
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -219,40 +126,27 @@ export const InteractiveJoinStepper: React.FC = () => {
     setIsMuted(videoRef.current.muted);
   };
 
-  const handleFullscreen = () => {
-    openVideoModal({
-      src: currentStep.videoSrc,
-      title: `${currentStep.num}. ${currentStep.title}`,
-      poster: currentStep.poster,
-    });
-  };
-
-  // Reusable Phone Frame Player
-  const renderPhonePlayer = (maxWidth = 'max-w-[270px] sm:max-w-[310px]') => (
-    <div className={`relative w-full ${maxWidth}`}>
-      {/* Phone Outer Chassis (Metallic Navy & Royal Blue Trim) */}
-      <div className="relative rounded-[40px] p-3 sm:p-3.5 bg-gradient-to-b from-navy-800 via-navy-950 to-navy-900 border-2 border-navy-700 shadow-2xl shadow-black/80">
-        {/* Phone Speaker & Dynamic Island Notch */}
-        <div className="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-4 bg-navy-950 rounded-full z-30 flex items-center justify-center gap-2 border border-navy-800/80">
-          <div className="w-2 h-2 rounded-full bg-navy-900" />
-          <div className="w-8 h-1 rounded-full bg-navy-900" />
+  // Render the Clean Smartphone Mockup
+  const renderPhonePlayer = (maxWidthClass = 'max-w-[280px]') => (
+    <div className={`relative w-full ${maxWidthClass} mx-auto select-none`}>
+      {/* Smartphone Outer Titanium/Slate Frame */}
+      <div className="relative rounded-[36px] p-2 bg-slate-900 border-4 border-slate-700/80 shadow-2xl">
+        {/* Dynamic Island / Notch */}
+        <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-black rounded-full z-30 flex items-center justify-center">
+          <div className="w-2.5 h-2.5 rounded-full bg-slate-800 mr-2" />
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500/80" />
         </div>
 
-        {/* Phone Screen Area (Aspect 9:16) with Bottom-Slide Overflow Container */}
-        <div className="relative aspect-[9/16] w-full rounded-[30px] overflow-hidden bg-black border border-navy-900">
-          {/* 3D Cylindrical Vignette Shadows (Top & Bottom Curve) */}
-          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/85 via-black/35 to-transparent z-20 pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/90 via-black/45 to-transparent z-20 pointer-events-none" />
-
-          {/* Animated Bottom-Slide Video with Framer Motion AnimatePresence */}
-          <AnimatePresence initial={false}>
+        {/* Video Screen Area */}
+        <div className="relative aspect-[9/16] w-full rounded-[28px] overflow-hidden bg-black">
+          <AnimatePresence mode="wait">
             <motion.div
               key={currentStep.id}
-              variants={slideFromBottomVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="absolute inset-0 w-full h-full"
+              initial={{ opacity: 0.6, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0.4, y: -30 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="w-full h-full"
             >
               <video
                 ref={videoRef}
@@ -267,281 +161,246 @@ export const InteractiveJoinStepper: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Top Overlay Badge */}
-          <div className="absolute top-6 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
-            <div className="px-2.5 py-1 rounded-full bg-navy-950/85 backdrop-blur-md border border-navy-700/60 flex items-center gap-1.5 shadow-md">
-              <span className="w-2 h-2 rounded-full bg-leaf animate-pulse" />
-              <span className="text-[11px] font-bold text-white tracking-wide">
-                Step 0{currentStep.id}/04
+          {/* Top Brand Tag inside phone */}
+          <div className="absolute top-9 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/60 text-white backdrop-blur-sm border border-white/10">
+              TEZZ App • Step {currentStep.num}
+            </span>
+            <span className="text-[10px] font-semibold text-white/90 bg-emerald-600/90 px-2 py-0.5 rounded-full">
+              Live
+            </span>
+          </div>
+
+          {/* Bottom Floating Card inside/over Phone (Just like Zypp) */}
+          <div className="absolute bottom-3 left-3 right-3 z-20">
+            <div className="p-3 rounded-2xl bg-white/95 backdrop-blur-md shadow-lg border border-slate-200 text-navy-950 text-left space-y-1">
+              <span className="text-[10px] font-bold text-royal uppercase tracking-wider block">
+                {currentStep.floatingCardTitle}
               </span>
-            </div>
-
-            <span className="text-[10px] font-bold text-blue-light bg-royal/80 px-2 py-0.5 rounded-md">
-              TezzEV
-            </span>
-          </div>
-
-          {/* Floating Video Action Controls Inside Phone */}
-          <div className="absolute bottom-3 left-3 right-3 z-30 space-y-2">
-            <div className="p-2.5 rounded-2xl bg-navy-950/85 backdrop-blur-md border border-navy-700/60 shadow-lg flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={togglePlay}
-                  className="w-8 h-8 rounded-xl bg-royal hover:bg-blue text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm"
-                  aria-label={isPlaying ? 'Pause Video' : 'Play Video'}
-                >
-                  {isPlaying ? (
-                    <Pause className="w-4 h-4 fill-white" />
-                  ) : (
-                    <Play className="w-4 h-4 fill-white translate-x-0.5" />
-                  )}
-                </button>
-
-                <button
-                  onClick={toggleMute}
-                  className="w-8 h-8 rounded-xl bg-navy-800 hover:bg-navy-700 text-white flex items-center justify-center transition-colors shadow-sm"
-                  aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-4 h-4 text-slate-300" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 text-leaf" />
-                  )}
-                </button>
-              </div>
-
-              <button
-                onClick={handleFullscreen}
-                className="px-2.5 py-1.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-blue-light text-xs font-semibold flex items-center gap-1 transition-colors"
-                aria-label="Open Fullscreen"
-              >
-                <Maximize2 className="w-3.5 h-3.5" />
-                <span>Expand</span>
-              </button>
+              <p className="text-[11px] text-slate-600 font-medium leading-tight line-clamp-2">
+                {currentStep.floatingCardSub}
+              </p>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom Ambient Shadow */}
-      <div className="absolute -bottom-4 inset-x-6 h-6 bg-royal/20 blur-xl rounded-full pointer-events-none" />
-    </div>
-  );
-
-  return (
-    <div className="w-full">
-      {/* ======================================================== */}
-      {/* 1. MOBILE RESPONSIVE VIEW (< lg screens) */}
-      {/* ======================================================== */}
-      <div className="block lg:hidden space-y-5">
-        {/* 4 Equal Tabs - Always 100% visible across mobile screen without any horizontal cutoff */}
-        <div className="grid grid-cols-4 gap-1.5 bg-navy-950/80 p-1.5 rounded-2xl border border-navy-800">
-          {stepsData.map((step) => {
-            const isActive = step.id === activeStep;
-            return (
-              <button
-                key={step.id}
-                onClick={() => handleStepClick(step.id)}
-                className={`py-2 px-1 rounded-xl text-center transition-all ${
-                  isActive
-                    ? 'bg-gradient-brand text-white shadow-md shadow-royal/40 font-bold scale-[1.02]'
-                    : 'bg-transparent text-slate-400 hover:text-white'
-                }`}
-              >
-                <div className="text-xs font-extrabold font-heading">{step.num}</div>
-                <div className="text-[10px] truncate leading-tight opacity-90 mt-0.5">
-                  {step.tabTitle}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Smartphone Video Player Center Stage */}
-        <div className="flex flex-col items-center justify-center pt-1">
-          {renderPhonePlayer('max-w-[250px] sm:max-w-[280px]')}
-          <p className="text-[11px] text-text-dark-muted text-center mt-3">
-            Tap tabs or step below to watch each video in action
-          </p>
-        </div>
-
-        {/* Active Step Details Card (Clean, Full-width, Zero Clipping) */}
-        <div className="bg-gradient-to-r from-navy-900 to-navy-950 border border-royal/70 rounded-2xl p-4 sm:p-5 shadow-xl space-y-3">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-brand text-white font-bold text-xs flex items-center justify-center shrink-0">
-                {currentStep.num}
-              </div>
-              <h3 className="font-heading font-bold text-white text-base">
-                {currentStep.title}
-              </h3>
-            </div>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-royal/30 text-blue-light border border-royal/40 whitespace-nowrap shrink-0">
-              {currentStep.badge}
-            </span>
-          </div>
-
-          <p className="text-xs text-text-dark-muted leading-relaxed">
-            {currentStep.desc}
-          </p>
-
-          <div className="space-y-1.5 text-xs text-slate-200">
-            {currentStep.highlights.map((h, i) => (
-              <div key={i} className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-leaf shrink-0" />
-                <span>{h}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="pt-2 border-t border-navy-800/80 flex items-center justify-between gap-2">
-            <Link
-              to={currentStep.linkUrl}
-              className="btn-primary !min-h-[38px] !text-xs font-bold !px-3.5"
-            >
-              <span>{currentStep.linkText}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-
+          {/* Subtle Controls overlay on hover */}
+          <div className="absolute top-9 right-3 z-30 flex items-center gap-1.5">
             <button
-              onClick={() => handleStepClick(activeStep < 4 ? activeStep + 1 : 1)}
-              className="px-3 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 text-blue-light text-xs font-bold flex items-center gap-1 transition-colors border border-navy-700"
+              onClick={toggleMute}
+              className="w-7 h-7 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-transform active:scale-90"
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
             >
-              <span>Next Step</span>
-              <ArrowRight className="w-3 h-3" />
+              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-400" />}
+            </button>
+            <button
+              onClick={() =>
+                openVideoModal({
+                  src: currentStep.videoSrc,
+                  title: `TezzEV Step ${currentStep.num}: ${currentStep.title}`,
+                  poster: currentStep.poster,
+                })
+              }
+              className="w-7 h-7 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-transform active:scale-90"
+              aria-label="Full screen video"
+            >
+              <Maximize2 className="w-3 h-3 text-royal" />
             </button>
           </div>
         </div>
       </div>
+    </div>
+  );
 
-      {/* ======================================================== */}
-      {/* 2. DESKTOP VIEW (lg screens and up: 2-Column Split) */}
-      {/* ======================================================== */}
-      <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-navy-900/60 p-7 md:p-8 rounded-3xl border border-navy-800 shadow-2xl backdrop-blur-sm">
-        {/* Left Side: Step-by-Step Progress Timeline with HIDDEN SCROLLBAR (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col space-y-3">
-          {/* SCROLLABLE STEPS CONTAINER WITH ZERO VISIBLE SCROLLBAR */}
-          <div
-            ref={containerRef}
-            onScroll={handleScroll}
-            className="relative max-h-[460px] overflow-y-auto no-scrollbar scroll-smooth space-y-3.5 pr-2 py-1"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
-          >
-            {stepsData.map((step, idx) => {
+  return (
+    <div className="w-full space-y-8">
+      {/* 1. Header (Centered, clean white aesthetic directly like Zypp) */}
+      <div className="text-center max-w-3xl mx-auto space-y-2 px-2">
+        <h2 className="text-navy-950 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl tracking-tight">
+          How To Join <span className="text-royal">TezzEV</span>
+        </h2>
+        <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+          From paperless KYC to collecting your sanitized scooter keys at the hub. Simple, transparent, and completely digital.
+        </p>
+      </div>
+
+      {/* 2. Main Container (Crisp White Card with soft border) */}
+      <div className="bg-white rounded-3xl p-5 sm:p-8 md:p-12 border border-slate-200/90 shadow-xl">
+        {/* Mobile View (Clean Tabs + Centered Phone + Details) */}
+        <div className="block lg:hidden space-y-6">
+          {/* 4 Clean Tabs */}
+          <div className="grid grid-cols-4 gap-1.5 p-1 rounded-2xl bg-slate-100 border border-slate-200">
+            {stepsData.map((step) => {
               const isActive = step.id === activeStep;
+              return (
+                <button
+                  key={step.id}
+                  onClick={() => handleStepClick(step.id)}
+                  className={`py-2 px-1 rounded-xl text-xs font-bold text-center transition-all ${
+                    isActive
+                      ? 'bg-royal text-white shadow-sm'
+                      : 'text-slate-600 hover:text-navy-950'
+                  }`}
+                >
+                  <span className="block text-[10px] opacity-80">{step.num}</span>
+                  <span className="block truncate">{step.stepName.split(' ')[0]}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Centered Phone Player */}
+          <div className="flex justify-center">
+            {renderPhonePlayer('max-w-[260px]')}
+          </div>
+
+          {/* Active Step Details */}
+          <div className="bg-slate-50/80 p-4 sm:p-5 rounded-2xl border border-slate-200 space-y-3 text-left">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 stroke-[3]" />
+              </div>
+              <h3 className="text-base font-bold text-navy-950 font-heading">
+                {currentStep.title}
+              </h3>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              {currentStep.desc}
+            </p>
+
+            <div className="space-y-1.5 text-xs text-slate-700 pt-1">
+              {currentStep.highlights.map((h, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>{h}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2 border-t border-slate-200 flex items-center justify-between gap-3">
+              <Link to={currentStep.linkUrl} className="btn-primary !min-h-[38px] !text-xs font-bold">
+                <span>{currentStep.linkText}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <button
+                onClick={() => handleStepClick(activeStep < 4 ? activeStep + 1 : 1)}
+                className="text-xs font-bold text-royal hover:underline"
+              >
+                Next Step →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop View: Split 2-Column with Zypp Vertical Stepper Line */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-10 items-center">
+          {/* Left Column (7 cols): Vertical Timeline Stepper */}
+          <div className="lg:col-span-7 space-y-6 relative pl-4">
+            {/* Continuous Vertical Connecting Line */}
+            <div className="absolute left-[33px] top-6 bottom-6 w-[3px] bg-slate-200 rounded-full" />
+
+            {stepsData.map((step) => {
+              const isActive = step.id === activeStep;
+
               return (
                 <div
                   key={step.id}
-                  ref={(el) => (stepCardRefs.current[idx] = el)}
                   onClick={() => handleStepClick(step.id)}
-                  className={`relative cursor-pointer transition-all duration-300 rounded-2xl p-4 sm:p-5 border text-left ${
+                  className={`relative flex items-start gap-5 cursor-pointer p-4 rounded-2xl transition-all duration-200 ${
                     isActive
-                      ? 'bg-gradient-to-r from-navy-900 to-navy-950/95 border-royal shadow-lg shadow-royal/20 translate-x-1.5'
-                      : 'bg-navy-950/40 border-navy-800/80 hover:bg-navy-900/60 hover:border-navy-700 opacity-75 hover:opacity-100'
+                      ? 'bg-blue-50/50 -translate-x-1'
+                      : 'hover:bg-slate-50/70'
                   }`}
                 >
-                  <div className="flex items-start gap-3.5">
-                    {/* Step Number Badge */}
-                    <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 transition-all ${
-                        isActive
-                          ? 'bg-gradient-brand text-white shadow-md shadow-royal/40 scale-105 ring-2 ring-blue-light/50'
-                          : 'bg-navy-800 text-slate-400 border border-navy-700'
-                      }`}
-                    >
-                      {step.num}
-                    </div>
-
-                    {/* Step Content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <h3
-                          className={`font-heading font-bold text-base sm:text-lg transition-colors ${
-                            isActive ? 'text-white' : 'text-slate-300'
-                          }`}
-                        >
-                          {step.title}
-                        </h3>
-                        <span
-                          className={`text-[10px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap ${
-                            isActive
-                              ? 'bg-royal/30 text-blue-light border border-royal/40'
-                              : 'bg-navy-800 text-slate-400'
-                          }`}
-                        >
-                          {step.badge}
-                        </span>
-                      </div>
-
-                      <p className="text-xs sm:text-sm text-text-dark-muted leading-relaxed mb-2">
-                        {step.desc}
-                      </p>
-
-                      {/* Active State Highlights & Link */}
-                      {isActive && (
-                        <div className="mt-2.5 pt-2.5 border-t border-navy-800/80 space-y-2 animate-fade-in">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200">
-                            {step.highlights.map((h, i) => (
-                              <div key={i} className="flex items-center gap-1.5">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-leaf shrink-0" />
-                                <span>{h}</span>
-                              </div>
-                            ))}
-                          </div>
-
-                          <div className="pt-2 flex items-center gap-3">
-                            <Link
-                              to={step.linkUrl}
-                              className="btn-primary !min-h-[38px] !py-0 !px-4 !text-xs font-bold"
-                            >
-                              <span>{step.linkText}</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
-                            <span className="text-[11px] text-blue-light hidden sm:inline">
-                              👉 Live video streaming on the right
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                  {/* Step Indicator Circle */}
+                  <div
+                    className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs shrink-0 transition-all ${
+                      isActive
+                        ? 'bg-emerald-500 text-white ring-4 ring-emerald-100 shadow-md scale-110'
+                        : 'bg-white border-2 border-slate-300 text-slate-400'
+                    }`}
+                  >
+                    {isActive ? (
+                      <Check className="w-4 h-4 stroke-[3]" />
+                    ) : (
+                      <span>{step.num}</span>
+                    )}
                   </div>
 
-                  {/* Zypp-style Pointer Curved Arrow on Active Step (Desktop) */}
-                  {isActive && (
-                    <div className="hidden lg:block absolute -right-7 top-1/2 -translate-y-1/2 z-20 pointer-events-none text-royal">
-                      <svg
-                        width="32"
-                        height="26"
-                        viewBox="0 0 32 26"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="animate-pulse"
+                  {/* Step Content */}
+                  <div className="flex-1 min-w-0 pt-0.5">
+                    <div className="flex items-center gap-3">
+                      <h3
+                        className={`text-lg font-bold font-heading transition-colors ${
+                          isActive ? 'text-navy-950 font-extrabold' : 'text-slate-400 hover:text-slate-600'
+                        }`}
                       >
-                        <path
-                          d="M2 13C11 13 20 7 30 13M30 13L22 6M30 13L22 20"
-                          stroke="#2D6BFF"
-                          strokeWidth="2.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                        {step.title}
+                      </h3>
+
+                      {/* Zypp Hand-Drawn Doodle Arrow pointing towards phone when active */}
+                      {isActive && (
+                        <span className="hidden xl:inline-block text-royal animate-pulse">
+                          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+                            <path
+                              d="M2 14C12 4 28 6 36 12M36 12L28 8M36 12L30 18"
+                              stroke="#1647E8"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      )}
                     </div>
-                  )}
+
+                    <p
+                      className={`text-xs sm:text-sm mt-1 leading-relaxed transition-colors ${
+                        isActive ? 'text-slate-600' : 'text-slate-400'
+                      }`}
+                    >
+                      {step.desc}
+                    </p>
+
+                    {/* Active Expanded Highlight Badges */}
+                    {isActive && (
+                      <div className="mt-3 pt-3 border-t border-blue-100 space-y-2 animate-fade-in">
+                        <div className="flex flex-wrap gap-2 text-xs">
+                          {step.highlights.map((h, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 font-medium shadow-2xs"
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                              {h}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="pt-2 flex items-center gap-3">
+                          <Link to={step.linkUrl} className="btn-primary !min-h-[38px] !text-xs font-bold !px-4">
+                            <span>{step.linkText}</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                          <span className="text-xs text-royal font-semibold">
+                            👉 Watch video on smartphone mockup
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
           </div>
-        </div>
 
-        {/* Right Side: Smartphone Device Frame with Bottom-Slide Video (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-3">
-          {renderPhonePlayer('max-w-[270px] sm:max-w-[310px]')}
-          <p className="text-xs text-text-dark-muted text-center px-4">
-            Scroll steps on the left to watch each step's video in action
-          </p>
+          {/* Right Column (5 cols): Clean Smartphone Mockup Frame */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-3">
+            {renderPhonePlayer('max-w-[280px] sm:max-w-[310px]')}
+            <p className="text-xs text-slate-500 text-center font-medium">
+              Click any step on the left to watch live handover &amp; app walkthrough
+            </p>
+          </div>
         </div>
       </div>
     </div>
