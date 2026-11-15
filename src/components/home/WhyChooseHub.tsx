@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Play,
   RotateCw,
+  Navigation,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVideoModal } from '../ui/VideoContext';
@@ -118,28 +119,30 @@ export const WhyChooseHub: React.FC = () => {
           TezzEV is Madhya Pradesh's leading EV Rental platform, offering electric scooters on rent that reduce pollution, save fuel costs, and boost your daily earnings. Every ride you take helps make India cleaner, greener, and more sustainable.
         </p>
 
-        {/* View Switcher Toggle Pill with proper spacing */}
+        {/* View Switcher Toggle Pill with proper spacing & Vector Icons (No Emojis) */}
         <div className="pt-1">
           <div className="inline-flex items-center gap-1.5 p-1 rounded-full bg-slate-100 border border-slate-200 shadow-inner">
             <button
               onClick={() => setViewMode('orbit')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
                 viewMode === 'orbit'
                   ? 'bg-white text-navy-950 shadow-sm border border-slate-200'
                   : 'text-slate-600 hover:text-navy-950'
               }`}
             >
-              ✨ Zypp Orbit Infographic
+              <Sparkles className="w-3.5 h-3.5 text-royal" />
+              <span>Orbit Infographic</span>
             </button>
             <button
               onClick={() => setViewMode('video')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
                 viewMode === 'video'
                   ? 'bg-royal text-white shadow-sm'
                   : 'text-slate-600 hover:text-navy-950'
               }`}
             >
-              🎬 Watch Video Reels
+              <Play className="w-3.5 h-3.5 fill-current" />
+              <span>Watch Video Reels</span>
             </button>
           </div>
         </div>
@@ -210,8 +213,8 @@ export const WhyChooseHub: React.FC = () => {
                   }}
                   className="absolute z-20 hidden md:flex items-center gap-1.5 p-1 rounded-full bg-white shadow-md border border-slate-200 animate-pulse pointer-events-none"
                 >
-                  <div className="w-8 h-8 rounded-full bg-royal text-white font-bold text-xs flex items-center justify-center">
-                    🛵
+                  <div className="w-8 h-8 rounded-full bg-royal text-white font-bold text-xs flex items-center justify-center shadow-sm">
+                    <Navigation className="w-3.5 h-3.5 text-white" />
                   </div>
                 </div>
               ))}

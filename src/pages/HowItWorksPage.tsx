@@ -9,6 +9,8 @@ import {
   CheckCircle2,
   ArrowRight,
   HelpCircle,
+  Zap,
+  Bike,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
@@ -99,11 +101,13 @@ export const HowItWorksPage: React.FC = () => {
                 A comprehensive step-by-step visual guide explaining online registration, Aadhaar verification, and how to pick up your keys and charged scooter at the nearest hub.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
-                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  ⚡ 15-Minute Digital Approval
+                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-royal" />
+                  <span>15-Minute Digital Approval</span>
                 </span>
-                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  🚀 Ready-To-Ride Delivery Scooter
+                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <Bike className="w-3.5 h-3.5 text-leaf" />
+                  <span>Ready-To-Ride Delivery Scooter</span>
                 </span>
               </div>
               <div className="pt-2">

@@ -8,6 +8,7 @@ import {
   Sparkles,
   CheckCircle2,
   AlertCircle,
+  Wrench,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
@@ -58,11 +59,13 @@ export const SavingsPage: React.FC = () => {
                 Rising fuel costs eat away your daily delivery profit. Switching to a commercial TezzEV electric scooter with swappable batteries eliminates 100% of your petrol expenses.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  💰 ₹8,000 – ₹12,000 Monthly Savings
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <TrendingDown className="w-3.5 h-3.5 text-royal" />
+                  <span>₹8,000 – ₹12,000 Monthly Savings</span>
                 </span>
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  🔧 Zero Maintenance Bills
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <Wrench className="w-3.5 h-3.5 text-leaf" />
+                  <span>Zero Maintenance Bills</span>
                 </span>
               </div>
               <div className="pt-2">

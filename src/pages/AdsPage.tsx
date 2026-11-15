@@ -17,6 +17,11 @@ import {
   Flame,
   TrendingUp,
   Download,
+  Bike,
+  Zap,
+  Rocket,
+  Package,
+  BatteryCharging,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { SectionDivider } from '../components/ui/SectionDivider';
@@ -265,7 +270,7 @@ export const AdsPage: React.FC = () => {
                   </button>
 
                   <span className="text-xs font-semibold text-white hidden sm:inline ml-1">
-                    {heroMuted ? 'Tap for audio 🔈' : 'Audio ON 🔊'}
+                    {heroMuted ? 'Muted' : 'Sound ON'}
                   </span>
                 </div>
 
@@ -324,27 +329,31 @@ export const AdsPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Filter Pills (Clean Light Pills) */}
+          {/* Filter Pills with Vector Icons (No Emojis) */}
           <div className="flex items-center justify-center gap-2 flex-wrap">
             {[
-              { id: 'all', label: '🔥 All Reels (8)' },
-              { id: 'commercials', label: '📺 TV Commercials' },
-              { id: 'delivery', label: '🛵 Rider Stories' },
-              { id: 'challenges', label: '⚡ Hub Challenges' },
-              { id: 'tech', label: '🚀 Speed & Tech' },
-            ].map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-                  activeCategory === cat.id
-                    ? 'bg-royal text-white shadow-md shadow-royal/20 scale-102'
-                    : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+              { id: 'all', label: 'All Reels (8)', icon: Flame },
+              { id: 'commercials', label: 'TV Commercials', icon: Tv },
+              { id: 'delivery', label: 'Rider Stories', icon: Bike },
+              { id: 'challenges', label: 'Hub Challenges', icon: Zap },
+              { id: 'tech', label: 'Speed & Tech', icon: Rocket },
+            ].map((cat) => {
+              const IconComp = cat.icon;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ${
+                    activeCategory === cat.id
+                      ? 'bg-royal text-white shadow-md shadow-royal/20 scale-102'
+                      : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200'
+                  }`}
+                >
+                  <IconComp className="w-3.5 h-3.5" />
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* 9:16 Vertical Video Reels Grid (Instagram/TikTok Style Clean Cards) */}
@@ -398,7 +407,10 @@ export const AdsPage: React.FC = () => {
                       {ad.tagline}
                     </p>
                     <div className="pt-1.5 flex items-center justify-between text-[10px] text-emerald-400 font-bold border-t border-white/10">
-                      <span>▶ Tap to play reel</span>
+                      <span className="flex items-center gap-1">
+                        <Play className="w-2.5 h-2.5 fill-current" />
+                        <span>Tap to play reel</span>
+                      </span>
                       <span className="text-slate-300">{ad.duration}</span>
                     </div>
                   </div>
@@ -429,11 +441,11 @@ export const AdsPage: React.FC = () => {
               </p>
             </div>
 
-            {/* 3 Advertising Channels */}
+            {/* 3 Advertising Channels with Vector Icons */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
               <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="w-10 h-10 rounded-xl bg-blue-50 text-royal flex items-center justify-center font-bold text-sm">
-                  📦
+                  <Package className="w-5 h-5 text-royal" />
                 </div>
                 <h4 className="font-heading font-bold text-navy-950 text-base">
                   Delivery Box Wraps
@@ -445,7 +457,7 @@ export const AdsPage: React.FC = () => {
 
               <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">
-                  🛵
+                  <Bike className="w-5 h-5 text-emerald-600" />
                 </div>
                 <h4 className="font-heading font-bold text-navy-950 text-base">
                   Scooter Body Decals
@@ -457,7 +469,7 @@ export const AdsPage: React.FC = () => {
 
               <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                 <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm">
-                  🔋
+                  <BatteryCharging className="w-5 h-5 text-purple-600" />
                 </div>
                 <h4 className="font-heading font-bold text-navy-950 text-base">
                   Hub Digital Screens
@@ -502,8 +514,9 @@ export const AdsPage: React.FC = () => {
                 <span className="text-2xl sm:text-3xl font-black text-royal font-heading block mt-0.5">
                   {monthlyImpressions}+
                 </span>
-                <span className="text-[11px] text-emerald-700 font-bold block mt-0.5">
-                  ⚡ Hyper-Local MP Reach
+                <span className="text-[11px] text-emerald-700 font-bold flex items-center justify-center md:justify-end gap-1 mt-0.5">
+                  <Zap className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Hyper-Local MP Reach</span>
                 </span>
               </div>
             </div>

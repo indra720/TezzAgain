@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Navigation,
   ArrowRight,
+  Zap,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { SectionDivider } from '../components/ui/SectionDivider';
@@ -79,11 +80,13 @@ export const ContactPage: React.FC = () => {
                 Take a visual tour of our battery swap bay, certified maintenance workshop, and rider lounge. Located centrally near Transport Nagar Ring Road in Indore and MP Nagar Commercial Zone in Bhopal.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  📍 Indore &amp; Bhopal Metro Hubs
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-royal" />
+                  <span>Indore &amp; Bhopal Metro Hubs</span>
                 </span>
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  ⚡ 2-Minute Battery Swap Bay
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-leaf" />
+                  <span>2-Minute Battery Swap Bay</span>
                 </span>
               </div>
               <div className="pt-2">

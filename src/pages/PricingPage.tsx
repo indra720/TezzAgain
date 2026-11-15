@@ -127,11 +127,13 @@ export const PricingPage: React.FC = () => {
                 Choose flexible Daily, Weekly Pro, or Monthly Super plans. Every rental package comes with unlimited battery swaps at all TezzEV hubs and zero maintenance charges.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
-                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  ⚡ 100% Free Hub Battery Swaps
+                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-royal" />
+                  <span>100% Free Hub Battery Swaps</span>
                 </span>
-                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  🛡️ 100% Refundable Security Deposit
+                <span className="px-3 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-leaf" />
+                  <span>100% Refundable Security Deposit</span>
                 </span>
               </div>
               <div className="pt-2">

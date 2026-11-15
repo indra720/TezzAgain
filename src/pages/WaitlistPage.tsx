@@ -182,8 +182,9 @@ export const WaitlistPage: React.FC = () => {
                       </button>
                     </div>
 
-                    <p className="text-[11px] text-text-light-muted text-center mt-2">
-                      🔒 No payment details required. No obligations.
+                    <p className="text-[11px] text-text-light-muted text-center mt-2 flex items-center justify-center gap-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-leaf inline" />
+                      <span>No payment details required. No obligations.</span>
                     </p>
                   </form>
                 </div>

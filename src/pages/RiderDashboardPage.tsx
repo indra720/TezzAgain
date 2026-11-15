@@ -29,7 +29,7 @@ export const RiderDashboardPage: React.FC = () => {
 
   const handleTriggerSos = () => {
     setShowSosDialog(false);
-    toast.error('🚨 Breakdown SOS Activated!', {
+    toast.error('Breakdown SOS Activated!', {
       description: `Mobile support van dispatched for ${sosReason}. Our helpline (+91 98765 43210) is contacting you right now.`,
       duration: 8000,
     });

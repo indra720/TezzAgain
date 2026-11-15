@@ -205,8 +205,9 @@ export const EvVsPetrolComparison: React.FC = () => {
                   ₹{netMonthlySavings.toLocaleString()}{' '}
                   <span className="text-sm font-medium text-emerald-800">/ month</span>
                 </div>
-                <p className="text-[11px] text-emerald-800 mt-1">
-                  💡 Zero petrol bills + 100% free hub maintenance = Pure take-home profit.
+                <p className="text-[11px] text-emerald-800 mt-1 flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Zero petrol bills + 100% free hub maintenance = Pure take-home profit.</span>
                 </p>
               </div>
 

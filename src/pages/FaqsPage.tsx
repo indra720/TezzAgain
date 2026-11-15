@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ChevronDown, HelpCircle, ArrowRight, Phone, Sparkles } from 'lucide-react';
+import { Search, ChevronDown, HelpCircle, ArrowRight, Phone, Sparkles, Zap, FileText } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { SectionDivider } from '../components/ui/SectionDivider';
 import { VideoCard } from '../components/ui/VideoCard';
@@ -133,11 +133,13 @@ export const FaqsPage: React.FC = () => {
                 Watch our quick 2-minute visual walkthrough explaining how to register online, swap batteries at city hubs in 120 seconds, and claim your refundable security deposit.
               </p>
               <div className="pt-1 flex flex-wrap gap-2.5">
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  ⚡ 2-Minute Hub Battery Swap
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-royal" />
+                  <span>2-Minute Hub Battery Swap</span>
                 </span>
-                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950">
-                  📄 Simple 4 Document Approval
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#F4F8FE] border border-[#D6E4FB] text-xs font-bold text-navy-950 flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5 text-leaf" />
+                  <span>Simple 4 Document Approval</span>
                 </span>
               </div>
               <div className="pt-2">

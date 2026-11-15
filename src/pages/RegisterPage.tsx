@@ -6,6 +6,7 @@ import {
   CreditCard,
   Building2,
   Users,
+  Check,
   CheckCircle2,
   ArrowRight,
   ArrowLeft,
@@ -181,7 +182,7 @@ export const RegisterPage: React.FC = () => {
                         : 'bg-slate-100 text-slate-400'
                     }`}
                   >
-                    {currentStep > st.num ? '✓' : st.num}
+                    {currentStep > st.num ? <Check className="w-4 h-4 stroke-[2.5]" /> : st.num}
                   </div>
                   <span
                     className={`block font-medium ${
@@ -359,8 +360,15 @@ export const RegisterPage: React.FC = () => {
                       className="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:border-royal bg-white"
                     >
                       <Upload className="w-4 h-4 mx-auto text-royal mb-1" />
-                      <span className="text-xs text-navy-950 font-medium">
-                        {formData.panFileUploaded ? '✓ PAN Photo Uploaded' : 'Upload PAN Card Photo (Optional for demo)'}
+                      <span className="text-xs text-navy-950 font-medium inline-flex items-center gap-1.5">
+                        {formData.panFileUploaded ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                            <span>PAN Photo Uploaded</span>
+                          </>
+                        ) : (
+                          'Upload PAN Card Photo (Optional for demo)'
+                        )}
                       </span>
                     </div>
                   </div>
@@ -394,8 +402,15 @@ export const RegisterPage: React.FC = () => {
                       className="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:border-royal bg-white"
                     >
                       <Upload className="w-4 h-4 mx-auto text-royal mb-1" />
-                      <span className="text-xs text-navy-950 font-medium">
-                        {formData.aadhaarFileUploaded ? '✓ Aadhaar Front & Back Uploaded' : 'Upload Aadhaar Card Front & Back Photo'}
+                      <span className="text-xs text-navy-950 font-medium inline-flex items-center gap-1.5">
+                        {formData.aadhaarFileUploaded ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                            <span>Aadhaar Front & Back Uploaded</span>
+                          </>
+                        ) : (
+                          'Upload Aadhaar Card Front & Back Photo'
+                        )}
                       </span>
                     </div>
                   </div>
@@ -430,8 +445,15 @@ export const RegisterPage: React.FC = () => {
                       className="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:border-royal bg-white"
                     >
                       <Upload className="w-4 h-4 mx-auto text-royal mb-1" />
-                      <span className="text-xs text-navy-950 font-medium">
-                        {formData.dlFileUploaded ? '✓ Driving Licence Uploaded' : 'Upload Driving Licence Photo'}
+                      <span className="text-xs text-navy-950 font-medium inline-flex items-center gap-1.5">
+                        {formData.dlFileUploaded ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                            <span>Driving Licence Uploaded</span>
+                          </>
+                        ) : (
+                          'Upload Driving Licence Photo'
+                        )}
                       </span>
                     </div>
                   </div>
