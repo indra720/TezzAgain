@@ -202,7 +202,7 @@ export const ContactPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Form + Map Placeholder Grid */}
+          {/* Form + Interactive Hub Grid */}
           <div id="contact-form" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-2">
             {/* Contact Form (7 cols) */}
             <div className="lg:col-span-7 tezz-card p-6 sm:p-8">
@@ -300,7 +300,7 @@ export const ContactPage: React.FC = () => {
               </form>
             </div>
 
-            {/* Map Placeholder (5 cols) */}
+            {/* Hub Location Card (5 cols) */}
             <div className="lg:col-span-5 tezz-card p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>

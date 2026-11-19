@@ -232,7 +232,7 @@ export const SavingsPage: React.FC = () => {
               </p>
               <div className="mt-3 pt-2 border-t border-emerald-200/60 text-[11px] text-text-light-muted flex items-center justify-center gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                <span>Based on placeholder rent. Final price at launch.</span>
+                <span>Calculated based on standard commercial gig shifts (80-100 km/day) comparing ₹108/L petrol vs zero fuel TezzEV battery swaps.</span>
               </div>
             </div>
           </div>

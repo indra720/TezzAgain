@@ -14,6 +14,7 @@ import {
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
+import { LeadershipShowcase } from '../components/about/LeadershipShowcase';
 import { siteConfig } from '../lib/config';
 
 export const AboutPage: React.FC = () => {
@@ -38,12 +39,6 @@ export const AboutPage: React.FC = () => {
       desc: 'Simple paperless signup, friendly hub mechanics, and flexible rental payment options.',
       icon: Users,
     },
-  ];
-
-  const team = [
-    { name: '[TBD]', role: 'Founder & Operations Lead', bio: 'Passionate about clean urban mobility and driver empowerment.' },
-    { name: '[TBD]', role: 'Fleet & Hub Manager', bio: 'Ensuring zero downtime for delivery vehicles and battery swaps.' },
-    { name: '[TBD]', role: 'Head of Rider Community', bio: 'Supporting gig partners with seamless onboarding and helpline care.' },
   ];
 
   return (
@@ -175,24 +170,24 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* WAVE DIVIDER: Sky-100 to Deep Navy */}
-      <SectionDivider type="sky100-to-navy" />
+      {/* WAVE DIVIDER: Sky-100 to White */}
+      <SectionDivider type="sky100-to-white" />
 
-      {/* Section 4: Where We Launch & Team Placeholders (Deep Navy) */}
-      <section className="bg-gradient-deep text-white section-pad">
+      {/* Section 4: Where We Launch & Zypp-Style Leadership Orbit (Pure Light Theme) */}
+      <section className="bg-white text-navy-950 section-pad">
         <div className="container-custom space-y-10">
-          {/* Where we launch */}
-          <div className="tezz-card-dark p-6 sm:p-7">
+          {/* Where we launch (Crisp Light Card) */}
+          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 text-navy-950 shadow-sm">
             <div className="flex flex-col md:flex-row items-center justify-between gap-5">
               <div className="space-y-1.5 text-center md:text-left">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-navy-950 border border-navy-700 text-blue-light text-xs font-bold">
-                  <MapPin className="w-3.5 h-3.5 text-leaf" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-royal text-xs font-bold">
+                  <MapPin className="w-3.5 h-3.5 text-royal" />
                   <span>Phase 1 Rollout</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
-                  Launching Soon In <span className="text-blue-light">{siteConfig.launchCity}</span>
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-navy-950">
+                  Launching Soon In <span className="text-royal">{siteConfig.launchCity}</span>
                 </h3>
-                <p className="text-text-dark-muted text-xs sm:text-sm max-w-xl">
+                <p className="text-slate-600 text-xs sm:text-sm max-w-xl">
                   Initial hubs are opening at key transport corridors and delivery clusters with complete battery swapping infrastructure.
                 </p>
               </div>
@@ -204,38 +199,13 @@ export const AboutPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Team Placeholders */}
-          <div>
-            <div className="text-center max-w-xl mx-auto mb-6">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-light">
-                Leadership
-              </span>
-              <h2 className="text-white mt-1 mb-1.5">
-                Meet the <span className="text-blue-light">Founding Team</span>
-              </h2>
-              <p className="text-text-dark-muted text-xs sm:text-sm">
-                Engineers, operations experts, and logistics veterans committed to clean mobility.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {team.map((m, idx) => (
-                <div key={idx} className="tezz-card p-5 bg-white text-navy-950">
-                  <div className="w-12 h-12 rounded-xl bg-navy-900 text-white flex items-center justify-center font-heading font-black text-lg mb-3">
-                    EV
-                  </div>
-                  <h4 className="text-base font-bold font-heading text-navy-950">{m.name}</h4>
-                  <div className="text-xs font-semibold text-royal mb-1">{m.role}</div>
-                  <p className="text-xs text-text-light-muted leading-relaxed">{m.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Zypp-Style Leadership Orbit Showcase (Pure Light Theme with Real Photos & Auto-Cycle) */}
+          <LeadershipShowcase />
         </div>
       </section>
 
-      {/* WAVE DIVIDER: Deep Navy to Sky-200 */}
-      <SectionDivider type="navy-to-sky200" />
+      {/* WAVE DIVIDER: White to Sky-200 */}
+      <SectionDivider type="white-to-sky200" />
 
       {/* Section 5: CTA (Sky-200) */}
       <section className="bg-sky-200 text-text-light section-pad text-center">

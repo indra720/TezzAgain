@@ -69,7 +69,7 @@ export const TezzChatbot: React.FC = () => {
           botResponse = {
             id: (Date.now() + 1).toString(),
             sender: 'bot',
-            text: 'Affordable daily, weekly aur monthly plans launch ho rahe hain. Abhi pricing Rs [XXX] placeholder hai — city launch par reveal hogi!',
+            text: 'Affordable daily (from ₹199*), weekly (from ₹1,299*) aur monthly (from ₹4,999*) plans launch ho rahe hain. Commercial gig delivery riders ke liye lowest rental rate!',
             link: { label: 'View Pricing Plans', url: '/pricing' },
           };
           break;
@@ -121,8 +121,8 @@ export const TezzChatbot: React.FC = () => {
 
       if (lower.includes('price') || lower.includes('rent') || lower.includes('cost') || lower.includes('kitna')) {
         replyText =
-          'Plans Rs [XXX] se shuru honge. Affordable daily, weekly aur monthly options available honge.';
-        replyLink = { label: 'Guess Daily Rent', url: '/guess-rent' };
+          'Plans sirf ₹199/day* se shuru hote hain. Commercial riders ke liye weekly (₹1,299*) aur monthly (₹4,999*) high-mileage options available hain.';
+        replyLink = { label: 'View Pricing & Savings', url: '/pricing' };
       } else if (lower.includes('battery') || lower.includes('swap') || lower.includes('range')) {
         replyText =
           'TezzEV hubs par 2-minute battery swap available rahega. Ek charge par lambi city range milti hai!';

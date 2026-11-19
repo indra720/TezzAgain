@@ -24,6 +24,7 @@ import { WhyChooseHub } from '../components/home/WhyChooseHub';
 import { CityHubExplorer } from '../components/home/CityHubExplorer';
 import { RiderStoriesGallery } from '../components/home/RiderStoriesGallery';
 import { ModernHeroSection } from '../components/home/ModernHeroSection';
+import { VehicleFleetShowcase } from '../components/home/VehicleFleetShowcase';
 import { toast } from 'sonner';
 
 export const HomePage: React.FC = () => {
@@ -53,22 +54,31 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full overflow-hidden">
       {/* ======================================================== */}
-      {/* 1. CINEMATIC SPLIT STAGE HERO SECTION */}
+      {/* 1. CINEMATIC HERO SECTION (DRIVEX STYLE) */}
       {/* ======================================================== */}
       <ModernHeroSection />
 
-      {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
-      <SectionDivider type="navy-to-sky100" />
+      {/* WAVE DIVIDER: Deep Navy to White */}
+      <SectionDivider type="navy-to-white" />
+
+      {/* ======================================================== */}
+      {/* 2. CHOOSE YOUR RIDE - COMMERCIAL FLEET SHOWCASE (DRIVEX) */}
+      {/* ======================================================== */}
+      <section className="bg-white text-navy-950 pt-16 sm:pt-24 lg:pt-28 pb-14 sm:pb-20">
+        <div className="container-custom">
+          <VehicleFleetShowcase />
+        </div>
+      </section>
+
+      {/* WAVE DIVIDER: White to Sky-100 */}
+      <SectionDivider type="white-to-sky100" />
 
       {/* ======================================================== */}
       {/* 3. WATCH TEZZEV IN ACTION (Sky-100) - VERTICAL VIDEO CARDS */}
       {/* ======================================================== */}
-      <section className="bg-sky-100 text-navy-950 pt-16 sm:pt-24 pb-12 sm:pb-16">
+      <section className="bg-sky-100 text-navy-950 pt-14 sm:pt-20 pb-12 sm:pb-16">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-6">
-            <span className="text-xs font-bold uppercase tracking-wider text-royal">
-              Video Gallery
-            </span>
             <h2 className="text-navy-950 mt-1 mb-1.5 font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl">
               Watch TezzEV in <span className="text-royal">action</span>
             </h2>
@@ -247,7 +257,7 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* 3 Placeholder Plan Cards (Single card on mobile, 3 cards on MD & LG screens) */}
+          {/* 3 Transparent Rental Plan Cards (Single card on mobile, 3 cards on MD & LG screens) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 items-stretch mb-8">
             {siteConfig.pricingPlans.map((plan) => (
               <div

@@ -117,7 +117,7 @@ export const OurScooterPage: React.FC = () => {
       {/* WAVE DIVIDER: Sky-200 to Deep Navy */}
       <SectionDivider type="sky200-to-navy" />
 
-      {/* Section 2: 6 Spec Cards [TBD] + Royal Blue Chip (Deep Navy) */}
+      {/* Section 2: 6 Technical Spec Cards + Royal Blue Chip (Deep Navy) */}
       <section className="bg-gradient-deep text-white section-pad">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-6">
@@ -170,7 +170,7 @@ export const OurScooterPage: React.FC = () => {
       {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
       <SectionDivider type="navy-to-sky100" />
 
-      {/* Section 3: 4-Video Gallery (Sky-100) */}
+      {/* Section 3: Feature Highlights Video Showcase (Sky-100) */}
       <section className="bg-sky-100 text-text-light section-pad">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-6">

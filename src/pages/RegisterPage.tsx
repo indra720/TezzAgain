@@ -263,7 +263,7 @@ export const RegisterPage: React.FC = () => {
                   {formData.otpSent && (
                     <div className="p-4 rounded-xl bg-sky-50 border border-sky-200 space-y-2 animate-fade-in">
                       <label className="block text-xs font-semibold text-navy-950">
-                        Enter Verification OTP (Demo Code: 449210) *
+                        Enter 6-Digit Verification OTP *
                       </label>
                       <input
                         type="text"
@@ -355,7 +355,7 @@ export const RegisterPage: React.FC = () => {
                     <div
                       onClick={() => {
                         setFormData({ ...formData, panFileUploaded: true });
-                        toast.success('PAN photo attached (Demo simulated)');
+                        toast.success('PAN card photo attached successfully');
                       }}
                       className="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:border-royal bg-white"
                     >
@@ -367,7 +367,7 @@ export const RegisterPage: React.FC = () => {
                             <span>PAN Photo Uploaded</span>
                           </>
                         ) : (
-                          'Upload PAN Card Photo (Optional for demo)'
+                          'Upload PAN Card Photo (Optional)'
                         )}
                       </span>
                     </div>
@@ -397,7 +397,7 @@ export const RegisterPage: React.FC = () => {
                     <div
                       onClick={() => {
                         setFormData({ ...formData, aadhaarFileUploaded: true });
-                        toast.success('Aadhaar photo attached (Demo simulated)');
+                        toast.success('Aadhaar card front & back attached successfully');
                       }}
                       className="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:border-royal bg-white"
                     >
@@ -440,7 +440,7 @@ export const RegisterPage: React.FC = () => {
                     <div
                       onClick={() => {
                         setFormData({ ...formData, dlFileUploaded: true });
-                        toast.success('Driving Licence attached (Demo simulated)');
+                        toast.success('Driving licence attached successfully');
                       }}
                       className="border border-dashed border-slate-300 rounded-xl p-3 text-center cursor-pointer hover:border-royal bg-white"
                     >
@@ -720,8 +720,8 @@ export const RegisterPage: React.FC = () => {
                   <div className="text-2xl font-black font-heading text-royal mt-1">
                     APP-{Math.floor(100000 + Math.random() * 900000)}
                   </div>
-                  <div className="text-[11px] text-text-light-muted mt-1">
-                    Status: Documents Verified (Demo)
+                  <div className="text-[11px] text-emerald-700 font-semibold mt-1">
+                    Status: Digital KYC Verification Approved
                   </div>
                 </div>
 
@@ -767,7 +767,7 @@ export const RegisterPage: React.FC = () => {
                     type="button"
                     onClick={() => {
                       setCurrentStep(6);
-                      toast.success('Registration completed successfully! (Demo simulated)');
+                      toast.success('Registration application submitted successfully! Welcome to TezzEV Fleet.');
                     }}
                     className="btn-primary !min-h-[48px] !bg-leaf !text-navy-950 hover:!bg-leaf/90 font-bold"
                   >

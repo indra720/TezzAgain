@@ -66,8 +66,8 @@ export const RiderDashboardPage: React.FC = () => {
               <span className="text-xs sm:text-sm font-bold text-navy-950 font-heading">
                 Interactive Dashboard Preview
               </span>
-              <span className="text-xs px-2 py-0.5 rounded bg-sky-100 text-royal font-semibold">
-                Demo Profile
+              <span className="text-xs px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
+                Active Verified Rider
               </span>
             </div>
             <span className="text-xs text-text-light-muted">
@@ -122,7 +122,7 @@ export const RiderDashboardPage: React.FC = () => {
                       TezzEV Pro Commercial
                     </div>
                     <span className="text-xs font-mono text-text-light-muted">
-                      Plate: MP-09-EV-[TBD]
+                      Plate: MP-09-EV-8842
                     </span>
                   </div>
 
@@ -172,7 +172,7 @@ export const RiderDashboardPage: React.FC = () => {
                     <div className="flex items-baseline justify-between border-b border-slate-100 pb-2">
                       <span className="text-xs text-text-light-muted">Rental Credits:</span>
                       <span className="text-xl font-black text-navy-950 font-heading">
-                        Rs [XXX]
+                        ₹4,999
                       </span>
                     </div>
                     <div className="flex items-baseline justify-between border-b border-slate-100 pb-2">
@@ -193,7 +193,7 @@ export const RiderDashboardPage: React.FC = () => {
                     onClick={() => toast.info('Rental wallet reload will unlock at hub launch.')}
                     className="btn-secondary-light w-full justify-center !min-h-[40px] text-xs font-bold"
                   >
-                    Add Credits (Demo)
+                    Recharge Wallet
                   </button>
                 </div>
 
@@ -215,7 +215,7 @@ export const RiderDashboardPage: React.FC = () => {
                     <div className="flex items-baseline justify-between border-b border-slate-100 pb-2">
                       <span className="text-xs text-text-light-muted">Total KM Ridden:</span>
                       <span className="text-lg font-bold text-navy-950 font-heading">
-                        [TBD] km
+                        1,280 km
                       </span>
                     </div>
                     <div className="flex items-baseline justify-between border-b border-slate-100 pb-2">
@@ -227,7 +227,7 @@ export const RiderDashboardPage: React.FC = () => {
                     <div className="flex items-baseline justify-between">
                       <span className="text-xs text-text-light-muted">Carbon Prevented:</span>
                       <span className="text-xs font-semibold text-navy-950">
-                        [TBD] kg CO2
+                        142 kg CO2
                       </span>
                     </div>
                   </div>

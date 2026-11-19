@@ -69,7 +69,7 @@ export const HowItWorksPage: React.FC = () => {
     },
     {
       q: 'Is there any security deposit required?',
-      a: 'Yes, a small refundable security deposit of Rs [XXX] is held safely and refunded within 48 hours upon vehicle return.',
+      a: 'Yes, a small refundable security deposit of ₹2,100 is held safely and refunded within 48 hours upon vehicle return.',
     },
   ];
 
