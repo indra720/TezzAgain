@@ -21,6 +21,8 @@ import { SectionDivider } from '../components/ui/SectionDivider';
 import { InteractiveJoinStepper } from '../components/home/InteractiveJoinStepper';
 import { EvVsPetrolComparison } from '../components/home/EvVsPetrolComparison';
 import { WhyChooseHub } from '../components/home/WhyChooseHub';
+import { CityHubExplorer } from '../components/home/CityHubExplorer';
+import { RiderStoriesGallery } from '../components/home/RiderStoriesGallery';
 import { toast } from 'sonner';
 
 export const HomePage: React.FC = () => {
@@ -560,7 +562,31 @@ export const HomePage: React.FC = () => {
       <SectionDivider type="white-to-sky100" />
 
       {/* ======================================================== */}
-      {/* 9. RIDE FOR ANY PLATFORM & 10. DAILY RENT GUESS BANNER (Sky-100) */}
+      {/* 9. EXPLORE TEZZEV CITY HUBS (Interactive MP Network) */}
+      {/* ======================================================== */}
+      <section className="bg-sky-100 text-navy-950 section-pad">
+        <div className="container-custom">
+          <CityHubExplorer />
+        </div>
+      </section>
+
+      {/* WAVE DIVIDER: Sky-100 to White */}
+      <SectionDivider type="sky100-to-white" />
+
+      {/* ======================================================== */}
+      {/* 10. REAL RIDER & CLIENT STORIES (Tezz Champions Wall) */}
+      {/* ======================================================== */}
+      <section className="bg-white text-navy-950 section-pad">
+        <div className="container-custom">
+          <RiderStoriesGallery />
+        </div>
+      </section>
+
+      {/* WAVE DIVIDER: White to Sky-100 */}
+      <SectionDivider type="white-to-sky100" />
+
+      {/* ======================================================== */}
+      {/* 11. RIDE FOR ANY PLATFORM & DAILY RENT GUESS BANNER (Sky-100) */}
       {/* ======================================================== */}
       <section className="bg-sky-100 text-navy-950 section-pad">
         <div className="container-custom space-y-10">
