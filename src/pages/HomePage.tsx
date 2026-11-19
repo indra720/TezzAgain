@@ -63,7 +63,7 @@ export const HomePage: React.FC = () => {
       {/* ======================================================== */}
       {/* 3. WATCH TEZZEV IN ACTION (Sky-100) - VERTICAL VIDEO CARDS */}
       {/* ======================================================== */}
-      <section className="bg-sky-100 text-navy-950 section-pad">
+      <section className="bg-sky-100 text-navy-950 pt-16 sm:pt-24 pb-12 sm:pb-16">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-6">
             <span className="text-xs font-bold uppercase tracking-wider text-royal">
