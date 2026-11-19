@@ -23,48 +23,11 @@ import { EvVsPetrolComparison } from '../components/home/EvVsPetrolComparison';
 import { WhyChooseHub } from '../components/home/WhyChooseHub';
 import { CityHubExplorer } from '../components/home/CityHubExplorer';
 import { RiderStoriesGallery } from '../components/home/RiderStoriesGallery';
+import { ModernHeroSection } from '../components/home/ModernHeroSection';
 import { toast } from 'sonner';
 
 export const HomePage: React.FC = () => {
   const { openVideoModal } = useVideoModal();
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Autoplay background video reliably
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, []);
-
-  // Quick Waitlist Form State (Overlapping Hero)
-  const [waitlistData, setWaitlistData] = useState({
-    name: '',
-    mobile: '',
-    city: 'Indore',
-    userType: 'Rider',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleHeroWaitlistSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!waitlistData.name || !waitlistData.mobile) {
-      toast.error('Please enter your name and 10-digit mobile number.');
-      return;
-    }
-    if (!/^\d{10}$/.test(waitlistData.mobile.trim())) {
-      toast.error('Please enter a valid 10-digit mobile number.');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success('Congratulations! You are on the priority waitlist.', {
-        description: `We will SMS you on ${waitlistData.mobile} as soon as TezzEV unlocks in ${waitlistData.city}.`,
-      });
-      setWaitlistData({ name: '', mobile: '', city: 'Indore', userType: 'Rider' });
-    }, 600);
-  };
 
   // Launch Countdown State
   const [timeLeft, setTimeLeft] = useState({
@@ -90,184 +53,12 @@ export const HomePage: React.FC = () => {
   return (
     <div className="w-full overflow-hidden">
       {/* ======================================================== */}
-      {/* 1. HERO SECTION (Full Background Video Showcase) */}
+      {/* 1. CINEMATIC SPLIT STAGE HERO SECTION */}
       {/* ======================================================== */}
-      <section className="relative min-h-[580px] sm:min-h-[640px] bg-navy-950 text-white pt-12 pb-24 md:pt-16 md:pb-28 overflow-hidden flex items-center">
-        {/* Full Hero Background Video - Highly visible with clear motion */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <video
-            ref={videoRef}
-            src={siteConfig.videos.heroBg.src}
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/images/poster-1.jpg"
-            className="w-full h-full object-cover opacity-90"
-          >
-            <source src={siteConfig.videos.heroBg.src} type="video/mp4" />
-          </video>
-          {/* Directional contrast gradient: Solid dark on left for text legibility, transparent on right for full video visibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-950/98 via-navy-950/80 to-navy-950/20" />
-        </div>
-
-        <div className="container-custom relative z-10 w-full">
-          <div className="max-w-2xl space-y-5 text-left">
-            {/* Pill: Launching Soon */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy-900/90 border border-navy-700 text-xs sm:text-sm font-medium shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-leaf" />
-              <span className="text-white font-semibold tracking-wide">Launching Soon</span>
-              <span className="text-text-dark-muted">• {siteConfig.launchCity}</span>
-            </div>
-
-            {/* H1 Headings: Max 7 words, Key word in #7FB0FF */}
-            <h1 className="text-white tracking-tight leading-[1.12]">
-              Go Green. Go Far. Ride <span className="text-blue-light">TEZZ.</span>
-            </h1>
-
-            {/* Simple Voice Subtext: 2 short lines */}
-            <p className="text-slate-200 text-base sm:text-lg sm:leading-relaxed max-w-xl">
-              Petrol ka zamana khatam. Ab sheher chalega TEZZ! High range electric scooter rental for delivery riders and daily commuters.
-            </p>
-
-            {/* Buttons: Primary & Secondary */}
-            <div className="flex items-center gap-3.5 flex-wrap pt-1">
-              <Link to="/waitlist" className="btn-primary">
-                <span>Join Waitlist</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <button
-                onClick={() =>
-                  openVideoModal({
-                    src: siteConfig.videos.heroBg.src,
-                    title: 'TezzEV Official Ride Experience',
-                    poster: '/images/poster-1.jpg',
-                  })
-                }
-                className="btn-secondary-dark"
-              >
-                <Play className="w-4 h-4 text-leaf fill-leaf" />
-                <span>Watch Video</span>
-              </button>
-            </div>
-
-            {/* Trust Row */}
-            <div className="pt-3 border-t border-navy-800/80 grid grid-cols-3 gap-3 max-w-lg">
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-text-dark-muted">
-                <Zap className="w-4 h-4 text-leaf shrink-0" />
-                <span className="font-semibold text-white">Zero petrol cost</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-text-dark-muted">
-                <Wrench className="w-4 h-4 text-blue-light shrink-0" />
-                <span className="font-semibold text-white">Free maintenance</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-text-dark-muted">
-                <Headphones className="w-4 h-4 text-leaf shrink-0" />
-                <span className="font-semibold text-white">24/7 help</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 2. WAITLIST CARD OVERLAPPING HERO BOTTOM */}
-      {/* ======================================================== */}
-      <div className="container-custom relative -mt-10 sm:-mt-12 z-20">
-        <div className="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200 shadow-xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-100">
-            <div>
-              <span className="inline-block text-xs font-bold uppercase tracking-wider text-royal">
-                Early Bird Advantage
-              </span>
-              <h2 className="text-lg sm:text-xl font-bold text-navy-950 font-heading">
-                Be First To Ride In <span className="text-royal">{siteConfig.launchCity}</span>
-              </h2>
-            </div>
-            <p className="text-slate-600 text-xs sm:text-sm max-w-xs">
-              No advance payment needed. Reserve your preferred vehicle before official rollout.
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleHeroWaitlistSubmit}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 items-end"
-          >
-            <div>
-              <label className="block text-xs font-semibold text-navy-950 mb-1">
-                Full Name
-              </label>
-              <input
-                type="text"
-                required
-                value={waitlistData.name}
-                onChange={(e) => setWaitlistData({ ...waitlistData, name: e.target.value })}
-                placeholder="Ramesh Kumar"
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:border-royal focus:ring-1 focus:ring-royal text-navy-950"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-navy-950 mb-1">
-                Mobile Number
-              </label>
-              <input
-                type="tel"
-                required
-                maxLength={10}
-                value={waitlistData.mobile}
-                onChange={(e) => setWaitlistData({ ...waitlistData, mobile: e.target.value })}
-                placeholder="98765 43210"
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:border-royal focus:ring-1 focus:ring-royal text-navy-950"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-navy-950 mb-1">
-                City / Location
-              </label>
-              <select
-                value={waitlistData.city}
-                onChange={(e) => setWaitlistData({ ...waitlistData, city: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:border-royal focus:ring-1 focus:ring-royal text-navy-950 bg-white"
-              >
-                <option value="Indore">Indore</option>
-                <option value="Bhopal">Bhopal</option>
-                <option value="Other MP City">Other MP City</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-navy-950 mb-1">
-                I am looking to
-              </label>
-              <select
-                value={waitlistData.userType}
-                onChange={(e) => setWaitlistData({ ...waitlistData, userType: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:border-royal focus:ring-1 focus:ring-royal text-navy-950 bg-white"
-              >
-                <option value="Rider">Deliver with Zomato/Swiggy</option>
-                <option value="Personal">Personal / Office Commute</option>
-                <option value="Fleet">Small Fleet / Business</option>
-              </select>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-primary w-full justify-center !min-h-[42px]"
-              >
-                <span>{isSubmitting ? 'Reserving...' : 'Join Waitlist'}</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <ModernHeroSection />
 
       {/* WAVE DIVIDER: Deep Navy to Sky-100 */}
-      <SectionDivider type="navy-to-sky100" className="mt-4" />
+      <SectionDivider type="navy-to-sky100" />
 
       {/* ======================================================== */}
       {/* 3. WATCH TEZZEV IN ACTION (Sky-100) - VERTICAL VIDEO CARDS */}
