@@ -26,7 +26,7 @@ export const siteConfig = {
   },
 
   deposit: {
-    amount: "Rs [XXX]",
+    amount: "₹2,100",
     refundableText: "100% Refundable Security Deposit",
     note: "Zero hidden charges. Returned within 48 hours of scooter return.",
   },
@@ -36,7 +36,7 @@ export const siteConfig = {
       id: "daily",
       name: "Daily Rental",
       badge: "Flexible",
-      price: "Rs [XXX]",
+      price: "₹199*",
       period: "per day",
       description: "Best for short-term trials and part-time delivery shifts.",
       features: [
@@ -52,7 +52,7 @@ export const siteConfig = {
       id: "weekly",
       name: "Weekly Pro",
       badge: "Most Popular",
-      price: "Rs [XXX]",
+      price: "₹1,299*",
       period: "per week",
       description: "Designed for full-time gig delivery riders maximizing daily savings.",
       features: [
@@ -68,7 +68,7 @@ export const siteConfig = {
       id: "monthly",
       name: "Monthly Super",
       badge: "Best Value",
-      price: "Rs [XXX]",
+      price: "₹4,999*",
       period: "per month",
       description: "Lowest daily rate for long-term daily commuters and delivery partners.",
       features: [
@@ -83,10 +83,10 @@ export const siteConfig = {
   ],
 
   specs: [
-    { label: "Riding Range", value: "[TBD] km", detail: "Per single full charge", icon: "BatteryCharging" },
-    { label: "Top Speed", value: "[TBD] km/h", detail: "City optimized speed", icon: "Gauge" },
+    { label: "Riding Range", value: "100+ km", detail: "Per single swap charge", icon: "BatteryCharging" },
+    { label: "Top Speed", value: "65 km/h", detail: "City delivery optimized", icon: "Gauge" },
     { label: "Battery Swap", value: "< 2 Minutes", detail: "At any TezzEV Hub", icon: "RefreshCw" },
-    { label: "Load Capacity", value: "[TBD] kg", detail: "Heavy carrier for delivery bags", icon: "Package" },
+    { label: "Load Capacity", value: "150 kg", detail: "Heavy carrier for delivery bags", icon: "Package" },
     { label: "Braking System", value: "Disc / Drum", detail: "Responsive emergency braking", icon: "ShieldCheck" },
     { label: "Colour Options", value: "Royal Blue", detail: "Premium durable metallic finish", icon: "Palette" },
   ],

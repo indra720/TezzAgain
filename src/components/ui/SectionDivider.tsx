@@ -10,7 +10,9 @@ type DividerType =
   | 'white-to-sky100'
   | 'sky100-to-white'
   | 'white-to-sky200'
-  | 'sky200-to-white';
+  | 'sky200-to-white'
+  | 'navy-to-white'
+  | 'white-to-navy';
 
 interface SectionDividerProps {
   type: DividerType;
@@ -191,6 +193,40 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({ type, className 
             <path
               d="M0,0 C360,35 1080,35 1440,0 L1440,40 L0,40 Z"
               fill={colors.white}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'navy-to-white':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C360,35 1080,35 1440,0 L1440,40 L0,40 Z"
+              fill={colors.white}
+            />
+          </svg>
+        </div>
+      );
+
+    case 'white-to-navy':
+      return (
+        <div className={`w-full overflow-hidden leading-none -mt-0.5 -mb-0.5 ${className}`}>
+          <svg
+            className="w-full h-4 sm:h-6 md:h-7 block"
+            viewBox="0 0 1440 40"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0 C360,35 1080,35 1440,0 L1440,40 L0,40 Z"
+              fill={colors.navyDeep}
             />
           </svg>
         </div>
