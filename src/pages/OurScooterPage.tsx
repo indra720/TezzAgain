@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   BatteryCharging,
   Gauge,
@@ -9,14 +9,28 @@ import {
   Palette,
   CheckCircle2,
   ArrowRight,
+  ArrowLeft,
   Sparkles,
+  Share2,
+  Heart,
+  RotateCcw,
+  Clock,
+  Zap,
+  Check,
+  ChevronRight,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { VideoCard } from '../components/ui/VideoCard';
 import { SectionDivider } from '../components/ui/SectionDivider';
+import { useVideoModal } from '../components/ui/VideoContext';
 import { siteConfig } from '../lib/config';
 
 export const OurScooterPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { openVideoModal } = useVideoModal();
+  const [activeImage, setActiveImage] = useState('/images/scooter-clean-cutout.png');
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const iconMap: Record<string, React.ElementType> = {
     BatteryCharging,
     Gauge,
@@ -55,6 +69,232 @@ export const OurScooterPage: React.FC = () => {
 
   return (
     <div className="w-full">
+      {/* ======================================================== */}
+      {/* MOBILE NATIVE APP SCOOTER DETAIL VIEW (< 768px, Pinterest UX) */}
+      {/* ======================================================== */}
+      <div className="block md:hidden bg-[#F8FAFC] text-navy-950 pb-28 pt-20">
+        {/* Top Navigation Row (Back, Share, Heart) */}
+        <div className="px-4 flex items-center justify-between mb-3">
+          <button
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-navy-950 active:scale-90 transition-transform"
+            aria-label="Back"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                if (navigator.share) {
+                  navigator.share({ title: 'TezzEV Electric Scooter', url: window.location.href }).catch(() => {});
+                }
+              }}
+              className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-slate-700 active:scale-90 transition-transform"
+              aria-label="Share"
+            >
+              <Share2 className="w-4 h-4 text-slate-700" />
+            </button>
+            <button
+              onClick={() => setIsFavorite(!isFavorite)}
+              className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center active:scale-90 transition-transform"
+              aria-label="Favorite"
+            >
+              <Heart className={`w-4 h-4 ${isFavorite ? 'text-royal fill-royal' : 'text-slate-700'}`} />
+            </button>
+          </div>
+        </div>
+
+        {/* Hero Header Typography */}
+        <div className="px-4 space-y-1 mb-3">
+          <span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
+            TEZZEV 2025 FLEET EDITION
+          </span>
+          <h1 className="text-3xl font-black font-heading text-navy-950 tracking-tight">
+            Tezz Cargo Pro
+          </h1>
+          <p className="text-xs text-slate-500 font-medium">
+            High-Payload Commercial Electric Scooter
+          </p>
+        </div>
+
+        {/* Large Hero Image Container with Curved Sky Gradient Background */}
+        <div className="relative mx-4 rounded-3xl bg-gradient-to-b from-[#EAF2FF] via-[#E2EDFF] to-white border border-blue-100/70 p-4 min-h-[250px] flex items-center justify-center shadow-inner overflow-hidden mb-4">
+          <img
+            src={activeImage}
+            alt="TezzEV Electric Scooter"
+            className="max-h-52 max-w-full object-contain filter drop-shadow-xl transition-all duration-300"
+          />
+
+          {/* 360° Tour Pill Button */}
+          <button
+            onClick={() =>
+              openVideoModal({
+                src: siteConfig.videos.scooterTour.src,
+                title: 'TezzEV Full 360° Vehicle Walkthrough',
+                poster: '/images/poster-1.jpg',
+              })
+            }
+            className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full bg-[#06122E] text-white text-xs font-bold flex items-center gap-1.5 shadow-lg active:scale-95 transition-all"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-blue-light" />
+            <span>360° View</span>
+          </button>
+        </div>
+
+        {/* 4 Thumbnails Row */}
+        <div className="px-4 grid grid-cols-4 gap-2.5 mb-5">
+          {[
+            { src: '/images/scooter-clean-cutout.png', label: 'Cutout' },
+            { src: '/images/scooter-side.png', label: 'Side' },
+            { src: '/images/scooter-hero.png', label: 'Hero' },
+            { src: '/images/poster-1.jpg', label: 'Hub Demo', badge: '+3' },
+          ].map((thumb, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveImage(thumb.src)}
+              className={`relative h-18 rounded-2xl p-1.5 bg-white border-2 flex items-center justify-center overflow-hidden transition-all shadow-xs ${
+                activeImage === thumb.src ? 'border-royal shadow-md scale-102' : 'border-slate-100 hover:border-slate-300'
+              }`}
+            >
+              <img src={thumb.src} alt={thumb.label} className="max-h-full max-w-full object-contain" />
+              {thumb.badge && (
+                <div className="absolute inset-0 bg-navy-950/60 flex items-center justify-center text-white text-xs font-extrabold backdrop-blur-[1px]">
+                  {thumb.badge}
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Hub Support Info Card */}
+        <div className="mx-4 p-4 rounded-2xl bg-white border border-slate-150 shadow-xs flex items-center justify-between gap-3 mb-5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 text-royal flex items-center justify-center shrink-0 border border-blue-100">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-navy-950">TezzEV Hub Support</h4>
+              <p className="text-[11px] text-slate-500 leading-tight">
+                Free maintenance &amp; 2-min battery swaps at Indore &amp; Bhopal hubs.
+              </p>
+            </div>
+          </div>
+          <span className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200 flex items-center gap-1">
+            <Check className="w-3 h-3 text-emerald-600" />
+            <span>Included</span>
+          </span>
+        </div>
+
+        {/* Specifications 3x2 Grid */}
+        <div className="px-4 space-y-3 mb-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-black font-heading text-navy-950">
+              Specifications
+            </h3>
+            <span className="text-xs font-bold text-royal">
+              Commercial Spec
+            </span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2.5">
+            {/* Tile 1: Range */}
+            <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-xs space-y-1">
+              <div className="w-7 h-7 rounded-lg bg-blue-50 text-royal flex items-center justify-center">
+                <BatteryCharging className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase font-bold text-slate-400 block">Range</span>
+              <span className="text-xs font-black text-navy-950 block">100+ km</span>
+            </div>
+
+            {/* Tile 2: Top Speed */}
+            <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-xs space-y-1">
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <Gauge className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase font-bold text-slate-400 block">Top Speed</span>
+              <span className="text-xs font-black text-navy-950 block">65 km/h</span>
+            </div>
+
+            {/* Tile 3: Swap Time */}
+            <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-xs space-y-1">
+              <div className="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
+                <Clock className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase font-bold text-slate-400 block">Swap Time</span>
+              <span className="text-xs font-black text-navy-950 block">&lt; 2 min</span>
+            </div>
+
+            {/* Tile 4: Payload */}
+            <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-xs space-y-1">
+              <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                <Package className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase font-bold text-slate-400 block">Payload</span>
+              <span className="text-xs font-black text-navy-950 block">160 kg</span>
+            </div>
+
+            {/* Tile 5: Battery */}
+            <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-xs space-y-1">
+              <div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Zap className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase font-bold text-slate-400 block">Battery</span>
+              <span className="text-xs font-black text-navy-950 block">2.5 kWh LFP</span>
+            </div>
+
+            {/* Tile 6: Brakes */}
+            <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-xs space-y-1">
+              <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase font-bold text-slate-400 block">Brakes</span>
+              <span className="text-xs font-black text-navy-950 block">Dual CBS</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Tour Reel Card */}
+        <div className="px-4 mb-4">
+          <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-white">
+            <VideoCard
+              src={siteConfig.videos.scooterTour.src}
+              title="TezzEV Live 360° Walkthrough"
+              poster="/images/poster-1.jpg"
+              aspect="video"
+            />
+          </div>
+        </div>
+
+        {/* STICKY BOTTOM BOOKING BAR */}
+        <div className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-xl border-t border-slate-200/90 px-5 py-3.5 flex items-center justify-between z-50 shadow-2xl">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+              Rental Price
+            </span>
+            <div className="flex items-baseline gap-1">
+              <span className="text-2xl font-black font-heading text-navy-950">
+                ₹199*
+              </span>
+              <span className="text-xs text-slate-500 font-semibold">/ day</span>
+            </div>
+          </div>
+
+          <div className="h-8 w-px bg-slate-200 mx-2" />
+
+          <Link
+            to="/waitlist"
+            className="flex-1 max-w-[220px] h-12 rounded-2xl bg-gradient-to-r from-royal to-blue hover:from-blue hover:to-royal text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-royal/35 active:scale-95 transition-transform"
+          >
+            <span>Pre-Book Scooter</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+
+      {/* ======================================================== */}
+      {/* DESKTOP VIEW (>= 768px, Intact DriveX Layout)            */}
+      {/* ======================================================== */}
+      <div className="hidden md:block">
       <PageHeader
         breadcrumbs={[{ label: 'Our Scooter' }]}
         title="Meet The TezzEV Electric Scooter"
@@ -316,6 +556,7 @@ export const OurScooterPage: React.FC = () => {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 };

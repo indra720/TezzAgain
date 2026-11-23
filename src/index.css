@@ -198,6 +198,43 @@ h2 {
   color: #FFFFFF;
 }
 
+/* Mobile Native App Form Styles (< 768px, Pinterest Reference) */
+@media (max-width: 767px) {
+  .app-input {
+    height: 54px !important;
+    border-radius: 16px !important;
+    font-size: 15px !important;
+    box-shadow: 0 2px 10px rgba(6, 18, 46, 0.04) !important;
+    border: 1.5px solid #E2E8F0 !important;
+    background-color: #FFFFFF !important;
+    padding-left: 44px !important;
+    padding-right: 16px !important;
+    transition: all 0.2s ease !important;
+  }
+  .app-input:focus {
+    border-color: #1647E8 !important;
+    box-shadow: 0 0 0 3px rgba(22, 71, 232, 0.15) !important;
+    outline: none !important;
+  }
+  .app-btn-primary {
+    height: 56px !important;
+    border-radius: 18px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, #1647E8, #2D6BFF) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 8px 24px rgba(22, 71, 232, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  }
+  .app-btn-primary:active {
+    transform: scale(0.98) !important;
+  }
+}
+
 .tezz-card-dark:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);

@@ -267,7 +267,7 @@ export const TezzChatbot: React.FC = () => {
       )}
 
       {/* Floating Launcher Button */}
-      <div className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-40 flex items-center gap-2">
+      <div className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-40 flex items-center gap-2">
         {!isOpen && (
           <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-white text-xs font-medium shadow-md">
             <span className="w-2 h-2 rounded-full bg-leaf mr-1.5"></span>
