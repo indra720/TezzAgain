@@ -21,6 +21,7 @@ export const ModernHeroSection: React.FC = () => {
   const { openVideoModal } = useVideoModal();
   const navigate = useNavigate();
   const bgVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileBgVideoRef = useRef<HTMLVideoElement>(null);
 
   // Floating Rental Filter State (DriveX style)
   const [activeTab, setActiveTab] = useState<'weekly' | 'monthly' | 'daily'>('weekly');
@@ -28,10 +29,17 @@ export const ModernHeroSection: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState('Weekly Pro (Unlimited Swaps)');
   const [selectedPurpose, setSelectedPurpose] = useState('Zomato / Swiggy Food Delivery');
 
-  // Reliable Autoplay for Background Video
+  // Reliable Autoplay for Background Video (Desktop + Mobile)
   useEffect(() => {
     if (bgVideoRef.current) {
+      bgVideoRef.current.muted = true;
+      bgVideoRef.current.defaultMuted = true;
       bgVideoRef.current.play().catch(() => {});
+    }
+    if (mobileBgVideoRef.current) {
+      mobileBgVideoRef.current.muted = true;
+      mobileBgVideoRef.current.defaultMuted = true;
+      mobileBgVideoRef.current.play().catch(() => {});
     }
   }, []);
 
@@ -45,36 +53,57 @@ export const ModernHeroSection: React.FC = () => {
       {/* ======================================================== */}
       {/* MOBILE NATIVE APP DISCOVERY HERO (< 768px, Pinterest UX) */}
       {/* ======================================================== */}
-      <div className="block md:hidden bg-[#EAF2FF] text-navy-950 pt-24 pb-4 px-4 space-y-4 relative overflow-hidden">
-        {/* Soft Background Radial Map Geometry */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-200/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-        <div
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 1px 1px, #1647E8 1px, transparent 0)',
-            backgroundSize: '24px 24px',
-          }}
-        />
+      <div className="block md:hidden relative bg-[#040C22] text-white pt-24 pb-6 px-4 space-y-4 overflow-hidden">
+        {/* Full-bleed Background Video on Mobile */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+          <video
+            ref={mobileBgVideoRef}
+            src={siteConfig.videos.heroBg.src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/images/poster-1.jpg"
+            className="w-full h-full object-cover opacity-60 scale-105"
+          >
+            <source src={siteConfig.videos.heroBg.src} type="video/mp4" />
+          </video>
+
+          {/* Ambient Glowing Orbs */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 bg-royal/35 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Cinematic Dark Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#040C22]/85 via-[#06122E]/80 to-[#040C22]/95" />
+
+          {/* High-Tech Grid */}
+          <div
+            className="absolute inset-0 opacity-[0.035] pointer-events-none"
+            style={{
+              backgroundImage:
+                'radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)',
+              backgroundSize: '24px 24px',
+            }}
+          />
+        </div>
 
         {/* Top Header: Greeting, Status Pill & Big Headline */}
         <div className="relative z-10 space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 tracking-wide uppercase">
+            <span className="text-xs font-semibold text-slate-300 tracking-wide uppercase">
               Good morning,
             </span>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-blue-200 shadow-xs text-[11px] font-bold text-royal">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy-900/90 border border-royal/40 shadow-xs text-[11px] font-bold text-blue-light backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Indore &amp; Bhopal</span>
             </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-heading font-black text-navy-950 tracking-tight leading-tight">
-            Find your next <span className="text-royal">ride</span>
+          <h1 className="text-2xl sm:text-3xl font-heading font-black text-white tracking-tight leading-tight">
+            Find your next <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-light via-sky-200 to-leaf">ride</span>
           </h1>
         </div>
 
         {/* Floating White Booking Search Card (Matching Reference Screen 1) */}
-        <div className="relative z-10 bg-white rounded-3xl p-4 shadow-[0_12px_32px_rgba(11,27,77,0.08)] border border-white/80 flex items-center justify-between gap-3">
+        <div className="relative z-10 bg-white rounded-3xl p-4 shadow-[0_12px_36px_rgba(0,0,0,0.35)] border border-white/90 flex items-center justify-between gap-3 text-navy-950">
           <div className="flex-1 space-y-2.5 min-w-0">
             {/* Row 1: Pickup Hub */}
             <div className="flex items-center gap-2.5">
