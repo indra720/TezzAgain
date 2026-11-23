@@ -1,5 +1,5 @@
-import React from 'react';
-import { Play } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
+import { Play, Volume2 } from 'lucide-react';
 import { useVideoModal } from './VideoContext';
 
 interface VideoCardProps {
@@ -20,24 +20,59 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   aspect = 'square',
 }) => {
   const { openVideoModal } = useVideoModal();
-  
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
   // Every card has a valid active video (defaults to video 1 if unprovided)
   const activeSrc = src && src.trim().length > 0 ? src : '/videos/tezz-video-1.mp4';
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Strict browser autoplay compliance: muted must be explicitly set on DOM element
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    const playVideo = () => {
+      video.muted = true;
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // Autoplay fallback: ready on first tap or intersection
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      playVideo();
+    } else {
+      video.addEventListener('loadeddata', playVideo, { once: true });
+      video.addEventListener('canplay', playVideo, { once: true });
+    }
+
+    return () => {
+      video.removeEventListener('loadeddata', playVideo);
+      video.removeEventListener('canplay', playVideo);
+    };
+  }, [activeSrc]);
 
   const handleClick = () => {
     openVideoModal({ src: activeSrc, title, poster });
   };
 
-  // 1:1 aspect ratio perfectly matches square posters (1024x1024) with zero cropping
+  // Modern aspect ratio mapping
   const aspectClass =
     aspect === 'video'
       ? 'aspect-video'
+      : aspect === 'vertical'
+      ? 'aspect-[9/14]'
       : 'aspect-square';
 
   return (
     <div
       onClick={handleClick}
-      className={`group relative ${aspectClass} w-full rounded-2xl overflow-hidden cursor-pointer bg-navy-950 border border-navy-800 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:border-royal hover:shadow-xl ${className}`}
+      className={`group relative ${aspectClass} w-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer bg-navy-950 border border-navy-800/80 shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:border-royal hover:shadow-2xl ${className}`}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
@@ -49,7 +84,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
       aria-label={`Watch: ${title}`}
     >
       <div className="relative z-0 w-full h-full overflow-hidden flex items-center justify-center bg-navy-950">
-        {/* Ambient blurred fill: Matches poster colors and lighting perfectly so there are ZERO black bars */}
+        {/* Ambient blurred fill */}
         <img
           src={poster}
           alt=""
@@ -57,29 +92,50 @@ export const VideoCard: React.FC<VideoCardProps> = ({
           className="absolute inset-0 w-full h-full object-cover filter blur-2xl scale-110 opacity-70 brightness-75 pointer-events-none"
         />
 
-        {/* 100% Edge-to-Edge Foreground Poster - Zero black borders or empty side gaps */}
-        <img
-          src={poster}
-          alt={title}
-          loading="lazy"
-          className="relative z-10 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        {/* Live AutoPlaying Looping Muted Video */}
+        <video
+          ref={videoRef}
+          src={activeSrc}
+          poster={poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="relative z-10 w-full h-full object-cover transition-transform duration-500 group-hover:scale-106"
+        >
+          <source src={activeSrc} type="video/mp4" />
+        </video>
 
-        {/* Centered Round Play Button */}
+        {/* Contrast Gradient Overlay */}
+        <div className="absolute inset-0 z-15 bg-gradient-to-t from-black/85 via-black/15 to-black/35 pointer-events-none transition-opacity duration-300 group-hover:opacity-85" />
+
+        {/* Top Badges: Live AutoPlay Indicator */}
+        <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 right-2.5 sm:right-3 flex items-center justify-between z-20 pointer-events-none">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tracking-tight">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>LIVE REEL</span>
+          </span>
+          <span className="w-6 h-6 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90">
+            <Volume2 className="w-3 h-3 text-white" />
+          </span>
+        </div>
+
+        {/* Centered Play Button (prominent on hover) */}
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-royal hover:bg-blue flex items-center justify-center text-white shadow-xl shadow-black/50 transform transition-transform duration-200 group-hover:scale-110">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-royal/90 group-hover:bg-royal text-white flex items-center justify-center shadow-xl shadow-black/60 transform transition-all duration-300 group-hover:scale-115 border-2 border-white/40 backdrop-blur-xs">
             <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white translate-x-0.5" />
           </div>
         </div>
 
-        {/* Sleek bottom title pill - Compact, doesn't obscure the poster text or graphics */}
-        <div className="absolute bottom-2 inset-x-2 z-20 pointer-events-none">
-          <div className="bg-navy-950/85 backdrop-blur-md px-3 py-1.5 rounded-xl border border-navy-700/60 flex items-center justify-between shadow-lg">
-            <p className="text-white font-medium text-xs truncate max-w-[80%]">
+        {/* Sleek bottom title pill */}
+        <div className="absolute bottom-2.5 inset-x-2.5 z-20 pointer-events-none">
+          <div className="bg-navy-950/90 backdrop-blur-md px-3 py-2 rounded-xl border border-navy-700/60 flex items-center justify-between shadow-lg">
+            <p className="text-white font-bold text-xs truncate max-w-[75%] font-heading">
               {title}
             </p>
-            <span className="text-[10px] text-blue-light font-bold uppercase tracking-wider shrink-0">
-              Watch
+            <span className="text-[10px] text-blue-light font-extrabold uppercase tracking-wider shrink-0 bg-royal/40 px-2 py-0.5 rounded-md border border-royal/40">
+              Tap Sound
             </span>
           </div>
         </div>

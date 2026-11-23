@@ -267,7 +267,7 @@ export const TezzChatbot: React.FC = () => {
       )}
 
       {/* Floating Launcher Button */}
-      <div className="fixed bottom-5 sm:bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2">
+      <div className="fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-40 flex items-center gap-2">
         {!isOpen && (
           <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-white text-xs font-medium shadow-md">
             <span className="w-2 h-2 rounded-full bg-leaf mr-1.5"></span>
@@ -276,12 +276,12 @@ export const TezzChatbot: React.FC = () => {
         )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-[52px] h-[52px] rounded-full bg-royal hover:bg-blue text-white shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 ${
+          className={`w-11 h-11 sm:w-[52px] sm:h-[52px] rounded-full bg-royal hover:bg-blue text-white shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 ${
             isOpen ? 'hidden sm:flex' : 'flex'
           }`}
           aria-label="Toggle TezzEV Chatbot"
         >
-          {isOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
+          {isOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />}
         </button>
       </div>
     </>

@@ -25,6 +25,7 @@ import { CityHubExplorer } from '../components/home/CityHubExplorer';
 import { RiderStoriesGallery } from '../components/home/RiderStoriesGallery';
 import { ModernHeroSection } from '../components/home/ModernHeroSection';
 import { VehicleFleetShowcase } from '../components/home/VehicleFleetShowcase';
+import { AppDownloadBanner } from '../components/home/AppDownloadBanner';
 import { toast } from 'sonner';
 
 export const HomePage: React.FC = () => {
@@ -64,7 +65,7 @@ export const HomePage: React.FC = () => {
       {/* ======================================================== */}
       {/* 2. CHOOSE YOUR RIDE - COMMERCIAL FLEET SHOWCASE (DRIVEX) */}
       {/* ======================================================== */}
-      <section className="bg-white text-navy-950 pt-16 sm:pt-24 lg:pt-28 pb-14 sm:pb-20">
+      <section className="bg-white text-navy-950 pt-10 sm:pt-24 lg:pt-28 pb-14 sm:pb-20">
         <div className="container-custom">
           <VehicleFleetShowcase />
         </div>
@@ -321,24 +322,26 @@ export const HomePage: React.FC = () => {
             ))}
           </div>
 
-          {/* 8. SEE HOW MUCH YOU SAVE TEASER - Modern Royal Gradient (Airy & Premium) */}
-          <div className="w-full bg-gradient-to-r from-royal to-blue-700 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row items-center justify-between gap-5 text-white">
-            <div className="space-y-1.5 text-center md:text-left">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold mb-1 backdrop-blur-sm">
+          {/* 8. SEE HOW MUCH YOU SAVE TEASER - Ultra Refined Royal Gradient Banner */}
+          <div className="w-full bg-gradient-to-r from-royal via-blue-700 to-blue-800 rounded-3xl p-6 sm:p-9 shadow-2xl border border-blue-400/30 flex flex-col md:flex-row items-center justify-between gap-6 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="space-y-2 text-center md:text-left relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold mb-1 backdrop-blur-md">
                 <TrendingDown className="w-3.5 h-3.5 text-emerald-300" />
-                <span>Save Up To ₹10,000 / Month</span>
+                <span>Zero Petrol • Pure Take-Home Earnings</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
+              <h3 className="text-xl sm:text-3xl font-black font-heading text-white">
                 See How Much You Save Every Month
               </h3>
-              <p className="text-sm text-blue-100 max-w-lg">
-                Calculate your exact fuel savings based on your daily riding distance.
+              <p className="text-xs sm:text-sm text-blue-100 max-w-xl leading-relaxed">
+                Calculate your exact net fuel savings comparing ₹108/L petrol against TezzEV unlimited 2-minute battery swap rental subscriptions.
               </p>
             </div>
 
             <Link
               to="/savings"
-              className="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-royal font-bold text-sm shadow-md transition-all shrink-0 flex items-center gap-2 active:scale-95"
+              className="px-6 py-3 rounded-2xl bg-white hover:bg-slate-100 text-royal font-extrabold text-sm shadow-xl transition-all shrink-0 flex items-center gap-2 active:scale-95 relative z-10"
             >
               <span>Open Savings Calculator</span>
               <ArrowRight className="w-4 h-4" />
@@ -460,6 +463,9 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* 11. DriveX-Style Smartphone App Download Showcase Banner */}
+          <AppDownloadBanner />
         </div>
       </section>
 

@@ -251,28 +251,28 @@ export const CityHubExplorer: React.FC = () => {
         </div>
 
         {/* City Switcher Buttons */}
-        <div className="flex items-center p-1.5 rounded-2xl bg-slate-100 border border-slate-200 shrink-0 gap-1.5">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center p-1.5 rounded-2xl bg-slate-100 border border-slate-200 shrink-0 gap-1.5 w-full sm:w-auto">
           <button
             onClick={() => handleCityChange('indore')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto ${
               selectedCity === 'indore'
                 ? 'bg-royal text-white shadow-md shadow-royal/30'
                 : 'text-slate-600 hover:text-navy-950 hover:bg-white/80'
             }`}
           >
-            <MapPin className="w-3.5 h-3.5" />
+            <MapPin className="w-3.5 h-3.5 shrink-0" />
             <span>Indore Metro (3 Hubs)</span>
           </button>
 
           <button
             onClick={() => handleCityChange('bhopal')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto ${
               selectedCity === 'bhopal'
                 ? 'bg-royal text-white shadow-md shadow-royal/30'
                 : 'text-slate-600 hover:text-navy-950 hover:bg-white/80'
             }`}
           >
-            <MapPin className="w-3.5 h-3.5" />
+            <MapPin className="w-3.5 h-3.5 shrink-0" />
             <span>Bhopal Metro (2 Hubs)</span>
           </button>
         </div>
@@ -355,19 +355,19 @@ export const CityHubExplorer: React.FC = () => {
             </div>
 
             {/* Support Callout Box */}
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 text-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                  <Phone className="w-3.5 h-3.5" />
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                  <Phone className="w-4 h-4" />
                 </div>
-                <div>
+                <div className="leading-tight">
                   <span className="text-slate-500 block text-[11px]">Hub Assistance Helpline</span>
-                  <span className="font-bold text-navy-950">{siteConfig.supportPhone}</span>
+                  <span className="font-bold text-navy-950 text-sm whitespace-nowrap">{siteConfig.supportPhone}</span>
                 </div>
               </div>
               <a
                 href={`tel:${siteConfig.supportPhone}`}
-                className="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-navy-950 font-bold hover:bg-slate-100 transition-colors shrink-0"
+                className="px-4 py-2 rounded-xl bg-white border border-slate-300 text-navy-950 font-bold hover:bg-slate-100 transition-colors shrink-0 text-center"
               >
                 Call Hub
               </a>
@@ -413,9 +413,13 @@ export const CityHubExplorer: React.FC = () => {
               }
               className="relative aspect-video w-full rounded-2xl overflow-hidden cursor-pointer shadow-md border border-slate-200 group bg-black select-none"
             >
-              <img
-                src={activeHub.poster}
-                alt={activeHub.name}
+              <video
+                src={activeHub.videoSrc}
+                poster={activeHub.poster}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30" />
@@ -437,7 +441,7 @@ export const CityHubExplorer: React.FC = () => {
                     Recorded live at {activeHub.name}
                   </span>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-bold text-white border border-white/20">
+                <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-bold text-white border border-white/20">
                   Tap To Play Video
                 </span>
               </div>
