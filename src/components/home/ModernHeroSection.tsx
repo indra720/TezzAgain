@@ -39,7 +39,7 @@ export const ModernHeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[640px] sm:min-h-[700px] lg:min-h-[740px] bg-[#040C22] text-white pt-10 sm:pt-14 md:pt-18 pb-24 sm:pb-32 overflow-visible flex flex-col justify-between">
+    <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-[740px] bg-[#040C22] text-white pt-8 sm:pt-14 md:pt-18 pb-14 sm:pb-32 overflow-visible flex flex-col justify-between">
       {/* ======================================================== */}
       {/* 1. CINEMATIC FULL-WIDTH BACKGROUND VIDEO                 */}
       {/* ======================================================== */}
@@ -77,17 +77,17 @@ export const ModernHeroSection: React.FC = () => {
       {/* ======================================================== */}
       {/* 2. CENTERED CINEMATIC HERO CONTENT (Pure Clean Typography)*/}
       {/* ======================================================== */}
-      <div className="container-custom relative z-10 w-full my-auto text-center max-w-4xl mx-auto space-y-6 sm:space-y-7">
+      <div className="container-custom relative z-10 w-full my-auto text-center max-w-4xl mx-auto space-y-5 sm:space-y-7">
         {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-navy-900/90 border border-royal/40 text-xs font-semibold shadow-inner backdrop-blur-md">
-          <span className="relative flex h-2 w-2">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-navy-900/90 border border-royal/40 text-[10px] sm:text-xs font-semibold shadow-inner backdrop-blur-md max-w-full">
+          <span className="relative flex h-2 w-2 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span className="text-white font-bold tracking-wide uppercase text-[11px] sm:text-xs">
+          <span className="text-white font-bold tracking-wider uppercase text-[10px] sm:text-xs whitespace-nowrap">
             Smart EV Rental Platform
           </span>
-          <span className="text-blue-light font-medium">
+          <span className="text-blue-light font-medium whitespace-nowrap">
             • {siteConfig.launchCity}
           </span>
         </div>
@@ -167,7 +167,7 @@ export const ModernHeroSection: React.FC = () => {
       {/* ======================================================== */}
       {/* 3. DRIVEX-STYLE OVERLAPPING FLOATING RENTAL SEARCH WIDGET*/}
       {/* ======================================================== */}
-      <div className="container-custom relative -mb-16 sm:-mb-24 z-30 pt-8">
+      <div className="container-custom relative z-30 pt-6 sm:pt-8 mb-6 sm:-mb-20 lg:-mb-24">
         <div className="bg-white rounded-3xl p-4 sm:p-6 shadow-2xl border border-slate-200/90 text-navy-950 max-w-5xl mx-auto">
           {/* Top Tabs (DriveX "Rent a Car / One Way / Long Term") */}
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4 overflow-x-auto no-scrollbar">

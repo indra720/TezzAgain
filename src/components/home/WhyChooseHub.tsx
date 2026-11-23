@@ -460,11 +460,11 @@ export const WhyChooseHub: React.FC = () => {
                         <Icon className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-2 mb-0.5">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 mb-1">
                           <h4 className="text-xs sm:text-sm md:text-base font-bold text-navy-950">
                             {m.title}
                           </h4>
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200 shrink-0">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200 shrink-0 self-start sm:self-auto">
                             {m.tag}
                           </span>
                         </div>

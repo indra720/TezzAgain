@@ -158,9 +158,9 @@ export const SavingsPage: React.FC = () => {
             </div>
 
             {/* Petrol vs TezzEV Monthly Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 mb-6">
               {/* Card 1: Petrol Scooter */}
-              <div className="p-5 rounded-xl bg-red-50/70 border border-red-200/60 text-navy-950">
+              <div className="p-4 sm:p-5 rounded-2xl bg-red-50/70 border border-red-200/60 text-navy-950">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2 font-bold text-sm sm:text-base text-red-900 font-heading">
                     <Fuel className="w-4 h-4 text-red-600" />
@@ -191,7 +191,7 @@ export const SavingsPage: React.FC = () => {
               </div>
 
               {/* Card 2: TezzEV Electric Scooter */}
-              <div className="p-5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-navy-950">
+              <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/70 border border-blue-200/80 text-navy-950">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2 font-bold text-sm sm:text-base text-navy-950 font-heading">
                     <Zap className="w-4 h-4 text-royal" />

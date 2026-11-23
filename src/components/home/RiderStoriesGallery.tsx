@@ -172,12 +172,15 @@ export const RiderStoriesGallery: React.FC = () => {
                 }
                 className="relative aspect-[9/13] w-full bg-black cursor-pointer overflow-hidden select-none"
               >
-                {/* Poster Image */}
-                <img
-                  src={story.poster}
-                  alt={story.name}
+                {/* Live AutoPlaying Looping Video Reel */}
+                <video
+                  src={story.videoSrc}
+                  poster={story.poster}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
                 />
 
                 {/* Gradient Contrast Overlay */}
@@ -292,17 +295,17 @@ export const RiderStoriesGallery: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-2 w-full sm:w-auto shrink-0">
           <Link
             to="/ads"
-            className="btn-secondary-light !min-h-[38px] !py-0 !px-4 text-xs font-bold"
+            className="btn-secondary-light !min-h-[42px] sm:!min-h-[38px] !py-0 !px-4 text-xs font-bold justify-center w-full sm:w-auto text-center"
           >
             <span>Watch All Video Ads</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             to="/waitlist"
-            className="btn-primary !min-h-[38px] !py-0 !px-4 text-xs font-bold"
+            className="btn-primary !min-h-[42px] sm:!min-h-[38px] !py-0 !px-4 text-xs font-bold justify-center w-full sm:w-auto text-center"
           >
             <span>Join Rider Fleet</span>
           </Link>

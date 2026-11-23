@@ -247,7 +247,7 @@ export const EvVsPetrolComparison: React.FC = () => {
               <p className="text-xs text-slate-600 leading-relaxed">
                 Watch a real commercial delivery rider calculate daily petrol expenses vs zero-fuel TezzEV earnings.
               </p>
-              <div className="pt-1 flex items-center justify-center gap-2 text-[11px] text-emerald-700 font-semibold">
+              <div className="pt-1 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] text-emerald-700 font-semibold">
                 <span>100% Fuel Free</span>
                 <span>•</span>
                 <span>Zero Servicing Cost</span>

@@ -138,7 +138,7 @@ export const VehicleFleetShowcase: React.FC = () => {
         {filteredFleet.map((scooter) => (
           <div
             key={scooter.id}
-            className={`group bg-white rounded-3xl p-5 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative shadow-sm hover:shadow-xl ${
+            className={`group bg-white rounded-3xl p-4 sm:p-6 border transition-all duration-300 flex flex-col justify-between relative shadow-sm hover:shadow-xl ${
               scooter.isPopular
                 ? 'border-2 border-royal shadow-md'
                 : 'border-slate-200 hover:border-royal/40'
@@ -234,8 +234,8 @@ export const VehicleFleetShowcase: React.FC = () => {
             </div>
 
             {/* Price & Action Row */}
-            <div className="flex items-center justify-between gap-3 pt-1">
-              <div>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+              <div className="flex items-center justify-between sm:block">
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">Rental Rate</span>
                 <div className="flex items-baseline gap-1">
                   <span className="text-xl sm:text-2xl font-black text-navy-950 font-heading">
@@ -247,7 +247,7 @@ export const VehicleFleetShowcase: React.FC = () => {
 
               <Link
                 to="/waitlist"
-                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95 ${
+                className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95 w-full sm:w-auto text-center ${
                   scooter.isPopular
                     ? 'bg-royal hover:bg-blue-700 text-white shadow-royal/25'
                     : 'bg-navy-950 hover:bg-royal text-white'
@@ -262,9 +262,9 @@ export const VehicleFleetShowcase: React.FC = () => {
       </div>
 
       {/* 3. DriveX-Style Twin High-Impact Promotion Banners */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 pt-2">
         {/* Banner 1: Early Launch Offer */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-950 via-navy-900 to-royal p-7 sm:p-8 text-white shadow-xl flex flex-col justify-between border border-blue-900/60">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-950 via-navy-900 to-royal p-5 sm:p-8 text-white shadow-xl flex flex-col justify-between border border-blue-900/60">
           <div className="absolute top-0 right-0 w-64 h-64 bg-royal/20 rounded-full blur-3xl pointer-events-none" />
           
           <div className="relative z-10 space-y-3 mb-6">
@@ -272,7 +272,7 @@ export const VehicleFleetShowcase: React.FC = () => {
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Launch Week Special</span>
             </span>
-            <h3 className="text-2xl sm:text-3xl font-black font-heading text-white">
+            <h3 className="text-xl sm:text-3xl font-black font-heading text-white">
               Get ₹500 Free Swap Credits
             </h3>
             <p className="text-xs sm:text-sm text-blue-100/90 leading-relaxed max-w-md">
@@ -280,22 +280,22 @@ export const VehicleFleetShowcase: React.FC = () => {
             </p>
           </div>
 
-          <div className="relative z-10 flex items-center gap-3">
+          <div className="relative z-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <Link
               to="/waitlist"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-bold text-xs sm:text-sm shadow-lg transition-all active:scale-95"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 font-extrabold text-xs sm:text-sm shadow-lg transition-all active:scale-95 w-full sm:w-auto text-center"
             >
               <span>Claim Launch Credit</span>
               <ArrowRight className="w-4 h-4 text-navy-950" />
             </Link>
-            <span className="text-[11px] text-blue-200 font-medium">
+            <span className="text-xs text-blue-200 font-medium text-center sm:text-left">
               Limited to first 500 riders
             </span>
           </div>
         </div>
 
         {/* Banner 2: Monthly Commercial Savings */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-navy-950 to-slate-950 p-7 sm:p-8 text-white shadow-xl flex flex-col justify-between border border-slate-800">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-navy-950 to-slate-950 p-5 sm:p-8 text-white shadow-xl flex flex-col justify-between border border-slate-800">
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-3 mb-6">
@@ -303,7 +303,7 @@ export const VehicleFleetShowcase: React.FC = () => {
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
               <span>Full-Time Gig Delivery Pro</span>
             </span>
-            <h3 className="text-2xl sm:text-3xl font-black font-heading text-white">
+            <h3 className="text-xl sm:text-3xl font-black font-heading text-white">
               Save Up To ₹10,000 / Month
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md">
@@ -311,15 +311,15 @@ export const VehicleFleetShowcase: React.FC = () => {
             </p>
           </div>
 
-          <div className="relative z-10 flex items-center gap-3">
+          <div className="relative z-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <Link
               to="/savings"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-navy-950 font-bold text-xs sm:text-sm shadow-lg transition-all active:scale-95"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-navy-950 font-extrabold text-xs sm:text-sm shadow-lg transition-all active:scale-95 w-full sm:w-auto text-center"
             >
               <span>Calculate Your Savings</span>
               <ArrowRight className="w-4 h-4 text-navy-950" />
             </Link>
-            <span className="text-[11px] text-slate-400 font-medium">
+            <span className="text-xs text-slate-300 font-medium text-center sm:text-left">
               Zomato, Swiggy &amp; Blinkit
             </span>
           </div>

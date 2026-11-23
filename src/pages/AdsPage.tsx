@@ -372,11 +372,26 @@ export const AdsPage: React.FC = () => {
               >
                 {/* 9:16 Aspect Vertical Reel Box */}
                 <div className="relative aspect-[9/16] w-full overflow-hidden bg-black">
-                  <img
-                    src={ad.poster}
-                    alt={ad.title}
+                  <video
+                    src={ad.videoSrc}
+                    poster={ad.poster}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    onLoadedData={(e) => {
+                      e.currentTarget.muted = true;
+                      e.currentTarget.play().catch(() => {});
+                    }}
+                    onCanPlay={(e) => {
+                      e.currentTarget.muted = true;
+                      e.currentTarget.play().catch(() => {});
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  >
+                    <source src={ad.videoSrc} type="video/mp4" />
+                  </video>
 
                   {/* Gradient Scrim */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-black/50" />
