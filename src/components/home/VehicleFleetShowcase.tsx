@@ -10,6 +10,8 @@ import {
   ShieldCheck,
   CheckCircle2,
   Zap,
+  Heart,
+  ChevronRight,
 } from 'lucide-react';
 
 interface ScooterModel {
@@ -133,8 +135,170 @@ export const VehicleFleetShowcase: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Scooter Cards Grid (DriveX Layout) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+      {/* ======================================================== */}
+      {/* 2A. MOBILE SNAP CAROUSEL (< 768px, Pinterest Mobile UX)   */}
+      {/* ======================================================== */}
+      <div className="block md:hidden space-y-3">
+        {/* Available Scooters Heading + View All Link */}
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-xl font-heading font-black text-navy-950 tracking-tight">
+            Available Scooters
+          </h3>
+          <Link
+            to="/our-scooter"
+            className="text-xs font-bold text-royal hover:underline flex items-center gap-1"
+          >
+            <span>View all</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {/* Filter Chips (Recommended, Low to High, Plan Type) */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
+          <button
+            onClick={() => setActiveFilter('all')}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shrink-0 transition-all ${
+              activeFilter === 'all'
+                ? 'bg-[#06122E] text-white shadow-sm'
+                : 'bg-white border border-slate-200 text-slate-700'
+            }`}
+          >
+            <Sparkles className="w-3 h-3 text-leaf" />
+            <span>Recommended</span>
+          </button>
+          <button
+            onClick={() => setActiveFilter('city')}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold shrink-0 transition-all ${
+              activeFilter === 'city'
+                ? 'bg-[#06122E] text-white shadow-sm'
+                : 'bg-white border border-slate-200 text-slate-700'
+            }`}
+          >
+            City Glide (₹199)
+          </button>
+          <button
+            onClick={() => setActiveFilter('cargo')}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold shrink-0 transition-all ${
+              activeFilter === 'cargo'
+                ? 'bg-[#06122E] text-white shadow-sm'
+                : 'bg-white border border-slate-200 text-slate-700'
+            }`}
+          >
+            Cargo Pro (Gig)
+          </button>
+          <button
+            onClick={() => setActiveFilter('enterprise')}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold shrink-0 transition-all ${
+              activeFilter === 'enterprise'
+                ? 'bg-[#06122E] text-white shadow-sm'
+                : 'bg-white border border-slate-200 text-slate-700'
+            }`}
+          >
+            Heavy Fleet
+          </button>
+        </div>
+
+        {/* Horizontal Snap Scroll Row (Card width 80vw, next card peeking) */}
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-4 px-4 pb-2">
+          {filteredFleet.map((scooter) => (
+            <div
+              key={scooter.id}
+              className="w-[82vw] shrink-0 snap-center bg-white rounded-3xl p-4 shadow-[0_10px_28px_rgba(11,27,77,0.08)] border border-slate-150 flex flex-col justify-between"
+            >
+              {/* Card Header: Badge & Heart Icon */}
+              <div className="flex items-center justify-between mb-1">
+                {scooter.isPopular ? (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-royal border border-blue-200 text-[10px] font-extrabold uppercase tracking-wider">
+                    <Zap className="w-3 h-3 text-royal fill-royal" />
+                    <span>Popular</span>
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                    {scooter.badge}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  aria-label="Add to favorites"
+                  className="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-royal active:scale-90 transition-all"
+                >
+                  <Heart className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Scooter Cutout Large Image */}
+              <div className="w-full h-40 bg-gradient-to-b from-slate-50/60 to-blue-50/30 rounded-2xl p-2 flex items-center justify-center my-1.5">
+                <img
+                  src={scooter.image}
+                  alt={scooter.name}
+                  className="max-h-full max-w-full object-contain filter drop-shadow-md"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Title & Short Tagline */}
+              <div className="mb-3">
+                <h4 className="text-lg font-black font-heading text-navy-950">
+                  {scooter.name}
+                </h4>
+                <p className="text-xs text-slate-500 truncate mt-0.5">
+                  {scooter.tagline}
+                </p>
+              </div>
+
+              {/* 3 Quick Specs Tiles (Range, Speed, Swap) */}
+              <div className="grid grid-cols-3 gap-2 py-2.5 px-1 bg-slate-50 rounded-2xl border border-slate-100 mb-3 text-center">
+                <div>
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">
+                    Range
+                  </span>
+                  <span className="text-xs font-bold text-navy-950">{scooter.range}</span>
+                </div>
+                <div className="border-x border-slate-200">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">
+                    Speed
+                  </span>
+                  <span className="text-xs font-bold text-navy-950">{scooter.speed}</span>
+                </div>
+                <div>
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">
+                    Swap
+                  </span>
+                  <span className="text-xs font-bold text-navy-950">{scooter.swapTime}</span>
+                </div>
+              </div>
+
+              {/* Price & Circular Action Arrow Button */}
+              <div className="flex items-center justify-between pt-1">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                    Starting At
+                  </span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-xl font-black font-heading text-navy-950">
+                      {scooter.pricePerDay}
+                    </span>
+                    <span className="text-xs text-slate-500 font-semibold">/ day</span>
+                  </div>
+                </div>
+
+                <Link
+                  to="/our-scooter"
+                  aria-label={`View ${scooter.name} details`}
+                  className="w-11 h-11 rounded-full bg-gradient-to-r from-royal to-blue hover:from-blue hover:to-royal text-white flex items-center justify-center shadow-lg shadow-royal/35 active:scale-95 transition-transform"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ======================================================== */}
+      {/* 2B. DESKTOP SCOOTER CARDS GRID (>= 768px, DriveX Intact)  */}
+      {/* ======================================================== */}
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {filteredFleet.map((scooter) => (
           <div
             key={scooter.id}

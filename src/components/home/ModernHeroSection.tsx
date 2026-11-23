@@ -11,6 +11,8 @@ import {
   Bike,
   ChevronDown,
   Sparkles,
+  LayoutGrid,
+  Calendar,
 } from 'lucide-react';
 import { useVideoModal } from '../ui/VideoContext';
 import { siteConfig } from '../../lib/config';
@@ -39,7 +41,198 @@ export const ModernHeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-[740px] bg-[#040C22] text-white pt-8 sm:pt-14 md:pt-18 pb-14 sm:pb-32 overflow-visible flex flex-col justify-between">
+    <>
+      {/* ======================================================== */}
+      {/* MOBILE NATIVE APP DISCOVERY HERO (< 768px, Pinterest UX) */}
+      {/* ======================================================== */}
+      <div className="block md:hidden bg-[#EAF2FF] text-navy-950 pt-24 pb-4 px-4 space-y-4 relative overflow-hidden">
+        {/* Soft Background Radial Map Geometry */}
+        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-200/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, #1647E8 1px, transparent 0)',
+            backgroundSize: '24px 24px',
+          }}
+        />
+
+        {/* Top Header: Greeting, Status Pill & Big Headline */}
+        <div className="relative z-10 space-y-1.5">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 tracking-wide uppercase">
+              Good morning,
+            </span>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-blue-200 shadow-xs text-[11px] font-bold text-royal">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Indore &amp; Bhopal</span>
+            </div>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-heading font-black text-navy-950 tracking-tight leading-tight">
+            Find your next <span className="text-royal">ride</span>
+          </h1>
+        </div>
+
+        {/* Floating White Booking Search Card (Matching Reference Screen 1) */}
+        <div className="relative z-10 bg-white rounded-3xl p-4 shadow-[0_12px_32px_rgba(11,27,77,0.08)] border border-white/80 flex items-center justify-between gap-3">
+          <div className="flex-1 space-y-2.5 min-w-0">
+            {/* Row 1: Pickup Hub */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center shrink-0 text-royal">
+                <MapPin className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  Pickup Hub
+                </span>
+                <span className="text-xs font-bold text-navy-950 truncate block">
+                  Indore • Vijay Nagar Mega Hub
+                </span>
+              </div>
+            </div>
+
+            <div className="h-px bg-slate-100 ml-10" />
+
+            {/* Row 2: Rental Plan */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center shrink-0 text-royal">
+                <Calendar className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  Rental Plan
+                </span>
+                <span className="text-xs font-bold text-navy-950 truncate block">
+                  Weekly Pro • Unlimited Swaps
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Circular Royal Blue Arrow Button */}
+          <Link
+            to="/pricing"
+            aria-label="Search and book scooters"
+            className="w-12 h-12 rounded-full bg-gradient-to-r from-royal to-blue hover:from-blue hover:to-royal text-white flex items-center justify-center shadow-lg shadow-royal/35 shrink-0 active:scale-95 transition-transform"
+          >
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </div>
+
+        {/* Horizontal Category Cards Row (All Models + Categories) */}
+        <div className="relative z-10 -mx-4 px-4 overflow-x-auto no-scrollbar flex items-center gap-3 py-1">
+          {/* Card 1: All Models (Dark Navy Card) */}
+          <Link
+            to="/pricing"
+            className="shrink-0 w-[96px] h-[92px] rounded-2xl bg-[#06122E] text-white p-3 flex flex-col justify-between shadow-md active:scale-95 transition-transform"
+          >
+            <LayoutGrid className="w-5 h-5 text-blue-light" />
+            <div>
+              <span className="text-xs font-bold block leading-tight">All Fleet</span>
+              <span className="text-[10px] text-slate-400 font-medium">3 Models</span>
+            </div>
+          </Link>
+
+          {/* Card 2: City Glide */}
+          <Link
+            to="/our-scooter"
+            className="shrink-0 w-[104px] h-[92px] rounded-2xl bg-white border border-slate-100 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform text-center"
+          >
+            <img
+              src="/images/scooter-clean-cutout.png"
+              alt="City Glide"
+              className="h-10 object-contain mx-auto"
+            />
+            <div>
+              <span className="text-xs font-bold text-navy-950 block leading-tight truncate">
+                City Glide
+              </span>
+              <span className="text-[10px] text-royal font-bold">₹199* / day</span>
+            </div>
+          </Link>
+
+          {/* Card 3: Cargo Pro */}
+          <Link
+            to="/our-scooter"
+            className="shrink-0 w-[104px] h-[92px] rounded-2xl bg-white border border-slate-100 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform text-center"
+          >
+            <img
+              src="/images/scooter-side.png"
+              alt="Cargo Pro"
+              className="h-10 object-contain mx-auto"
+            />
+            <div>
+              <span className="text-xs font-bold text-navy-950 block leading-tight truncate">
+                Cargo Pro
+              </span>
+              <span className="text-[10px] text-royal font-bold">₹249* / day</span>
+            </div>
+          </Link>
+
+          {/* Card 4: Fleet Super */}
+          <Link
+            to="/our-scooter"
+            className="shrink-0 w-[104px] h-[92px] rounded-2xl bg-white border border-slate-100 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform text-center"
+          >
+            <img
+              src="/images/scooter-hero.png"
+              alt="Fleet Super"
+              className="h-10 object-contain mx-auto"
+            />
+            <div>
+              <span className="text-xs font-bold text-navy-950 block leading-tight truncate">
+                Fleet Super
+              </span>
+              <span className="text-[10px] text-royal font-bold">₹299* / day</span>
+            </div>
+          </Link>
+        </div>
+
+        {/* Special Launch Offer Banner Card (Matching Reference "Drive More For Less") */}
+        <div className="relative z-10 rounded-3xl bg-gradient-to-br from-[#06122E] via-[#0B1B4D] to-[#1647E8] text-white p-5 shadow-xl overflow-hidden">
+          <div className="absolute right-0 bottom-0 w-36 h-36 bg-royal/40 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="relative z-10 flex items-start justify-between gap-3">
+            <div className="space-y-1.5 max-w-[65%]">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold tracking-wider uppercase border border-emerald-400/30">
+                <Sparkles className="w-3 h-3 text-emerald-300" />
+                <span>Launching Soon</span>
+              </span>
+              <h2 className="text-base font-extrabold font-heading text-white leading-tight">
+                Drive More, <br />Spend Zero Petrol
+              </h2>
+              <p className="text-[11px] text-blue-light leading-relaxed">
+                Unlimited 2-min battery swaps &amp; free maintenance.
+              </p>
+              <div className="pt-2">
+                <Link
+                  to="/waitlist"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-navy-950 text-xs font-bold hover:bg-slate-100 transition-colors shadow-sm"
+                >
+                  <span>Join Waitlist</span>
+                  <div className="w-4 h-4 rounded-full bg-royal text-white flex items-center justify-center">
+                    <ArrowRight className="w-2.5 h-2.5" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Floating Scooter Cutout */}
+            <div className="w-[35%] flex items-center justify-center self-center">
+              <img
+                src="/images/scooter-clean-cutout.png"
+                alt="TezzEV Electric Scooter"
+                className="max-h-28 object-contain filter drop-shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ======================================================== */}
+      {/* DESKTOP HERO SECTION (>= 768px, DriveX Style Fully Intact)*/}
+      {/* ======================================================== */}
+      <section className="hidden md:flex relative min-h-[600px] sm:min-h-[700px] lg:min-h-[740px] bg-[#040C22] text-white pt-8 sm:pt-14 md:pt-18 pb-14 sm:pb-32 overflow-visible flex-col justify-between">
       {/* ======================================================== */}
       {/* 1. CINEMATIC FULL-WIDTH BACKGROUND VIDEO                 */}
       {/* ======================================================== */}
@@ -203,7 +396,7 @@ export const ModernHeroSection: React.FC = () => {
           >
             {/* Field 1: Pickup Hub */}
             <div className="space-y-1 text-left">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block flex items-center gap-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
                 <MapPin className="w-3 h-3 text-royal" />
                 <span>Pickup City &amp; Hub</span>
               </label>
@@ -225,7 +418,7 @@ export const ModernHeroSection: React.FC = () => {
 
             {/* Field 2: Rental Plan Type */}
             <div className="space-y-1 text-left">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block flex items-center gap-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
                 <Clock className="w-3 h-3 text-royal" />
                 <span>Rental Plan</span>
               </label>
@@ -245,7 +438,7 @@ export const ModernHeroSection: React.FC = () => {
 
             {/* Field 3: Riding Purpose */}
             <div className="space-y-1 text-left">
-              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block flex items-center gap-1">
+              <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
                 <Bike className="w-3 h-3 text-royal" />
                 <span>Riding Purpose</span>
               </label>
@@ -278,5 +471,6 @@ export const ModernHeroSection: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };

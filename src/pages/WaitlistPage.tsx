@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Sparkles,
   CheckCircle2,
@@ -7,8 +7,12 @@ import {
   Zap,
   Gift,
   ArrowRight,
+  ArrowLeft,
   MessageCircle,
   Clock,
+  User,
+  Phone,
+  Check,
 } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { SectionDivider } from '../components/ui/SectionDivider';
@@ -17,6 +21,7 @@ import { WhatsAppIcon } from '../components/ui/BrandIcons';
 import { toast } from 'sonner';
 
 export const WaitlistPage: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
@@ -55,6 +60,265 @@ export const WaitlistPage: React.FC = () => {
 
   return (
     <div className="w-full">
+      {/* ======================================================== */}
+      {/* MOBILE NATIVE APP RIDER PRE-REGISTRATION (< 768px, UX)   */}
+      {/* ======================================================== */}
+      <div className="block md:hidden bg-[#F8FAFC] text-navy-950 pb-24 pt-20">
+        {/* Top Navigation Row */}
+        <div className="px-4 flex items-center justify-between mb-3">
+          <button
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center text-navy-950 active:scale-90 transition-transform"
+            aria-label="Back"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Priority Batch 1</span>
+          </div>
+        </div>
+
+        {/* Hero Illustration & Typography (Screen 4 from Reference) */}
+        <div className="px-4 space-y-1.5 mb-4">
+          <span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
+            TEZZEV RIDER PRE-REGISTRATION
+          </span>
+          <h1 className="text-3xl font-black font-heading text-navy-950 tracking-tight leading-tight">
+            Let's Create Your <span className="text-royal">Account</span>
+          </h1>
+          <p className="text-xs text-slate-500 font-medium">
+            Get started and hit the road with TezzEV. Zero advance payment.
+          </p>
+        </div>
+
+        {/* Hero Scooter Banner */}
+        <div className="mx-4 mb-4 rounded-3xl bg-gradient-to-r from-[#EAF2FF] via-[#E2EDFF] to-white border border-blue-100/70 p-4 flex items-center justify-between overflow-hidden shadow-xs">
+          <div className="space-y-1 max-w-[60%]">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-royal block">
+              Exclusive Benefit
+            </span>
+            <h4 className="text-sm font-black text-navy-950 font-heading leading-tight">
+              Free Helmet &amp; Mobile Mount Kit
+            </h4>
+            <p className="text-[11px] text-slate-500 leading-tight">
+              Given on pickup to first 500 waitlist riders.
+            </p>
+          </div>
+          <div className="w-[40%] flex justify-end">
+            <img
+              src="/images/scooter-clean-cutout.png"
+              alt="TezzEV Scooter"
+              className="max-h-24 object-contain filter drop-shadow-md"
+            />
+          </div>
+        </div>
+
+        {/* Floating White Form Card */}
+        <div className="mx-4 bg-white rounded-3xl p-5 shadow-[0_12px_36px_rgba(11,27,77,0.08)] border border-slate-100">
+          {!isSuccess ? (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Full Name */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-navy-950">
+                  Full Name *
+                </label>
+                <div className="relative">
+                  <User className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="e.g. Rahul Sharma"
+                    className="app-input w-full text-navy-950 placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* Mobile Number */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-navy-950">
+                  Mobile Number (for SMS token) *
+                </label>
+                <div className="relative">
+                  <Phone className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="tel"
+                    required
+                    maxLength={10}
+                    value={formData.mobile}
+                    onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                    placeholder="10-digit mobile number"
+                    className="app-input w-full text-navy-950 placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* City & Category */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-navy-950">
+                    City *
+                  </label>
+                  <select
+                    value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                    className="w-full h-12 rounded-2xl border border-slate-200 bg-white px-3 text-xs font-bold text-navy-950 shadow-xs focus:border-royal focus:outline-none"
+                  >
+                    <option value="Indore">Indore</option>
+                    <option value="Bhopal">Bhopal</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-navy-950">
+                    Renting For *
+                  </label>
+                  <select
+                    value={formData.userType}
+                    onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
+                    className="w-full h-12 rounded-2xl border border-slate-200 bg-white px-3 text-xs font-bold text-navy-950 shadow-xs focus:border-royal focus:outline-none"
+                  >
+                    <option value="Delivery Rider">Delivery Rider</option>
+                    <option value="Personal Commute">Personal Commute</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Preferred Plan */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold text-navy-950">
+                  Preferred Plan
+                </label>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  {[
+                    { key: 'Daily Rental', label: 'Daily (₹199)' },
+                    { key: 'Weekly Pro', label: 'Weekly Pro' },
+                    { key: 'Monthly Super', label: 'Monthly' },
+                  ].map((p) => (
+                    <button
+                      type="button"
+                      key={p.key}
+                      onClick={() => setFormData({ ...formData, preferredPlan: p.key })}
+                      className={`py-2 px-1 rounded-xl text-xs font-bold border transition-all ${
+                        formData.preferredPlan === p.key
+                          ? 'bg-[#06122E] text-white border-[#06122E] shadow-sm'
+                          : 'bg-slate-50 text-slate-700 border-slate-200'
+                      }`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Priority Bar Indicator (Matching Password Strength Bar in Reference) */}
+              <div className="pt-1 space-y-1.5">
+                <div className="flex items-center justify-between text-xs font-bold">
+                  <span className="text-slate-500">Priority Spot Status</span>
+                  <span className="text-emerald-600 font-extrabold">Instant Reservation</span>
+                </div>
+                <div className="grid grid-cols-4 gap-1.5">
+                  <div className="h-1.5 rounded-full bg-royal" />
+                  <div className="h-1.5 rounded-full bg-royal" />
+                  <div className="h-1.5 rounded-full bg-royal" />
+                  <div className="h-1.5 rounded-full bg-royal" />
+                </div>
+              </div>
+
+              {/* Terms Checkbox */}
+              <div className="flex items-start gap-2.5 pt-1">
+                <input
+                  type="checkbox"
+                  required
+                  defaultChecked
+                  id="mobile-waitlist-terms"
+                  className="mt-0.5 rounded border-slate-300 text-royal focus:ring-royal"
+                />
+                <label htmlFor="mobile-waitlist-terms" className="text-xs text-slate-500 leading-tight">
+                  By continuing you agree to TezzEV's{' '}
+                  <Link to="/terms" className="text-royal font-bold underline">
+                    Terms of Service
+                  </Link>{' '}
+                  and{' '}
+                  <Link to="/privacy" className="text-royal font-bold underline">
+                    Privacy Policy
+                  </Link>.
+                </label>
+              </div>
+
+              {/* Submit Button (Tall 56px with Arrow Chip) */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="app-btn-primary w-full group relative cursor-pointer"
+              >
+                <span>{isSubmitting ? 'Reserving...' : 'Reserve Priority Scooter'}</span>
+                <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center ml-2 group-hover:translate-x-0.5 transition-transform">
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </div>
+              </button>
+
+              {/* OR Divider & WhatsApp Support */}
+              <div className="relative py-2 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-slate-200" />
+                </div>
+                <span className="relative bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  OR
+                </span>
+              </div>
+
+              <a
+                href={siteConfig.whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full h-12 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center gap-2 border border-emerald-200 transition-colors"
+              >
+                <WhatsAppIcon className="w-4 h-4 text-emerald-600" />
+                <span>Chat with Hub Manager on WhatsApp</span>
+              </a>
+            </form>
+          ) : (
+            <div className="text-center py-4 space-y-4">
+              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+                <Check className="w-8 h-8 stroke-[2.5]" />
+              </div>
+              <div>
+                <h3 className="text-xl font-black font-heading text-navy-950">
+                  Priority Spot Confirmed!
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Your token ID is <span className="font-extrabold text-royal">{reservationId}</span>
+                </p>
+              </div>
+              <div className="p-3 bg-sky-50 rounded-2xl border border-sky-100 text-xs text-navy-950 space-y-1 text-left">
+                <p className="font-bold">Next Steps:</p>
+                <p className="text-slate-600 text-[11px]">
+                  1. Our team will verify your phone number via SMS.
+                  <br />
+                  2. You will be invited to our Indore / Bhopal mega hub for early test runs.
+                </p>
+              </div>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="app-btn-primary w-full"
+              >
+                <WhatsAppIcon className="w-5 h-5 text-white" />
+                <span>Share Token on WhatsApp</span>
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ======================================================== */}
+      {/* DESKTOP VIEW (>= 768px, Intact DriveX Layout)            */}
+      {/* ======================================================== */}
+      <div className="hidden md:block">
       <PageHeader
         breadcrumbs={[{ label: 'Waitlist' }]}
         title="Join the Launch Waitlist"
@@ -322,6 +586,7 @@ export const WaitlistPage: React.FC = () => {
           </p>
         </div>
       </section>
+      </div>
     </div>
   );
 };

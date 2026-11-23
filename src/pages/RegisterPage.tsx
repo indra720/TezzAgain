@@ -739,25 +739,25 @@ export const RegisterPage: React.FC = () => {
 
             {/* Wizard Navigation Buttons */}
             {currentStep <= 5 && (
-              <div className="flex items-center justify-between pt-8 border-t border-slate-100 mt-8">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-slate-100 mt-6">
                 {currentStep > 1 ? (
                   <button
                     type="button"
                     onClick={handleBack}
-                    className="btn-secondary-light !min-h-[44px]"
+                    className="btn-secondary-light !min-h-[46px] w-full sm:w-auto"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Back</span>
                   </button>
                 ) : (
-                  <div />
+                  <div className="hidden sm:block" />
                 )}
 
                 {currentStep < 5 ? (
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="btn-primary !min-h-[44px]"
+                    className="app-btn-primary sm:btn-primary !min-h-[48px] w-full sm:w-auto cursor-pointer"
                   >
                     <span>Continue to Step {currentStep + 1}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -769,7 +769,7 @@ export const RegisterPage: React.FC = () => {
                       setCurrentStep(6);
                       toast.success('Registration application submitted successfully! Welcome to TezzEV Fleet.');
                     }}
-                    className="btn-primary !min-h-[48px] !bg-leaf !text-navy-950 hover:!bg-leaf/90 font-bold"
+                    className="app-btn-primary sm:btn-primary !min-h-[48px] !bg-leaf !text-navy-950 hover:!bg-leaf/90 font-bold w-full sm:w-auto cursor-pointer"
                   >
                     <ShieldCheck className="w-5 h-5" />
                     <span>Submit Digital Application</span>
