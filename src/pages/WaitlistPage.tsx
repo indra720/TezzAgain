@@ -107,7 +107,7 @@ export const WaitlistPage: React.FC = () => {
           </div>
           <div className="w-[40%] flex justify-end">
             <img
-              src="/images/scooter-clean-cutout.png"
+              src="/images/scooter-34-cutout.png"
               alt="TezzEV Scooter"
               className="max-h-24 object-contain filter drop-shadow-md"
             />
