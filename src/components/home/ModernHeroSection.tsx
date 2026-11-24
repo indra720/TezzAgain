@@ -53,7 +53,7 @@ export const ModernHeroSection: React.FC = () => {
       {/* ======================================================== */}
       {/* MOBILE NATIVE APP DISCOVERY HERO (< 768px, Pinterest UX) */}
       {/* ======================================================== */}
-      <div className="block md:hidden relative bg-[#040C22] text-white pt-24 pb-6 px-4 space-y-4 overflow-hidden">
+      <div className="block md:hidden relative bg-[#040C22] text-white pt-3 pb-6 px-4 space-y-4 overflow-hidden">
         {/* Full-bleed Background Video on Mobile */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
           <video
@@ -149,109 +149,136 @@ export const ModernHeroSection: React.FC = () => {
         </div>
 
         {/* Horizontal Category Cards Row (All Models + Categories) */}
-        <div className="relative z-10 -mx-4 px-4 overflow-x-auto no-scrollbar flex items-center gap-3 py-1">
+        <div className="relative z-10 -mx-4 px-4 overflow-x-auto no-scrollbar flex items-center gap-2.5 py-1">
           {/* Card 1: All Models (Dark Navy Card) */}
           <Link
             to="/pricing"
-            className="shrink-0 w-[96px] h-[92px] rounded-2xl bg-[#06122E] text-white p-3 flex flex-col justify-between shadow-md active:scale-95 transition-transform"
+            className="shrink-0 w-[114px] h-[98px] rounded-2xl bg-[#06122E] text-white p-3 flex flex-col justify-between shadow-md border border-navy-800 active:scale-95 transition-transform"
           >
-            <LayoutGrid className="w-5 h-5 text-blue-light" />
+            <div className="w-8 h-8 rounded-xl bg-royal/25 flex items-center justify-center text-blue-light">
+              <LayoutGrid className="w-4 h-4 text-blue-light" />
+            </div>
             <div>
-              <span className="text-xs font-bold block leading-tight">All Fleet</span>
-              <span className="text-[10px] text-slate-400 font-medium">3 Models</span>
+              <span className="text-xs font-black font-heading block leading-tight">All Fleet</span>
+              <span className="text-[11px] text-slate-400 font-medium">3 Models</span>
             </div>
           </Link>
 
           {/* Card 2: City Glide */}
           <Link
             to="/our-scooter"
-            className="shrink-0 w-[104px] h-[92px] rounded-2xl bg-white border border-slate-100 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform text-center"
+            className="shrink-0 w-[114px] h-[98px] rounded-2xl bg-white border border-slate-150 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform"
           >
-            <img
-              src="/images/scooter-clean-cutout.png"
-              alt="City Glide"
-              className="h-10 object-contain mx-auto"
-            />
+            <div className="h-11 w-full flex items-center justify-center">
+              <img
+                src="/images/scooter-city-clean.png"
+                alt="City Glide"
+                className="max-h-full max-w-full object-contain filter drop-shadow-xs"
+              />
+            </div>
             <div>
-              <span className="text-xs font-bold text-navy-950 block leading-tight truncate">
+              <span className="text-xs font-black font-heading text-navy-950 block leading-tight truncate">
                 City Glide
               </span>
-              <span className="text-[10px] text-royal font-bold">₹199* / day</span>
+              <span className="text-[10px] text-slate-500 font-medium block">
+                Commute • 100km
+              </span>
             </div>
           </Link>
 
           {/* Card 3: Cargo Pro */}
           <Link
             to="/our-scooter"
-            className="shrink-0 w-[104px] h-[92px] rounded-2xl bg-white border border-slate-100 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform text-center"
+            className="shrink-0 w-[114px] h-[98px] rounded-2xl bg-white border border-slate-150 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform"
           >
-            <img
-              src="/images/scooter-side.png"
-              alt="Cargo Pro"
-              className="h-10 object-contain mx-auto"
-            />
+            <div className="h-11 w-full flex items-center justify-center">
+              <img
+                src="/images/scooter-side-clean.png"
+                alt="Cargo Pro"
+                className="max-h-full max-w-full object-contain filter drop-shadow-xs"
+              />
+            </div>
             <div>
-              <span className="text-xs font-bold text-navy-950 block leading-tight truncate">
+              <span className="text-xs font-black font-heading text-navy-950 block leading-tight truncate">
                 Cargo Pro
               </span>
-              <span className="text-[10px] text-royal font-bold">₹249* / day</span>
+              <span className="text-[10px] text-slate-500 font-medium block">
+                Gig Pro • 120km
+              </span>
             </div>
           </Link>
 
           {/* Card 4: Fleet Super */}
           <Link
             to="/our-scooter"
-            className="shrink-0 w-[104px] h-[92px] rounded-2xl bg-white border border-slate-100 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform text-center"
+            className="shrink-0 w-[114px] h-[98px] rounded-2xl bg-white border border-slate-150 p-2.5 flex flex-col justify-between shadow-xs active:scale-95 transition-transform"
           >
-            <img
-              src="/images/scooter-hero.png"
-              alt="Fleet Super"
-              className="h-10 object-contain mx-auto"
-            />
+            <div className="h-11 w-full flex items-center justify-center">
+              <img
+                src="/images/scooter-34-cutout.png"
+                alt="Fleet Super"
+                className="max-h-full max-w-full object-contain filter drop-shadow-xs"
+              />
+            </div>
             <div>
-              <span className="text-xs font-bold text-navy-950 block leading-tight truncate">
+              <span className="text-xs font-black font-heading text-navy-950 block leading-tight truncate">
                 Fleet Super
               </span>
-              <span className="text-[10px] text-royal font-bold">₹299* / day</span>
+              <span className="text-[10px] text-slate-500 font-medium block">
+                Heavy • 140km
+              </span>
             </div>
           </Link>
         </div>
 
         {/* Special Launch Offer Banner Card (Matching Reference "Drive More For Less") */}
-        <div className="relative z-10 rounded-3xl bg-gradient-to-br from-[#06122E] via-[#0B1B4D] to-[#1647E8] text-white p-5 shadow-xl overflow-hidden">
-          <div className="absolute right-0 bottom-0 w-36 h-36 bg-royal/40 rounded-full blur-2xl pointer-events-none" />
-          
-          <div className="relative z-10 flex items-start justify-between gap-3">
-            <div className="space-y-1.5 max-w-[65%]">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold tracking-wider uppercase border border-emerald-400/30">
-                <Sparkles className="w-3 h-3 text-emerald-300" />
-                <span>Launching Soon</span>
-              </span>
-              <h2 className="text-base font-extrabold font-heading text-white leading-tight">
-                Drive More, <br />Spend Zero Petrol
+        <div className="relative z-10 rounded-3xl bg-gradient-to-br from-[#06122E] via-[#0B1B4D] to-[#122B78] text-white p-5 shadow-2xl border border-white/10 overflow-hidden">
+          {/* Ambient Radial Glowing Halo */}
+          <div className="absolute right-0 bottom-0 w-44 h-44 bg-royal/35 rounded-full blur-2xl pointer-events-none" />
+
+          {/* Top Badges Row */}
+          <div className="flex items-center justify-between mb-3 relative z-10">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-extrabold uppercase tracking-wider border border-emerald-400/30">
+              <Sparkles className="w-3 h-3 text-emerald-300" />
+              <span>Launching Soon</span>
+            </span>
+            <span className="text-[10px] font-semibold text-blue-light/90 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15">
+              • Indore &amp; Bhopal
+            </span>
+          </div>
+
+          <div className="relative z-10 flex items-center justify-between gap-3">
+            {/* Left Column: Heading, Subtitle & CTA */}
+            <div className="space-y-1.5 flex-1 min-w-0">
+              <h2 className="text-base sm:text-lg font-black font-heading text-white leading-tight">
+                Drive More, <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-light via-sky-200 to-emerald-300">
+                  Spend Zero Petrol
+                </span>
               </h2>
-              <p className="text-[11px] text-blue-light leading-relaxed">
-                Unlimited 2-min battery swaps &amp; free maintenance.
+              <p className="text-[11px] text-slate-300 leading-relaxed pr-1">
+                Unlimited 2-min battery swaps &amp; free servicing at hubs.
               </p>
               <div className="pt-2">
                 <Link
                   to="/waitlist"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-navy-950 text-xs font-bold hover:bg-slate-100 transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-navy-950 text-xs font-bold hover:bg-slate-100 transition-colors shadow-md active:scale-95 whitespace-nowrap shrink-0"
                 >
-                  <span>Join Waitlist</span>
-                  <div className="w-4 h-4 rounded-full bg-royal text-white flex items-center justify-center">
-                    <ArrowRight className="w-2.5 h-2.5" />
+                  <span>Join Priority</span>
+                  <div className="w-5 h-5 rounded-full bg-royal text-white flex items-center justify-center shrink-0">
+                    <ArrowRight className="w-3 h-3" />
                   </div>
                 </Link>
               </div>
             </div>
 
-            {/* Floating Scooter Cutout */}
-            <div className="w-[35%] flex items-center justify-center self-center">
+            {/* Right Column: Clean Transparent 3D Scooter Cutout */}
+            <div className="w-[40%] shrink-0 flex items-center justify-center relative">
+              <div className="absolute inset-0 bg-royal/30 rounded-full blur-xl pointer-events-none" />
               <img
-                src="/images/scooter-clean-cutout.png"
+                src="/images/scooter-34-cutout.png"
                 alt="TezzEV Electric Scooter"
-                className="max-h-28 object-contain filter drop-shadow-xl"
+                className="w-full max-h-32 object-contain filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] transform scale-110 relative z-10"
               />
             </div>
           </div>

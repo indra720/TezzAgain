@@ -28,7 +28,7 @@ import { siteConfig } from '../lib/config';
 export const OurScooterPage: React.FC = () => {
   const navigate = useNavigate();
   const { openVideoModal } = useVideoModal();
-  const [activeImage, setActiveImage] = useState('/images/scooter-clean-cutout.png');
+  const [activeImage, setActiveImage] = useState('/images/scooter-34-cutout.png');
   const [isFavorite, setIsFavorite] = useState(false);
 
   const iconMap: Record<string, React.ElementType> = {
@@ -144,9 +144,9 @@ export const OurScooterPage: React.FC = () => {
         {/* 4 Thumbnails Row */}
         <div className="px-4 grid grid-cols-4 gap-2.5 mb-5">
           {[
-            { src: '/images/scooter-clean-cutout.png', label: 'Cutout' },
-            { src: '/images/scooter-side.png', label: 'Side' },
-            { src: '/images/scooter-hero.png', label: 'Hero' },
+            { src: '/images/scooter-34-cutout.png', label: '3/4 Perspective' },
+            { src: '/images/scooter-side-clean.png', label: 'Cargo Pro' },
+            { src: '/images/scooter-city-clean.png', label: 'City Glide' },
             { src: '/images/poster-1.jpg', label: 'Hub Demo', badge: '+3' },
           ].map((thumb, idx) => (
             <button
